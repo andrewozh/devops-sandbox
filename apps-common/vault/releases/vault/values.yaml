@@ -11,3 +11,13 @@ chart:
           - path: /
             service: vault
             port: 8200
+
+vault:
+  global:
+    serverTelemetry:
+      prometheusOperator: true
+  serverTelemetry:
+    serviceMonitor:
+      enabled: true
+    prometheusRules:
+      enabled: false
