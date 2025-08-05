@@ -2,6 +2,10 @@
 
 By default, our network hosts are not accessible from the outside, VPN will allow you to access them via their private IP addresses.
 
+![cloud arch](./pritunl.gif)
+
+[Full setup guide (ClickOps)](https://devopscube.com/setup-pritunl-vpn-on-ec2/)
+
 ## TODO
 
 - [ ] update guide for `terragrunt`
