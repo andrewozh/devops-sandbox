@@ -51,13 +51,13 @@ import ProgressBar from '@site/src/components/ProgressBar';
 - [x] **kafka:** strimzi
 - [x] **mongodb:** community-operator
 - [x] **certificates:** cert-manager
-- [ ] :arrows_counterclockwise: **secret storage:** vault + external-secrets
+- [x] **secret storage:** vault + external-secrets
+- [ ] :arrows_counterclockwise: ingress: nginx
     <ProgressBar steps={[
       { label: 'deploy', status: 'done' },
-      { label: 'docs', status: 'done' },
+      { label: 'docs', status: 'not-started' },
       { label: 'monitoring', status: 'not-started' }
     ]}/>
-- [ ] :arrows_counterclockwise: ingress: nginx
 - [ ] :arrows_counterclockwise: crossplane
 - [ ] clickhouse: altinity
 - [ ] redis
@@ -74,6 +74,8 @@ import ProgressBar from '@site/src/components/ProgressBar';
 
 - [ ] argocd -- add cluster, appsets
 - [ ] investigate argo teams and projects
+- [ ] argocd webhook drifts (external-secrets, vault, https://github.com/argoproj/argo-cd/issues/4326)
+  allow to setup ingnoreDiffs from `argo.yaml`
 
 **Tools requirements:**
 

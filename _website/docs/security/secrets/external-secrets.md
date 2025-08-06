@@ -107,21 +107,19 @@ EOF
 
 ### Common: generate secrets, update secrets, rotate secrets
 
-## :arrows_counterclockwise: Monitoring
+## :white_check_mark: Monitoring
 
 [Docs](https://external-secrets.io/v0.19.0/api/metrics/)
 
 :::note Grafana Dashboard
 https://raw.githubusercontent.com/external-secrets/external-secrets/main/docs/snippets/dashboard.json
 :::
-
-
 ```yaml
+
 external-secrets:
   serviceMonitor:
     enabled: true
 ```
-
 
 ## Maintenence
 
