@@ -62,7 +62,7 @@ EOF
 - [ ] configurable backend (local, aws ssm, etc)
 - [ ] auto unseal
 
-## :arrows_counterclockwise: Monitoring
+## :white_check_mark: Monitoring
 
 :::note Grafana Dashboard
 https://grafana.com/grafana/dashboards/12904-hashicorp-vault/

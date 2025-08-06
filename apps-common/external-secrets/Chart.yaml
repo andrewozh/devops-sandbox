@@ -4,6 +4,6 @@ description: A virtual chart for external-secrets-operator
 name: external-secrets-operator
 version: 0.1.0
 dependencies:
-- name: external-secrets
-  version: 0.10.4
-  repository: https://charts.external-secrets.io
+  - name: external-secrets
+    version: 0.19.0
+    repository: https://charts.external-secrets.io

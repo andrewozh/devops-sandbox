@@ -15,6 +15,8 @@
 - deployment explained
 - how to setup
 
+https://www.elastic.co/docs/deploy-manage/deploy/cloud-on-k8s/manage-deployments
+
 ## Usecases
 
 ### :white_check_mark: Basic: create user for fluentbit, configure log shipping, view logs in Kibana
