@@ -52,17 +52,10 @@ import ProgressBar from '@site/src/components/ProgressBar';
 - [x] **mongodb:** community-operator
 - [x] **certificates:** cert-manager
 - [x] **secret storage:** vault + external-secrets
-- [ ] :arrows_counterclockwise: ingress: nginx
-    <ProgressBar steps={[
-      { label: 'deploy', status: 'done' },
-      { label: 'docs', status: 'not-started' },
-      { label: 'monitoring', status: 'not-started' }
-    ]}/>
-- [ ] :arrows_counterclockwise: crossplane
-- [ ] clickhouse: altinity
+- [x] **ingress:** nginx
+- [ ] :arrows_counterclockwise: **clickhouse:** altinity
+- [ ] crossplane
 - [ ] redis
-- [ ] service mesh: istio
-- [ ] tracing
 
 ## 0.2.0 self-hosted multi-cluster setup
 
@@ -73,6 +66,7 @@ import ProgressBar from '@site/src/components/ProgressBar';
 **Platform & App-library requirements:**
 
 - [ ] argocd -- add cluster, appsets
+- [ ] argocd -- demo-infra smooth bootstrap (configure autosync in `argo.yaml`)
 - [ ] investigate argo teams and projects
 - [ ] argocd webhook drifts (external-secrets, vault, https://github.com/argoproj/argo-cd/issues/4326)
   allow to setup ingnoreDiffs from `argo.yaml`
@@ -92,6 +86,7 @@ import ProgressBar from '@site/src/components/ProgressBar';
 - [ ] logs: configure fluent-bit to common elastic
 - [ ] secrets: configure external-secrets to common vault
 - [ ] service mesh: istio
+- [ ] tracing: tempo/jaeger
 - [ ] autoscaling: keda
 - [ ] tools: reloader
 - [ ] demo-app
