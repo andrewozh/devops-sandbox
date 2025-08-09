@@ -53,9 +53,8 @@ import ProgressBar from '@site/src/components/ProgressBar';
 - [x] **certificates:** cert-manager
 - [x] **secret storage:** vault + external-secrets
 - [x] **ingress:** nginx
-- [ ] :arrows_counterclockwise: **clickhouse:** altinity
-- [ ] crossplane
-- [ ] redis
+- [x] **clickhouse:** altinity
+- [ ] :arrows_counterclockwise: **redis**
 
 ## 0.2.0 self-hosted multi-cluster setup
 
@@ -80,6 +79,7 @@ import ProgressBar from '@site/src/components/ProgressBar';
 
 **Progress tools:**
 
+- [ ] crossplane
 - [ ] cert-manager: vault-pki or letsencrypt
 - [ ] observability: configure prom & alertmanager to common grafana
 - [ ] ingress: nginx external-dns
