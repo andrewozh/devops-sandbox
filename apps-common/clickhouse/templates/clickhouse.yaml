@@ -5,12 +5,27 @@ metadata:
 spec:
   configuration:
     settings:
-      max_thread_pool_size: "1000"
-      background_schedule_pool_size: "128"
+      max_thread_pool_size: "50"
+      max_thread_pool_free_size: "10"
+      background_pool_size: "8"
+      background_schedule_pool_size: "4"
+      background_move_pool_size: "2"
+      background_fetches_pool_size: "2"
+      background_distributed_schedule_pool_size: "2"
+      number_of_free_entries_in_pool_to_execute_mutation: "4"
+      number_of_free_entries_in_pool_to_lower_max_size_of_merge: "2"
+    profiles:
+      default/max_threads: "1"
+      default/max_insert_threads: "1"
+      default/background_merges_mutations_concurrency_ratio: "1"
+      default/parallel_replicas_count: "1"
+      default/parallel_replicas_min_number_of_rows_per_replica: "0"
     zookeeper:
       nodes:
         - host: chk-extended-cluster1-0-0
           port: 2181
+      session_timeout_ms: 30000
+      operation_timeout_ms: 10000
     clusters:
       - name: "clickhouse"
         layout:
@@ -20,3 +35,17 @@ spec:
       dante/networks/ip: "::/0"
       dante/password: dante
       dante/profile: default
+  templates:
+    podTemplates:
+      - name: clickhouse-pod
+        spec:
+          containers:
+            - name: clickhouse
+              image: clickhouse/clickhouse-server:latest
+              resources:
+                requests:
+                  memory: "1Gi"
+                  cpu: "500m"
+                limits:
+                  memory: "2Gi"
+                  cpu: "1"
