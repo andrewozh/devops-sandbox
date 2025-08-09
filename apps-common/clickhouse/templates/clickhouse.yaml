@@ -5,21 +5,49 @@ metadata:
 spec:
   configuration:
     settings:
-      max_thread_pool_size: "50"
-      max_thread_pool_free_size: "10"
-      background_pool_size: "8"
-      background_schedule_pool_size: "4"
-      background_move_pool_size: "2"
-      background_fetches_pool_size: "2"
-      background_distributed_schedule_pool_size: "2"
-      number_of_free_entries_in_pool_to_execute_mutation: "4"
-      number_of_free_entries_in_pool_to_lower_max_size_of_merge: "2"
+      mysql_port: "0"
+      postgresql_port: "0"
+      mlock_executable: "false"  # Allow binary pages to be unloaded from RAM
+      mark_cache_size: "268435456"  # 256 MB
+      index_mark_cache_size: "67108864"  # 64 MB
+      uncompressed_cache_size: "16777216"  # 16 MB
+      max_thread_pool_size: "2000"
+      max_connections: "64"
+      max_concurrent_queries: "8"
+      max_server_memory_usage_to_ram_ratio: "0.75"  # 75% of RAM for ClickHouse
+      max_server_memory_usage: "0"  # Let overcommiter manage available RAM
+      background_pool_size: "2"
+      background_merges_mutations_concurrency_ratio: "2"
+      merge_tree/merge_max_block_size: "1024"
+      merge_tree/max_bytes_to_merge_at_max_space_in_pool: "1073741824"  # 1 GB max part
+      merge_tree/number_of_free_entries_in_pool_to_lower_max_size_of_merge: "2"
+      merge_tree/number_of_free_entries_in_pool_to_execute_mutation: "2"
+      merge_tree/number_of_free_entries_in_pool_to_execute_optimize_entire_partition: "2"
+      background_buffer_flush_schedule_pool_size: "1"
+      background_merges_mutations_scheduling_policy: "round_robin"
+      background_move_pool_size: "1"
+      background_fetches_pool_size: "1"
+      background_common_pool_size: "2"
+      background_schedule_pool_size: "8"
+      background_message_broker_schedule_pool_size: "1"
+      background_distributed_schedule_pool_size: "1"
+      tables_loader_foreground_pool_size: "0"
+      tables_loader_background_pool_size: "0"
+    files:
+      config.d/disable_optional_logs.xml: |
+        <clickhouse>
+          <query_thread_log remove="1" />
+          <opentelemetry_span_log remove="1" />
+          <processors_profile_log remove="1" />
+        </clickhouse>
     profiles:
-      default/max_threads: "1"
-      default/max_insert_threads: "1"
-      default/background_merges_mutations_concurrency_ratio: "1"
-      default/parallel_replicas_count: "1"
-      default/parallel_replicas_min_number_of_rows_per_replica: "0"
+      default/max_threads: "2"
+      default/queue_max_wait_ms: "1000"
+      default/max_execution_time: "600"
+      default/input_format_parallel_parsing: "0"
+      default/output_format_parallel_formatting: "0"
+      default/max_bytes_before_external_group_by: "3221225472"  # 3 GB
+      default/max_bytes_before_external_sort: "3221225472"  # 3 GB
     zookeeper:
       nodes:
         - host: chk-extended-cluster1-0-0
@@ -41,11 +69,29 @@ spec:
         spec:
           containers:
             - name: clickhouse
-              image: clickhouse/clickhouse-server:latest
+              image: clickhouse/clickhouse-server:24.8
               resources:
                 requests:
-                  memory: "1Gi"
-                  cpu: "500m"
-                limits:
                   memory: "2Gi"
                   cpu: "1"
+                limits:
+                  memory: "4Gi"
+                  cpu: "2"
+              readinessProbe:
+                httpGet:
+                  path: /ping
+                  port: 8123
+                initialDelaySeconds: 60
+                timeoutSeconds: 10
+                periodSeconds: 15
+                failureThreshold: 10
+    
+    volumeClaimTemplates:
+      - name: data-volume
+        spec:
+          accessModes:
+            - ReadWriteOnce
+          resources:
+            requests:
+              storage: 10Gi
+
