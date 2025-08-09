@@ -4,6 +4,9 @@ metadata:
   name: "clickhouse"
 spec:
   configuration:
+    settings:
+      max_thread_pool_size: "1000"
+      background_schedule_pool_size: "128"
     zookeeper:
       nodes:
         - host: chk-extended-cluster1-0-0
