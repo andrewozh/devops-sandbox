@@ -1,0 +1,19 @@
+apiVersion: "clickhouse.altinity.com/v1"
+kind: "ClickHouseInstallation"
+metadata:
+  name: "clickhouse"
+spec:
+  configuration:
+    zookeeper:
+      nodes:
+        - host: chk-extended-cluster1-0-0
+          port: 2181
+    clusters:
+      - name: "clickhouse"
+        layout:
+          shardsCount: 1 # Do not use sharding for compatibility with Clickhouse Cloud
+          replicasCount: 1
+    users:
+      dante/networks/ip: "::/0"
+      dante/password: dante
+      dante/profile: default

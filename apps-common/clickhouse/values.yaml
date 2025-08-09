@@ -865,7 +865,7 @@ dashboards:
   enabled: false
   # dashboards.additionalLabels -- labels to add to a secret with dashboards
   additionalLabels:
-    grafana_dashboard: ""
+    grafana_dashboard: "1"
   # dashboards.annotations -- annotations to add to a secret with dashboards
   annotations: {}
   grafana_folder: clickhouse
