@@ -31,6 +31,8 @@ metadata:
     {{- include "chart.labels" . | nindent 4 }}
   {{- with .Values.ingress.annotations }}
   annotations:
+    argocd.argoproj.io/sync-wave: "11"
+    argocd.argoproj.io/sync-options: SkipDryRunOnMissingResource=true
     {{- toYaml . | nindent 4 }}
   {{- end }}
 spec:
