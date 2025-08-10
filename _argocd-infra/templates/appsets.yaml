@@ -1,15 +1,17 @@
 {{- range $cloud := .Values.clouds }}
 {{- range $account := $cloud.accounts }}
 {{- range $environment := $account.environments }}
+---
 apiVersion: argoproj.io/v1alpha1
 kind: ApplicationSet
 metadata:
-  name: "{{- $cloud.name -}}-{{- $account.name -}}-{{- $environment.name -}}"
+  name: "{{ $cloud.name }}-{{ $account.name }}-{{ $environment.name }}"
 spec:
   syncPolicy:
     preserveResourcesOnDeletion: true
     applicationsSync: create-update
   goTemplate: true
+  goTemplateOptions: ["missingkey=error"]
   generators:
   - matrix:
       generators:
@@ -17,69 +19,70 @@ spec:
           repoURL: {{ $.Values.repo }}
           revision: main
           files:
-            - path: 'apps-{{- $cloud.name }}/*/releases/*/argo.yaml'
-            - path: 'apps-{{- $account.name }}/*/releases/*/argo.yaml'
-            - path: 'apps-{{- $environment.name }}/*/releases/*/argo.yaml'
-            - path: 'apps-{{- $cloud.name }}-{{- $account.name }}/*/releases/*/argo.yaml'
-            - path: 'apps-{{- $cloud.name }}-{{- $environment.name }}/*/releases/*/argo.yaml'
-            - path: 'apps-{{- $account.name }}-{{- $environment.name }}/*/releases/*/argo.yaml'
-            - path: 'apps-{{- $cloud.name }}-{{- $account.name }}-{{- $environment.name }}/*/releases/*/argo.yaml'
+            - path: 'apps-{{ $cloud.name }}/*/releases/*/argo.yaml'
+            - path: 'apps-{{ $account.name }}/*/releases/*/argo.yaml'
+            - path: 'apps-{{ $environment.name }}/*/releases/*/argo.yaml'
+            - path: 'apps-{{ $cloud.name }}-{{ $account.name }}/*/releases/*/argo.yaml'
+            - path: 'apps-{{ $cloud.name }}-{{ $environment.name }}/*/releases/*/argo.yaml'
+            - path: 'apps-{{ $account.name }}-{{ $environment.name }}/*/releases/*/argo.yaml'
+            - path: 'apps-{{ $cloud.name }}-{{ $account.name }}-{{ $environment.name }}/*/releases/*/argo.yaml'
       - clusters: {}
   template:
     metadata:
-      name: '{{`{{.name}}`}}-{{`{{.path.basename }}`}}'
+      name: {{`'{{.name}}-{{.path.basename}}'`}}
       labels:
         project: default
-        service: '{{`{{.path.basename}}`}}'
+        service: {{`'{{.path.basename}}'`}}
         type: app
     spec:
-      {{`{{- if .autosync }}`}}
+      # Base syncPolicy that's always present
+      syncPolicy:
+        managedNamespaceMetadata:
+          labels:
+            argocd.argoproj.io/managed-by: argocd
+        syncOptions:
+        - CreateNamespace=true
+      project: default
+      source:
+        repoURL: {{ $.Values.repo }}
+        targetRevision: main
+        path: {{`'{{index .path.segments 0}}/{{index .path.segments 1}}/'`}}
+        helm:
+          releaseName: {{`'{{.path.basename}}'`}}
+          ignoreMissingValueFiles: true
+          valueFiles:
+          - /global.yaml
+          - '/{{ $cloud.name }}.yaml'
+          - '/{{ $account.name }}.yaml'
+          - '/{{ $environment.name }}.yaml'
+          - '/{{ $cloud.name }}-{{ $account.name }}.yaml'
+          - '/{{ $cloud.name }}-{{ $environment.name }}.yaml'
+          - '/{{ $account.name }}-{{ $environment.name }}.yaml'
+          - '/{{ $cloud.name }}-{{ $account.name }}-{{ $environment.name }}.yaml'
+          - {{`'/{{.path.path}}/values.yaml'`}}
+          - '/{{`{{.path.path}}`}}/releases/{{ $cloud.name }}-{{ $account.name }}-{{ $environment.name }}/values.yaml'
+      destination:
+        name: {{`'{{.name}}'`}}
+        namespace: {{`'{{.namespace}}'`}}
+  # Use templatePatch for conditional syncPolicy additions
+  templatePatch: |
+{{`
+    {{- if and (hasKey . "autosync") .autosync }}
+    spec:
       syncPolicy:
         automated:
           prune: true
           selfHeal: true
           allowEmpty: false
-        syncOptions:
-        - CreateNamespace=true
         retry:
           limit: 5
           backoff:
             duration: 5s
             factor: 2
             maxDuration: 3m
-        managedNamespaceMetadata:
-          labels:
-            argocd.argoproj.io/managed-by: argocd
-      {{`{{- else }}`}}
-      syncPolicy:
-        managedNamespaceMetadata:
-          labels:
-            argocd.argoproj.io/managed-by: argocd
-        syncOptions:
-        - CreateNamespace=true
-      {{`{{- end }}`}}
-      project: default
-      source:
-        repoURL: {{ $.Values.repo }}
-        targetRevision: main
-        path: '{{`{{index .path.segments 0}}`}}/{{`{{index .path.segments 1}}`}}/'
-        helm:
-            releaseName: '{{`{{.path.basename}}`}}'
-            ignoreMissingValueFiles: true
-            valueFiles:
-            - /global.yaml
-            - '/{{- $cloud.name }}.yaml'
-            - '/{{- $account.name }}.yaml'
-            - '/{{- $environment.name }}.yaml'
-            - '/{{- $cloud.name }}-{{- $account.name }}.yaml'
-            - '/{{- $cloud.name }}-{{- $environment.name }}.yaml'
-            - '/{{- $account.name }}-{{- $environment.name }}.yaml'
-            - '/{{- $cloud.name }}-{{- $account.name }}-{{- $environment.name }}.yaml'
-            - '/{{`{{.path.path}}`}}/values.yaml'
-            - '/{{`{{.path.path}}`}}/releases/{{- $cloud.name }}-{{- $account.name }}-{{- $environment.name }}/values.yaml'
-      destination:
-        name: '{{`{{.name}}`}}'
-        namespace: '{{ `{{.namespace}}` }}'
+    {{- end }}
+`}}
 {{- end }}
 {{- end }}
 {{- end }}
+
