@@ -131,7 +131,17 @@ Warning: Using a password with '-a' or '-u' option on the command line interface
 
 :::note Grafana Dashboard
 https://github.com/OT-CONTAINER-KIT/redis-operator/blob/main/dashboards/redis-operator-cluster.json
+(my fixed version in kube-prometheus-stack/dashboards/)
 :::
+
+```yaml
+redis-cluster:
+  serviceMonitor:
+    enabled: true
+    namespace: redis
+  redisExporter:
+    enabled: true
+```
 
 ## Maintenence
 
