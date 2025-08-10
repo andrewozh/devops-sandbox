@@ -33,12 +33,31 @@ spec:
         service: '{{`{{.path.basename}}`}}'
         type: app
     spec:
+      {{`{{- if .autosync }}`}}
+      syncPolicy:
+        automated:
+          prune: true
+          selfHeal: true
+          allowEmpty: false
+        syncOptions:
+        - CreateNamespace=true
+        retry:
+          limit: 5
+          backoff:
+            duration: 5s
+            factor: 2
+            maxDuration: 3m
+        managedNamespaceMetadata:
+          labels:
+            argocd.argoproj.io/managed-by: argocd
+      {{`{{- else }}`}}
       syncPolicy:
         managedNamespaceMetadata:
           labels:
             argocd.argoproj.io/managed-by: argocd
         syncOptions:
         - CreateNamespace=true
+      {{`{{- end }}`}}
       project: default
       source:
         repoURL: {{ $.Values.repo }}
