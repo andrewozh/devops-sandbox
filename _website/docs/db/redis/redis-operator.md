@@ -12,10 +12,10 @@
 
 ## :white_check_mark: Setup
 
-:::warn Redis configuration
-**Redis Cluster** = Minimum 3 masters (for sharding data)
-**Redis Replication** = 1 master + N replicas (for HA without sharding)
-**Redis Standalone** = Single instance (simplest setup)
+:::warning Redis configuration
+- **Redis Cluster** = Minimum 3 masters (for sharding data)
+- **Redis Replication** = 1 master + N replicas (for HA without sharding)
+- **Redis Standalone** = Single instance (simplest setup)
 :::
 
 - create admin password secret

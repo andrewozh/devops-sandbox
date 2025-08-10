@@ -81,7 +81,7 @@
             "uid": "prometheus"
           },
           "exemplar": true,
-          "expr": "count(redis_up{namespace=~\"$namespace\",service=~\"$service\",env=~\"$env\"})",
+          "expr": "count(redis_up{namespace=~\"$namespace\",service=~\"$service\"})",
           "interval": "",
           "legendFormat": "",
           "refId": "A"
@@ -150,7 +150,7 @@
             "uid": "prometheus"
           },
           "exemplar": true,
-          "expr": "sum(redis_connected_clients{namespace=~\"$namespace\",service=~\"$service\",env=~\"$env\"})",
+          "expr": "sum(redis_connected_clients{namespace=~\"$namespace\",service=~\"$service\"})",
           "interval": "",
           "legendFormat": "",
           "refId": "A"
@@ -223,7 +223,7 @@
             "uid": "prometheus"
           },
           "exemplar": true,
-          "expr": "avg((redis_config_maxclients{env=~\"$env\"} - redis_connected_clients{env=~\"$env\"}) / redis_config_maxclients{env=~\"$env\"})",
+          "expr": "avg((redis_config_maxclients - redis_connected_clients) / redis_config_maxclients)",
           "interval": "",
           "legendFormat": "",
           "refId": "A"
@@ -321,7 +321,7 @@
             "uid": "prometheus"
           },
           "exemplar": true,
-          "expr": "increase(redis_commands_processed_total{namespace=~\"$namespace\",service=~\"$service\",env=~\"$env\"}[$__rate_interval])",
+          "expr": "increase(redis_commands_processed_total{namespace=~\"$namespace\",service=~\"$service\"}[$__rate_interval])",
           "interval": "",
           "legendFormat": "{{pod}}",
           "refId": "A"
@@ -390,7 +390,7 @@
             "uid": "prometheus"
           },
           "exemplar": true,
-          "expr": "sum(redis_cluster_slots_fail{namespace=~\"$namespace\",service=~\"$service\",env=~\"$env\"})",
+          "expr": "sum(redis_cluster_slots_fail{namespace=~\"$namespace\",service=~\"$service\"})",
           "interval": "",
           "legendFormat": "",
           "refId": "A"
@@ -481,7 +481,7 @@
           },
           "editorMode": "code",
           "exemplar": true,
-          "expr": "count(redis_instance_info{namespace=~\"$namespace\",service=~\"$service\",role=\"master\",env=~\"$env\"})",
+          "expr": "count(redis_instance_info{namespace=~\"$namespace\",service=~\"$service\",role=\"master\"})",
           "interval": "",
           "legendFormat": "",
           "range": true,
@@ -553,7 +553,7 @@
             "uid": "prometheus"
           },
           "exemplar": true,
-          "expr": "avg(redis_rdb_changes_since_last_save{env=~\"$env\"})",
+          "expr": "avg(redis_rdb_changes_since_last_save)",
           "interval": "",
           "legendFormat": "",
           "refId": "A"
@@ -648,7 +648,7 @@
             "uid": "prometheus"
           },
           "exemplar": true,
-          "expr": "topk(5, increase(redis_commands_total{namespace=~\"$namespace\",service=~\"$service\",env=~\"$env\"} [$__rate_interval]))",
+          "expr": "topk(5, increase(redis_commands_total{namespace=~\"$namespace\",service=~\"$service\"} [$__rate_interval]))",
           "interval": "",
           "legendFormat": "{{cmd}}",
           "refId": "A"
@@ -744,7 +744,7 @@
             "uid": "prometheus"
           },
           "exemplar": true,
-          "expr": "avg(irate(redis_commands_duration_seconds_total{namespace=~\"$namespace\",service=~\"$service\",env=~\"$env\"}[1m])) by (cmd)\n  /\navg(irate(redis_commands_total{namespace=~\"$namespace\",service=~\"$service\",env=~\"$env\"}[1m])) by (cmd)",
+          "expr": "avg(irate(redis_commands_duration_seconds_total{namespace=~\"$namespace\",service=~\"$service\"}[1m])) by (cmd)\n  /\navg(irate(redis_commands_total{namespace=~\"$namespace\",service=~\"$service\"}[1m])) by (cmd)",
           "interval": "",
           "legendFormat": "{{cmd}}",
           "refId": "A"
@@ -841,7 +841,7 @@
             "uid": "prometheus"
           },
           "exemplar": true,
-          "expr": "redis_db_keys{namespace=~\"$namespace\",service=~\"$service\",env=~\"$env\"}",
+          "expr": "redis_db_keys{namespace=~\"$namespace\",service=~\"$service\"}",
           "interval": "",
           "legendFormat": "{{db}}",
           "refId": "A"
@@ -938,7 +938,7 @@
             "uid": "prometheus"
           },
           "exemplar": true,
-          "expr": "rate(redis_net_input_bytes_total{namespace=~\"$namespace\",service=~\"$service\",env=~\"$env\"}[$__rate_interval])",
+          "expr": "rate(redis_net_input_bytes_total{namespace=~\"$namespace\",service=~\"$service\"}[$__rate_interval])",
           "interval": "",
           "legendFormat": "{{pod}}",
           "refId": "A"
@@ -1035,7 +1035,7 @@
             "uid": "prometheus"
           },
           "exemplar": true,
-          "expr": "rate(redis_net_output_bytes_total{namespace=~\"$namespace\",service=~\"$service\",env=~\"$env\"}[$__rate_interval])",
+          "expr": "rate(redis_net_output_bytes_total{namespace=~\"$namespace\",service=~\"$service\"}[$__rate_interval])",
           "interval": "",
           "legendFormat": "{{pod}}",
           "refId": "A"
@@ -1132,7 +1132,7 @@
             "uid": "prometheus"
           },
           "exemplar": true,
-          "expr": "redis_memory_used_bytes{namespace=~\"$namespace\",service=~\"$service\",env=~\"$env\"}",
+          "expr": "redis_memory_used_bytes{namespace=~\"$namespace\",service=~\"$service\"}",
           "interval": "",
           "legendFormat": "{{pod}}",
           "refId": "A"
@@ -1229,7 +1229,7 @@
             "uid": "prometheus"
           },
           "exemplar": true,
-          "expr": "redis_connected_clients{namespace=~\"$namespace\",service=~\"$service\",env=~\"$env\"}",
+          "expr": "redis_connected_clients{namespace=~\"$namespace\",service=~\"$service\"}",
           "interval": "",
           "legendFormat": "{{pod}}",
           "refId": "A"
@@ -1240,6 +1240,7 @@
     },
     {
       "datasource": {
+        "default": true,
         "type": "prometheus",
         "uid": "prometheus"
       },
@@ -1325,10 +1326,12 @@
             "type": "prometheus",
             "uid": "prometheus"
           },
+          "editorMode": "code",
           "exemplar": true,
-          "expr": "redis_master_repl_offset{namespace=~\"$namespace\",service=~\"$service\",env=~\"$env\"} - redis_slave_repl_offset{namespace=~\"$namespace\",service=~\"$service\",env=~\"$env\"}",
+          "expr": "sum(redis_master_repl_offset{namespace=~\"$namespace\",service=~\".*-leader\"}) - sum(redis_slave_repl_offset{namespace=~\"$namespace\",service=~\".*-follower\"})",
           "interval": "",
           "legendFormat": "{{pod}}",
+          "range": true,
           "refId": "A"
         }
       ],
@@ -1423,7 +1426,7 @@
             "uid": "prometheus"
           },
           "exemplar": true,
-          "expr": "sum(redis_cluster_slots_ok{env=~\"$env\"})",
+          "expr": "sum(redis_cluster_slots_ok)",
           "interval": "",
           "legendFormat": "Ok",
           "refId": "A"
@@ -1434,7 +1437,7 @@
             "uid": "prometheus"
           },
           "exemplar": true,
-          "expr": "sum(redis_cluster_slots_fail{env=~\"$env\"})",
+          "expr": "sum(redis_cluster_slots_fail)",
           "hide": false,
           "interval": "",
           "legendFormat": "fail",
@@ -1454,6 +1457,10 @@
           "selected": false,
           "text": "redis",
           "value": "redis"
+        },
+        "datasource": {
+          "type": "prometheus",
+          "uid": "prometheus"
         },
         "definition": "label_values(redis_up,namespace)",
         "hide": 0,
@@ -1475,9 +1482,13 @@
       },
       {
         "current": {
-          "selected": false,
-          "text": "redis-operator-follower",
-          "value": "redis-operator-follower"
+          "selected": true,
+          "text": "redis-operator-leader",
+          "value": "redis-operator-leader"
+        },
+        "datasource": {
+          "type": "prometheus",
+          "uid": "prometheus"
         },
         "definition": "label_values(redis_up,service)",
         "hide": 0,
@@ -1507,6 +1518,6 @@
   "timezone": "",
   "title": "Redis Operator | Cluster Dashboard",
   "uid": "OsAINfZnk",
-  "version": 1,
+  "version": 2,
   "weekStart": ""
 }
