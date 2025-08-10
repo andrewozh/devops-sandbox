@@ -7,3 +7,6 @@ dependencies:
   - name: redis-operator
     version: 0.21.2
     repository: https://ot-container-kit.github.io/helm-charts/
+  - name: redis-cluster
+    version: 0.17.0
+    repository: https://ot-container-kit.github.io/helm-charts/
