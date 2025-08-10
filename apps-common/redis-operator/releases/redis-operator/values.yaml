@@ -1,11 +1,11 @@
 # redis-operator:
 redis-cluster:
   redisCluster:
-    clusterSize: 1
+    clusterSize: 3
     leader:
-      replicas: 1
+      replicas: 3
     follower:
-      replicas: 1
+      replicas: 3
     redisSecret:
       secretName: "redis-secret"
       secretKey: "password"
