@@ -55,6 +55,11 @@ kubectl exec -it redis-operator-leader-0 -n redis -- redis-cli -a redis
 [Redis ACL Guide](redis-acl-rules.md)
 :::
 
+:::warn
+In `ACL` mode default user must be configured with `on` and `>password` to allow access or disabled.
+This will replace the `rediscluster.redisSecret` configuration
+:::
+
 ```yaml
 apiVersion: v1
 kind: Secret
@@ -62,6 +67,7 @@ metadata:
   name: redis-users-acl
 stringData:
   users.acl: |
+    user default on ~* &* +@all >redis
     user admin on ~* &* +@all >admin
     user reader on +@read ~* &* -@dangerous >reader
     user writer on +@write +@read ~app:* -@dangerous >writer
