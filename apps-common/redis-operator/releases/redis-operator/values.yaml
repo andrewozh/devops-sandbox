@@ -14,6 +14,6 @@ redis-cluster:
     namespace: redis
   redisExporter:
     enabled: true
-  # acl:
-  #   secret:
-  #     secretName: ""
+  acl:
+    secret:
+      secretName: "redis-users-acl"
