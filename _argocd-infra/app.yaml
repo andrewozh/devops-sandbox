@@ -18,3 +18,23 @@ spec:
   destination:
     name: "in-cluster"
     namespace: argocd
+  syncPolicy:
+    automated:
+      prune: false # Automatically delete resources that no longer exist in Git
+      selfHeal: false # Automatically sync when the live cluster state deviates from Git
+      allowEmpty: false # Allows applications with empty resources (default: false)
+    syncOptions:
+      - CreateNamespace=true # Creates namespace if it doesn't exist
+      - PrunePropagationPolicy=foreground # How to delete resources
+      - PruneLast=true # Prune resources as the last sync step
+      - Replace=false # Use kubectl replace instead of apply
+      - ApplyOutOfSyncOnly=true # Only sync out-of-sync resources
+      - ServerSideApply=true # Use server-side apply
+      - FailOnSharedResource=true # Fail if resource is managed by another app
+      - SkipDryRunOnMissingResource=true # Skip validation for resources with missing CRDs
+    retry:
+      limit: 5 # Number of failed sync attempts before giving up
+      backoff:
+        duration: 5s # Initial retry backoff duration
+        factor: 2 # Factor multiplies the base duration after each retry
+        maxDuration: 3m # Maximum backoff duration
