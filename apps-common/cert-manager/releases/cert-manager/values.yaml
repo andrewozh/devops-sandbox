@@ -5,3 +5,6 @@ cert-manager:
     enabled: true
     podmonitor:
       enabled: true
+      annotations:
+        argocd.argoproj.io/sync-wave: "12"
+        argocd.argoproj.io/sync-options: SkipDryRunOnMissingResource=true
