@@ -11,6 +11,7 @@ redis-cluster:
       secretKey: "password"
   serviceMonitor:
     enabled: true
+    namespace: redis
   redisExporter:
     enabled: true
   # acl:
