@@ -1,1 +1,15 @@
 # redis-operator:
+redis-cluster:
+  redisCluster:
+    clusterSize: 1
+    leader:
+      replicas: 1
+    follower:
+      replicas: 1
+  serviceMonitor:
+    enabled: true
+  redisExporter:
+    enabled: true
+  # acl:
+  #   secret:
+  #     secretName: ""
