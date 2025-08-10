@@ -6,6 +6,9 @@ redis-cluster:
       replicas: 1
     follower:
       replicas: 1
+    redisSecret:
+      secretName: "redis-secret"
+      secretKey: "password"
   serviceMonitor:
     enabled: true
   redisExporter:
