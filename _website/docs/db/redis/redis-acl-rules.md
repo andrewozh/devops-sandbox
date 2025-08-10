@@ -20,26 +20,26 @@ user app_user on ~cache:* ~session:* +get +set +del +exists +expire +ttl >app_pa
 
 ## ACL Rule Syntax:
 
-on/off - Enable or disable the user
-+@category - Allow commands in a category (e.g., @read, @write, @all)
--@category - Deny commands in a category
-+command - Allow specific command
--command - Deny specific command
-~pattern - Key pattern access (e.g., ~* for all keys, ~app:* for keys starting with "app:")
-&pattern - Pub/Sub channel pattern access
->password - Set user password
+- `on/off` - Enable or disable the user
+- `+@category` - Allow commands in a category (e.g., @read, @write, @all)
+- `-@category` - Deny commands in a category
+- `+command` - Allow specific command
+- `-command` - Deny specific command
+- `~pattern` - Key pattern access (e.g., ~* for all keys, ~app:* for keys starting with "app:")
+- `&pattern` - Pub/Sub channel pattern access
+- `>password` - Set user password
 
 ## Common ACL Categories
 
-@read - Read operations (GET, MGET, etc.)
-@write - Write operations (SET, DEL, etc.)
-@keyspace - All key-related commands
-@string - String commands
-@list - List commands
-@hash - Hash commands
-@stream - Stream commands
-@admin - Administrative commands
-@dangerous - Dangerous commands (FLUSHDB, CONFIG, etc.)
+- `@read` - Read operations (GET, MGET, etc.)
+- `@write` - Write operations (SET, DEL, etc.)
+- `@keyspace` - All key-related commands
+- `@string` - String commands
+- `@list` - List commands
+- `@hash` - Hash commands
+- `@stream` - Stream commands
+- `@admin` - Administrative commands
+- `@dangerous` - Dangerous commands (FLUSHDB, CONFIG, etc.)
 
 ## Commands
 
