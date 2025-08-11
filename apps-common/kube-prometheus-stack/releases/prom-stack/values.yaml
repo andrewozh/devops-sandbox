@@ -34,6 +34,7 @@ kube-prometheus-stack:
       probeSelectorNilUsesHelmValues: false
 
   grafana:
+    adminPassword: admin
     defaultDashboardsEnabled: false
     serviceMonitor:
       enabled: true
