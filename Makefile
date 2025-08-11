@@ -21,15 +21,16 @@ argocd-olm: kctx olm ## Deploy argocd via OLM
 
 argocd: kctx ## Deploy argocd as Helm Chart
 	kubectl create ns argocd || true
-	helmfile apply -f _argocd/helmfile.yaml
+	helmfile apply --suppress-diff -f _argocd/helmfile.yaml
 	kubectl apply -f _argocd-infra/app.yaml
-	# Reset ArgoCD admin password:
-	# kubectl patch secret -n argocd argocd-secret -p '{"stringData": { "admin.password": "'$(htpasswd -bnBC 10 "" HxtjMoorHhGW-ESX | tr -d ':\n')'"}}'
-	#
-	# Restart ArgoCD server to apply changes:
-	# kubectl rollout restart deployment/argocd-server -n argocd
+	@PASSWORD_HASH=$$(htpasswd -bnBC 10 "" admin | tr -d ':\n') && \
+	kubectl patch secret -n argocd argocd-secret -p "$$(printf '{"stringData": {"admin.password": "%s"}}' "$$PASSWORD_HASH")"
+	kubectl rollout restart deployment/argocd-server -n argocd
 	#
 	# Access ArgoCD UI:
 	# kubectl port-forward svc/argocd-server -n argocd 8080:80
+	#
+	# Username: admin
+	# Password: admin
 
 init: argocd ## Init cluster
