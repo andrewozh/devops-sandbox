@@ -31,6 +31,7 @@ import ProgressBar from '@site/src/components/ProgressBar';
 - [x] localhosted cluster kind
 - [x] kubernetes monitoring: node, dp, ds, sts, pv- (kind do not support)
 - [x] pritunl vpn setup doc
+- [ ] :arrows_counterclockwise: **basic demo**
 
 **Platform & App-library requirements:**
 
@@ -54,7 +55,7 @@ import ProgressBar from '@site/src/components/ProgressBar';
 - [x] **secret storage:** vault + external-secrets
 - [x] **ingress:** nginx
 - [x] **clickhouse:** altinity
-- [ ] :arrows_counterclockwise: **redis**
+- [x] **redis-operator**
 
 ## 0.2.0 self-hosted multi-cluster setup
 
