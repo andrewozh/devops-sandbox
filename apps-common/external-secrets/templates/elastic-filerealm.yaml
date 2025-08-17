@@ -49,3 +49,36 @@ spec:
       username: "{{ .login }}"
       roles: "{{ .roles }}"
 {{- end }}
+---
+apiVersion: external-secrets.io/v1
+kind: ExternalSecret
+metadata:
+  name: elasticsearch-filerealm
+spec:
+  secretStoreRef:
+    name: vault
+    kind: ClusterSecretStore
+  target:
+    name: elasticsearch-filerealm
+    template:
+      engineVersion: v2
+      data:
+        users: |
+          {{ "{{" }}- range $key, $value := . -{{ "}}" }}
+          {{ "{{" }}- $decodedValue := ( $value | fromJson ) -{{ "}}" }}
+          {{ "{{" }}- $username := get $decodedValue "username" -{{ "}}" }}
+          {{ "{{" }}- $password := get $decodedValue "password" -{{ "}}" }}
+          {{ "{{" }} $username {{ "}}" }}:{{ "{{" }} htpasswd $username $password | regexReplaceAll "^[^:]+:" "" {{ "}}" }}
+          {{ "{{" }}- end -{{ "}}" }}
+        users_roles: |
+          {{ "{{" }}- range $key, $value := . -{{ "}}" }}
+          {{ "{{" }}- $decodedValue := ( $value | fromJson ) -{{ "}}" }}
+          {{ "{{" }}- $roles    := get $decodedValue "roles" -{{ "}}" }}
+          {{ "{{" }}- $username := get $decodedValue "username" -{{ "}}" }}
+          {{ "{{" }} $roles {{ "}}" }}:{{ "{{" }} $username {{ "}}" }}
+          {{ "{{" }}- end -{{ "}}" }}
+  dataFrom:
+  - find:
+      conversionStrategy: Default
+      decodingStrategy: None
+      path: elasticsearch_users
