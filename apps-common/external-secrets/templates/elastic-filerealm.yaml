@@ -46,7 +46,7 @@ spec:
     data:
       password: "{{ `{{ .password }}` }}"
       username: "{{ .login }}"
-      roles: "{{ .roles }}"
+      roles: {{ .roles | toJson | quote }}
 {{- end }}
 ---
 apiVersion: external-secrets.io/v1
@@ -72,9 +72,11 @@ spec:
         users_roles: |
           {{ "{{" }}- range $key, $value := . -{{ "}}" }}
           {{ "{{" }}- $decodedValue := ( $value | fromJson ) -{{ "}}" }}
-          {{ "{{" }}- $roles    := get $decodedValue "roles" -{{ "}}" }}
+          {{ "{{" }}- $roles    := get $decodedValue "roles" | fromJson -{{ "}}" }}
           {{ "{{" }}- $username := get $decodedValue "username" -{{ "}}" }}
-          {{ "{{" }} $roles {{ "}}" }}:{{ "{{" }} $username {{ "}}" }}{{ "{{" }} "\n" {{ "}}" }}
+          {{ "{{" }}- range $role := $roles -{{ "}}" }}
+          {{ "{{" }} $role {{ "}}" }}:{{ "{{" }} $username {{ "}}" }}{{ "{{" }} "\n" {{ "}}" }}
+          {{ "{{" }}- end -{{ "}}" }}
           {{ "{{" }}- end -{{ "}}" }}
   dataFrom:
   - find:
