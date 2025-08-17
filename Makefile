@@ -33,4 +33,11 @@ argocd: kctx ## Deploy argocd as Helm Chart
 	# Username: admin
 	# Password: admin
 
+killercoda:
+	helm upgrade --install argocd _argocd  --namespace argocd --create-namespace  --values _argocd/values-override.yaml --timeout 800s --atomic --dependency-update
+	cat _argocd-infra/app.yaml | sed 's|https://github.com/andrewozh/infra-apps.git|http://git-server.default.svc.cluster.local/.git|g' | yq '.spec.source.helm.parameters = [{"name": "repo", "value": "http://git-server.default.svc.cluster.local/.git"}] + (.spec.source.helm.parameters // [])' | kubectl apply -f -
+	@PASSWORD_HASH=$$(htpasswd -bnBC 10 "" admin | tr -d ':\n') && \
+	kubectl patch secret -n argocd argocd-secret -p "$$(printf '{"stringData": {"admin.password": "%s"}}' "$$PASSWORD_HASH")"
+	kubectl rollout restart deployment/argocd-server -n argocd
+
 init: argocd ## Init cluster
