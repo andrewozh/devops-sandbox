@@ -1,10 +1,20 @@
+es_users:
+  - login: andrew-ozhegov
+    roles:
+      - superuser
+      - admin
+  - login: jane-doe
+    roles:
+      - read_only
+
 eck-stack:
   eck-elasticsearch:
     auth:
       fileRealm:
         - secretName: fluentbit-user-secret
+        - secretName: elasticsearch-filerealm
       roles:
-        - secretName: fluentbit-role
+        - secretName: elasticsearch-roles
     nodeSets:
       - name: default
         count: 1
