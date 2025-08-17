@@ -4,13 +4,12 @@ kind: Password
 metadata:
   name: elasticsearch-password
 spec:
-  length: 128
+  length: 32
   digits: 5
   symbols: 5
   symbolCharacters: "-_$@"
   noUpper: false
   allowRepeat: true
-
 {{- range .Values.es_users }}
 ---
 apiVersion: external-secrets.io/v1alpha1
@@ -68,14 +67,14 @@ spec:
           {{ "{{" }}- $decodedValue := ( $value | fromJson ) -{{ "}}" }}
           {{ "{{" }}- $username := get $decodedValue "username" -{{ "}}" }}
           {{ "{{" }}- $password := get $decodedValue "password" -{{ "}}" }}
-          {{ "{{" }} $username {{ "}}" }}:{{ "{{" }} htpasswd $username $password | regexReplaceAll "^[^:]+:" "" {{ "}}" }}
+          {{ "{{" }} (printf "%s" (htpasswd $username $password)) {{ "}}" }}{{ "{{" }} "\n" {{ "}}" }}
           {{ "{{" }}- end -{{ "}}" }}
         users_roles: |
           {{ "{{" }}- range $key, $value := . -{{ "}}" }}
           {{ "{{" }}- $decodedValue := ( $value | fromJson ) -{{ "}}" }}
           {{ "{{" }}- $roles    := get $decodedValue "roles" -{{ "}}" }}
           {{ "{{" }}- $username := get $decodedValue "username" -{{ "}}" }}
-          {{ "{{" }} $roles {{ "}}" }}:{{ "{{" }} $username {{ "}}" }}
+          {{ "{{" }} $roles {{ "}}" }}:{{ "{{" }} $username {{ "}}" }}{{ "{{" }} "\n" {{ "}}" }}
           {{ "{{" }}- end -{{ "}}" }}
   dataFrom:
   - find:
