@@ -1,5 +1,10 @@
 # devops-sandbox
 
+```bash
+bash <(curl -s https://raw.githubusercontent.com/andrewozh/devops-sandbox/refs/heads/main/demo/bootstrap.sh)"
+```
+
+
 ## TODO
 
 - [ ] github actions and reusable workflows markdown documentation generator
