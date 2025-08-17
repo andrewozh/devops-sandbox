@@ -1,0 +1,36 @@
+---
+apiVersion: generators.external-secrets.io/v1alpha1
+kind: Password
+metadata:
+  name: elasticsearch-password
+spec:
+  length: 128
+  digits: 5
+  symbols: 5
+  symbolCharacters: "-_$@"
+  noUpper: false
+  allowRepeat: true
+
+{{- range .Values.es_users }}
+---
+apiVersion: external-secrets.io/v1alpha1
+kind: PushSecret
+metadata:
+  name: es-user-{{ .login }}
+spec:
+  refreshInterval: 6h
+  secretStoreRefs:
+    - name: vault
+      kind: ClusterSecretStore
+  selector:
+    generatorRef:
+      apiVersion: generators.external-secrets.io/v1alpha1
+      kind: Password
+      name: elasticsearch-password
+  data:
+    - match:
+        secretKey: password
+        remoteRef:
+          remoteKey: elasticsearch_users/{{ .login }}
+          property: password
+{{- end }}

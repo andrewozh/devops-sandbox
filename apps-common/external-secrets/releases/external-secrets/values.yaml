@@ -1,3 +1,9 @@
 external-secrets:
   serviceMonitor:
     enabled: true
+
+es_users:
+  - login: andrew-ozhegov
+    roles: superuser,admin
+  - login: jane-doe
+    roles: read_only
