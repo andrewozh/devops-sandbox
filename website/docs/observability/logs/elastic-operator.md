@@ -19,9 +19,12 @@ https://www.elastic.co/docs/deploy-manage/deploy/cloud-on-k8s/manage-deployments
 
 ## Usecases
 
+[Use external-secret for managing users and role](elastic-auth-management.md)
+
 ### :white_check_mark: Basic: create user for fluentbit, configure log shipping, view logs in Kibana
 
 [Setup Fluent-bit for log shipping](fluentbit.md#basic-send-kubernetes-pods-logs-to-elasticsearch)
+
 [View logs in Kibana](kibana.md#basic-discover-all-logs)
 
 - create secret `role` for fluentbit

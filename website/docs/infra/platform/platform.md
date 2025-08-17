@@ -1,5 +1,20 @@
 # GitOps Platform
 
+## KCL
+
+* main `argocd` application
+  creates `ApplicationSet`
+  do i need specific KCL functions for this?
+
+* `ApplicationSet` generates `Applications`
+  `<app>/releases/<release>/argo.yaml`
+  argo application settings
+  deploy/exclude
+  etc..
+
+  can KCL fetch helm chart and set the values? (helm operator, HelmRelease resourse as part of kcl app)
+  how kcl will know values for different env?
+
 ## ArgoCD
 
 - argocd appset schema
