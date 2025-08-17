@@ -33,4 +33,19 @@ spec:
         remoteRef:
           remoteKey: elasticsearch_users/{{ .login }}
           property: password
+    - match:
+        secretKey: username
+        remoteRef:
+          remoteKey: elasticsearch_users/{{ .login }}
+          property: username
+    - match:
+        secretKey: roles
+        remoteRef:
+          remoteKey: elasticsearch_users/{{ .login }}
+          property: roles
+  template:
+    data:
+      password: "{{ `{{ .password }}` }}"
+      username: "{{ .login }}"
+      roles: "{{ .roles }}"
 {{- end }}
