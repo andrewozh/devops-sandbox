@@ -1,9 +1,8 @@
 # devops-sandbox
 
 ```bash
-bash <(curl -s https://raw.githubusercontent.com/andrewozh/devops-sandbox/refs/heads/main/demo/bootstrap.sh)"
+bash <(curl -s https://raw.githubusercontent.com/andrewozh/devops-sandbox/refs/heads/main/demo/bootstrap.sh)
 ```
-
 
 ## TODO
 
