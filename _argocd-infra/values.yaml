@@ -1,5 +1,3 @@
-repo: https://github.com/andrewozh/infra-apps.git
-
 chart:
   nameOverride: argocd
   kind: None

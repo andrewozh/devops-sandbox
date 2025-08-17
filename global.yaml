@@ -1,5 +1,7 @@
 namespace: default
 
+repo: https://github.com/andrewozh/devops-sandbox.git
+
 clouds:
   - name: local
     accounts:
