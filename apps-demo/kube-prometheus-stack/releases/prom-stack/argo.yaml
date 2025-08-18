@@ -1,0 +1,8 @@
+namespace: monitoring
+autosync: true
+syncOptions:
+  - ServerSideApply=true
+  - SkipDryRunOnMissingResource=true
+  - ApplyOutOfSyncOnly=true
+  - PrunePropagationPolicy=foreground
+  - PruneLast=true

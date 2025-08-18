@@ -1,0 +1,117 @@
+kube-prometheus-stack:
+  prometheus:
+    annotations:
+      argocd.argoproj.io/sync-wave: "1"
+      argocd.argoproj.io/sync-options: SkipDryRunOnMissingResource=true
+    prometheusSpec:
+      ruleSelectorNilUsesHelmValues: false
+      serviceMonitorSelectorNilUsesHelmValues: false
+      podMonitorSelectorNilUsesHelmValues: false
+      probeSelectorNilUsesHelmValues: false
+
+  grafana:
+    adminPassword: admin
+    defaultDashboardsEnabled: false
+    serviceMonitor:
+      enabled: true
+
+  alertmanager:
+    enabled: true
+    serviceMonitor:
+      selfMonitor: true
+
+  defaultRules:
+    create: true
+    rules:
+      etcd: false
+      kubeApiserverAvailability: false
+      kubeApiserverBurnrate: false
+      kubeApiserverHistogram: false
+      kubeApiserverSlos: false
+      kubeControllerManager: false
+      kubeProxy: false
+      kubeSchedulerAlerting: false
+      kubeSchedulerRecording: false
+
+  # kubernetesServiceMonitors:
+  #   enabled: false
+  kubeApiServer:
+    enabled: false
+  # kubelet:
+  #   enabled: false
+  kubeControllerManager:
+    enabled: false
+  coreDns:
+    enabled: false
+  kubeEtcd:
+    enabled: false
+  kubeScheduler:
+    enabled: false
+  kubeProxy:
+    enabled: false
+
+  kube-state-metrics:
+    fullnameOverride: "kube-state-metrics"
+    releaseLabel: true
+    prometheus:
+      monitor:
+        enabled: true
+        honorLabels: true
+        metricRelabelings:
+          - action: drop
+            regex: kube_pod_tolerations
+            sourceLabels:
+              - __name__
+          - action: drop
+            regex: kubernetes_feature_enabled
+            sourceLabels:
+              - __name__
+          - action: drop
+            regex: kube_pod_status_reason
+            sourceLabels:
+              - __name__
+          - action: labeldrop
+            regex: uid
+          - action: drop
+            regex: kube_pod_status_qos_class
+            sourceLabels:
+              - __name__
+          - action: drop
+            regex: kube_pod_status_ready
+            sourceLabels:
+              - __name__
+          - action: drop
+            regex: kube_pod_status_scheduled
+            sourceLabels:
+              - __name__
+
+    metricLabelsAllowlist:
+      - pods=[*]
+      - cronjobs=[*]
+      - jobs=[*]
+      - deployments=[*]
+      - statefulsets=[*]
+      - nodes=[*]
+
+  prometheus-node-exporter:
+    extraArgs:
+      - --collector.filesystem.mount-points-exclude=^/(dev|proc|sys|var/lib/docker/.+|var/lib/kubelet/.+)($|/)
+      - --collector.filesystem.fs-types-exclude=^(autofs|binfmt_misc|bpf|cgroup2?|configfs|debugfs|devpts|devtmpfs|fusectl|hugetlbfs|iso9660|mqueue|nsfs|overlay|proc|procfs|pstore|rpc_pipefs|securityfs|selinuxfs|squashfs|sysfs|tracefs)$
+      - --no-collector.arp
+      - --no-collector.bcache
+      - --no-collector.bonding
+      - --no-collector.btrfs
+      - --no-collector.dmi
+      - --no-collector.fibrechannel
+      - --no-collector.hwmon
+      - --no-collector.infiniband
+      - --no-collector.ipvs
+      - --no-collector.nfs
+      - --no-collector.rapl
+      - --no-collector.sockstat
+      - --no-collector.softnet
+      - --no-collector.tapestats
+      - --no-collector.textfile
+      - --no-collector.thermal_zone
+      - --no-collector.xfs
+      - --no-collector.zfs
