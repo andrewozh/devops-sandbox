@@ -14,30 +14,17 @@ spec:
       labels:
         app: git-server
     spec:
-      nodeSelector:
-        kubernetes.io/hostname: controlplane
+      nodeName: controlplane
       containers:
         - name: git-server
-          image: alpine/git
+          image: alpine:latest
           command: ["sh", "-c"]
           args:
             - |
-              apk add --no-cache lighttpd git-daemon
-              cat > /etc/lighttpd/lighttpd.conf <<EOCONF
-              server.document-root = "/git"
-              server.port = 80
-              server.modules = ( "mod_cgi", "mod_alias", "mod_setenv" )
-              alias.url = ( "/" => "/usr/libexec/git-core/git-http-backend/" )
-              cgi.assign = ( "" => "" )
-              setenv.add-environment = (
-                "GIT_PROJECT_ROOT" => "/git",
-                "GIT_HTTP_EXPORT_ALL" => "1"
-              )
-              EOCONF
-              cd /git && git update-server-info
-              lighttpd -D -f /etc/lighttpd/lighttpd.conf
+              apk add --no-cache git git-daemon
+              git daemon --base-path=/git --export-all --reuseaddr --verbose --enable=upload-pack --enable=upload-archive --enable=receive-pack /git
           ports:
-            - containerPort: 80
+            - containerPort: 9418
           volumeMounts:
             - name: git-repo
               mountPath: /git
@@ -45,18 +32,14 @@ spec:
         - name: git-repo
           hostPath:
             path: /root/devops-sandbox
-            type: Directory
 ---
 apiVersion: v1
 kind: Service
 metadata:
   name: git-server
-  namespace: default
 spec:
   selector:
     app: git-server
   ports:
-    - name: http
-      port: 80
-      targetPort: 80
-      protocol: TCP
+    - port: 9418
+      targetPort: 9418

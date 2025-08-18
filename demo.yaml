@@ -1,6 +1,6 @@
 namespace: default
 
-repo: http://git-server.default.svc.cluster.local/.git
+repo: git://git-server.default.svc.cluster.local/
 
 chart:
   ingress:
