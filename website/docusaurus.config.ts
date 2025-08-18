@@ -99,6 +99,11 @@ const config: Config = {
           label: 'DevOps Sandbox',
         },
         {
+          position: 'left',
+          label: 'Demo',
+          to: '/demo',
+        },
+        {
           type: 'search',
           position: 'right',
         },
