@@ -16,7 +16,7 @@ kctx: ## Activate homelab kubecontext
 	kubectl config use-context kind-homelab
 
 create: ## Create homelab cluster
-	kind get clusters | grep homelab || kind create cluster --config demo/kind-homelab.yaml
+	kind get clusters | grep homelab || kind create cluster --config homelab.kind.yaml
 
 delete: ## Delete existing cluster
 	kind delete cluster -n homelab
@@ -35,7 +35,7 @@ hosts: ## Patch /etc/hosts with homelab entries
 ca: start ## Create CA for homelab
 	kubectl create ns ingress || true
 	kubectl create secret generic -n ingress ca --from-file=tls.crt=ca.crt --from-file=tls.key=ca.key
-	sudo security add-trusted-cert -d -r trustRoot -k /Library/Keychains/System.keychain demo/ca.crt
+	sudo security add-trusted-cert -d -r trustRoot -k /Library/Keychains/System.keychain ca.crt
 
 olm: kctx ## Deploy Operator Lifecycle Manager
 	# https://github.com/argoproj-labs/argocd-operator/issues/945
