@@ -1,5 +1,5 @@
-.PHONY: kctx olm argocd argocd-olm init
-all: kctx olm argocd argocd-olm init
+.PHONY: kctx start stop olm argocd argocd-olm init
+all: kctx start stop olm argocd argocd-olm init
 
 define ADD_HOSTS
 127.0.0.1       home.lab
@@ -16,7 +16,7 @@ kctx: ## Activate homelab kubecontext
 	kubectl config use-context kind-homelab
 
 create: ## Create homelab cluster
-	kind get clusters | grep homelab || kind create cluster --config kind-homelab.yaml
+	kind get clusters | grep homelab || kind create cluster --config demo/kind-homelab.yaml
 
 delete: ## Delete existing cluster
 	kind delete cluster -n homelab
