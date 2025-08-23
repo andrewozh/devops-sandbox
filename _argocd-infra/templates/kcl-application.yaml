@@ -10,10 +10,11 @@ spec:
     path: _applib_kcl
     targetRevision: HEAD
     plugin:
-      name: kcl-v1.0
+      name: kcl
       parameters:
-      - name: config_file
-        value: "../applications/kcl-test-app/values.yaml"
+      - name: config_files
+        string: >
+          ../applications/kcl-test-app/values.yaml
   destination:
     server: https://kubernetes.default.svc
     namespace: kcl-test-app
