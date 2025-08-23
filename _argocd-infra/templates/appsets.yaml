@@ -19,23 +19,28 @@ spec:
           repoURL: {{ $.Values.repo }}
           revision: main
           files:
-            - path: 'apps-{{ $cloud.name }}/*/releases/*/argo.yaml'
-            - path: 'apps-{{ $account.name }}/*/releases/*/argo.yaml'
-            - path: 'apps-{{ $environment.name }}/*/releases/*/argo.yaml'
-            - path: 'apps-{{ $cloud.name }}-{{ $account.name }}/*/releases/*/argo.yaml'
-            - path: 'apps-{{ $cloud.name }}-{{ $environment.name }}/*/releases/*/argo.yaml'
-            - path: 'apps-{{ $account.name }}-{{ $environment.name }}/*/releases/*/argo.yaml'
-            - path: 'apps-{{ $cloud.name }}-{{ $account.name }}-{{ $environment.name }}/*/releases/*/argo.yaml'
+            - path: 'applications/*/argo.yaml'
       - clusters: {}
+    selector:
+      matchExpressions:
+      - key: destination
+        operator: In
+        values:
+        - "{{ $cloud.name }}"
+        - "{{ $account.name }}"
+        - "{{ $environment.name }}"
+        - "{{ $cloud.name }}-{{ $account.name }}"
+        - "{{ $cloud.name }}-{{ $environment.name }}"
+        - "{{ $account.name }}-{{ $environment.name }}"
+        - "{{ $cloud.name }}-{{ $account.name }}-{{ $environment.name }}"
   template:
     metadata:
-      name: {{`'{{.name}}-{{.path.basename}}'`}}
+      name: {{`'{{.name}}-{{index .path.segments 1}}'`}}  # cluster-name + app-name
       labels:
         project: default
-        service: {{`'{{.path.basename}}'`}}
+        service: {{`'{{index .path.segments 1}}'`}}  # app name from path
         type: app
     spec:
-      # Base syncPolicy that's always present
       syncPolicy:
         managedNamespaceMetadata:
           labels:
@@ -46,9 +51,9 @@ spec:
       source:
         repoURL: {{ $.Values.repo }}
         targetRevision: main
-        path: {{`'{{index .path.segments 0}}/{{index .path.segments 1}}/'`}}
+        path: {{`'{{.path.dir}}'`}}  # apps/app-name directory
         helm:
-          releaseName: {{`'{{.path.basename}}'`}}
+          releaseName: {{`'{{index .path.segments 1}}'`}}  # app-name
           ignoreMissingValueFiles: true
           valueFiles:
           - /global.yaml
@@ -59,12 +64,11 @@ spec:
           - '/{{ $cloud.name }}-{{ $environment.name }}.yaml'
           - '/{{ $account.name }}-{{ $environment.name }}.yaml'
           - '/{{ $cloud.name }}-{{ $account.name }}-{{ $environment.name }}.yaml'
-          - {{`'/{{.path.path}}/values.yaml'`}}
-          - '/{{`{{.path.path}}`}}/releases/{{ $cloud.name }}-{{ $account.name }}-{{ $environment.name }}/values.yaml'
+          - {{`'values.yaml'`}}  # Default values in app directory
+          - {{`'values-{{.destination}}.yaml'`}}  # Destination-specific values
       destination:
         name: {{`'{{.name}}'`}}
-        namespace: {{`'{{.namespace}}'`}}
-  # Use templatePatch for conditional syncPolicy additions
+        namespace: {{`'{{.namespace | default (index .path.segments 1)}}'`}}  # Use namespace from argo.yaml or default to app name
   templatePatch: |
 {{`
     spec:
