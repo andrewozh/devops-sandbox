@@ -26,6 +26,7 @@ spec:
       - key: destination
         operator: In
         values:
+        - "all"
         - "{{ $cloud.name }}"
         - "{{ $account.name }}"
         - "{{ $environment.name }}"
