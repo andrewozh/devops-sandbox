@@ -10,7 +10,7 @@ spec:
     path: _applib_kcl
     targetRevision: HEAD
     plugin:
-      name: kcl
+      name: kcl-v1.0
       parameters:
       - name: config_files
         string: >
