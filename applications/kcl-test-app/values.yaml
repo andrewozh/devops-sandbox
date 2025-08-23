@@ -1,0 +1,31 @@
+kcl_app:
+  name: kcl-test-app
+  namespace: kcl-test-app
+  environment: development
+  replicaCount: 2
+
+  image:
+    repository: nginx
+    tag: "1.21-alpine"
+    pullPolicy: IfNotPresent
+
+  service:
+    type: ClusterIP
+    port: 80
+
+  resources:
+    limits:
+      cpu: 100m
+      memory: 128Mi
+    requests:
+      cpu: 100m
+      memory: 128Mi
+
+  nodeSelector: {}
+  tolerations: []
+  affinity: {}
+
+# Other Helm chart values can go here
+# other_chart:
+#   enabled: true
+#   config: value

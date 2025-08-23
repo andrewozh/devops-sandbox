@@ -1,0 +1,10 @@
+destination: all
+namespace: kcl-test-app
+autosync: true
+source:
+  plugin: kcl
+  parameters:
+    env: development
+    replicas: "2"
+    image_tag: "1.21-alpine"
+    namespace: "kcl-test-app"
