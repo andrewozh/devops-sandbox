@@ -15,74 +15,11 @@ spec:
   generators:
   - matrix:
       generators:
-      - merge:
-          mergeKeys:
-            - appName  # This identifies which configs belong to the same app
-          generators:
-          - git:
-              repoURL: {{ $.Values.repo }}
-              revision: main
-              files:
-                - path: 'applications/*/argo.yaml'
-              values:
-                appName: {{`'{{index .path.segments 1}}'`}}
-                configLevel: "base"
-          - git:
-              repoURL: {{ $.Values.repo }}
-              revision: main
-              files:
-                - path: 'applications/*/{{ $cloud.name }}/argo.yaml'
-              values:
-                appName: {{`'{{index .path.segments 1}}'`}}
-                configLevel: "cloud"
-          - git:
-              repoURL: {{ $.Values.repo }}
-              revision: main
-              files:
-                - path: 'applications/*/{{ $account.name }}/argo.yaml'
-              values:
-                appName: {{`'{{index .path.segments 1}}'`}}
-                configLevel: "account"
-          - git:
-              repoURL: {{ $.Values.repo }}
-              revision: main
-              files:
-                - path: 'applications/*/{{ $environment.name }}/argo.yaml'
-              values:
-                appName: {{`'{{index .path.segments 1}}'`}}
-                configLevel: "environment"
-          - git:
-              repoURL: {{ $.Values.repo }}
-              revision: main
-              files:
-                - path: 'applications/*/{{ $cloud.name }}-{{ $account.name }}/argo.yaml'
-              values:
-                appName: {{`'{{index .path.segments 1}}'`}}
-                configLevel: "cloud-account"
-          - git:
-              repoURL: {{ $.Values.repo }}
-              revision: main
-              files:
-                - path: 'applications/*/{{ $cloud.name }}-{{ $environment.name }}/argo.yaml'
-              values:
-                appName: {{`'{{index .path.segments 1}}'`}}
-                configLevel: "cloud-environment"
-          - git:
-              repoURL: {{ $.Values.repo }}
-              revision: main
-              files:
-                - path: 'applications/*/{{ $account.name }}-{{ $environment.name }}/argo.yaml'
-              values:
-                appName: {{`'{{index .path.segments 1}}'`}}
-                configLevel: "account-environment"
-          - git:
-              repoURL: {{ $.Values.repo }}
-              revision: main
-              files:
-                - path: 'applications/*/{{ $cloud.name }}-{{ $account.name }}-{{ $environment.name }}/argo.yaml'
-              values:
-                appName: {{`'{{index .path.segments 1}}'`}}
-                configLevel: "full"
+      - git:
+          repoURL: {{ $.Values.repo }}
+          revision: main
+          files:
+            - path: 'applications/*/argo.yaml'
       - clusters: {}
     selector:
       matchExpressions:
@@ -99,12 +36,11 @@ spec:
         - "{{ $cloud.name }}-{{ $account.name }}-{{ $environment.name }}"
   template:
     metadata:
-      name: {{`'{{.name}}-{{.appName}}'`}}
+      name: {{`'{{.name}}-{{index .path.segments 1}}'`}}  # cluster-name + app-name
       labels:
         project: default
-        service: {{`'{{.appName}}'`}}
+        service: {{`'{{index .path.segments 1}}'`}}  # app name from path
         type: app
-        config-level: {{`'{{.configLevel}}'`}}  # Shows which config level was applied last
     spec:
       syncPolicy:
         managedNamespaceMetadata:
@@ -112,13 +48,13 @@ spec:
             argocd.argoproj.io/managed-by: argocd
         syncOptions:
         - CreateNamespace=true
-      project: {{`'{{.project | default "default"}}'`}}
+      project: default
       source:
         repoURL: {{ $.Values.repo }}
-        targetRevision: {{`'{{.targetRevision | default "main"}}'`}}
-        path: {{`'applications/{{.appName}}'`}}  # App directory
+        targetRevision: main
+        path: {{`'{{index .path.segments 0}}/{{index .path.segments 1}}'`}}  # Results in "apps/my-app"
         helm:
-          releaseName: {{`'{{.appName}}'`}}
+          releaseName: {{`'{{index .path.segments 1}}'`}}  # app-name
           ignoreMissingValueFiles: true
           valueFiles:
           - /global.yaml
@@ -129,17 +65,11 @@ spec:
           - '/{{ $cloud.name }}-{{ $environment.name }}.yaml'
           - '/{{ $account.name }}-{{ $environment.name }}.yaml'
           - '/{{ $cloud.name }}-{{ $account.name }}-{{ $environment.name }}.yaml'
-          - values.yaml
-          - {{ $cloud.name }}/values.yaml
-          - {{ $account.name }}/values.yaml
-          - {{ $environment.name }}/values.yaml
-          - {{ $cloud.name }}-{{ $account.name }}/values.yaml
-          - {{ $cloud.name }}-{{ $environment.name }}/values.yaml
-          - {{ $account.name }}-{{ $environment.name }}/values.yaml
-          - {{ $cloud.name }}-{{ $account.name }}-{{ $environment.name }}/values.yaml
+          - {{`'values.yaml'`}}  # Default values in app directory
+          - {{`'values-{{.destination}}.yaml'`}}  # Destination-specific values
       destination:
         name: {{`'{{.name}}'`}}
-        namespace: {{`'{{.namespace | default .appName}}'`}}
+        namespace: {{`'{{.namespace | default (index .path.segments 1)}}'`}}  # Use namespace from argo.yaml or default to app name
   templatePatch: |
 {{`
     spec:
