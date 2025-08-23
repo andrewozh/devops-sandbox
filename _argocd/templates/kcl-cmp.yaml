@@ -15,17 +15,39 @@ data:
       name: kcl
     spec:
       version: v1.0
+      parameters:
+        static:
+          - name: "config_files"
+            title: "Configuration Files"
+            tooltip: "Comma-separated list of YAML configuration files to include"
+            required: false
+            itemType: "value"
       generate:
         command: ["sh", "-c"]
         args:
           - |
             export KCL_CACHE_PATH=/tmp
             export KCL_PKG_PATH=/tmp
+            export KCL_CMD="kcl run main.k"
+            if [ ! -z "$ARGOCD_ENV_config_files" ]; then
+              # Split comma-separated files and add each as -Y parameter
+              IFS=',' read -ra FILES <<< "$ARGOCD_ENV_config_files"
+              for file in "${FILES[@]}"; do
+                # Trim whitespace
+                file=$(echo "$file" | xargs)
+                if [ -f "$file" ]; then
+                  KCL_CMD="$KCL_CMD -Y $file"
+                fi
+              done
+            fi
             tempfile=$(mktemp)
-            kcl run -q -o $tempfile > /dev/null 2>&1
+            eval "$KCL_CMD -q -o $tempfile" > /dev/null 2>&1
             error=$?
             if [ $error -eq 0 ]; then
               cat $tempfile
+              rm $tempfile
+            else
+              echo "KCL command failed: $KCL_CMD" >&2
               rm $tempfile
             fi
             exit $error
