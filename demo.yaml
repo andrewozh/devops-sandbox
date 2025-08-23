@@ -12,3 +12,8 @@ clouds:
       - name: killercoda
         environments:
           - name: demo
+
+global:
+  cloud: local
+  account: killercoda
+  env: demo
