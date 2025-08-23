@@ -65,8 +65,14 @@ spec:
           - '/{{ $cloud.name }}-{{ $environment.name }}.yaml'
           - '/{{ $account.name }}-{{ $environment.name }}.yaml'
           - '/{{ $cloud.name }}-{{ $account.name }}-{{ $environment.name }}.yaml'
-          - {{`'values.yaml'`}}  # Default values in app directory
-          - {{`'values-{{.destination}}.yaml'`}}  # Destination-specific values
+          - values.yaml
+          - {{ $cloud.name }}.values.yaml
+          - {{ $account.name }}.values.yaml
+          - {{ $environment.name }}.values.yaml
+          - {{ $cloud.name }}-{{ $account.name }}.values.yaml
+          - {{ $cloud.name }}-{{ $environment.name }}.values.yaml
+          - {{ $account.name }}-{{ $environment.name }}.values.yaml
+          - {{ $cloud.name }}-{{ $account.name }}-{{ $environment.name }}.values.yaml
       destination:
         name: {{`'{{.name}}'`}}
         namespace: {{`'{{.namespace | default (index .path.segments 1)}}'`}}  # Use namespace from argo.yaml or default to app name
