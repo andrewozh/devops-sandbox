@@ -1,4 +1,7 @@
 namespace: monitoring
+
+destination: common
+
 autosync: true
 syncOptions:
   - ServerSideApply=true
