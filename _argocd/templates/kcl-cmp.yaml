@@ -23,31 +23,22 @@ data:
             required: false
             itemType: "value"
       generate:
-        command: ["sh", "-c"]
+        command: ["/bin/bash", "-c"]
         args:
           - |
+            set -e
             export KCL_CACHE_PATH=/tmp
             export KCL_PKG_PATH=/tmp
-            export KCL_CMD="kcl run main.k"
-            if [ ! -z "$ARGOCD_ENV_config_files" ]; then
-              # Split comma-separated files and add each as -Y parameter
+            KCL_CMD="kcl run main.k"
+            if [ -n "$ARGOCD_ENV_config_files" ]; then
               IFS=',' read -ra FILES <<< "$ARGOCD_ENV_config_files"
               for file in "${FILES[@]}"; do
-                # Trim whitespace
-                file=$(echo "$file" | xargs)
+                file=$(echo "$file" | sed 's/^[[:space:]]*//;s/[[:space:]]*$//')
                 if [ -f "$file" ]; then
                   KCL_CMD="$KCL_CMD -Y $file"
                 fi
               done
             fi
-            tempfile=$(mktemp)
-            eval "$KCL_CMD -q -o $tempfile" > /dev/null 2>&1
-            error=$?
-            if [ $error -eq 0 ]; then
-              cat $tempfile
-              rm $tempfile
-            else
-              echo "KCL command failed: $KCL_CMD" >&2
-              rm $tempfile
-            fi
-            exit $error
+            echo "Directory: $(pwd)" >&2
+            echo "Executing: $KCL_CMD" >&2
+            eval "$KCL_CMD"
