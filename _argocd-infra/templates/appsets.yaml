@@ -52,7 +52,7 @@ spec:
       source:
         repoURL: {{ $.Values.repo }}
         targetRevision: main
-        path: {{`'{{.path.dir}}'`}}  # apps/app-name directory
+        path: {{`'{{index .path.segments 0}}/{{index .path.segments 1}}'`}}  # Results in "apps/my-app"
         helm:
           releaseName: {{`'{{index .path.segments 1}}'`}}  # app-name
           ignoreMissingValueFiles: true
