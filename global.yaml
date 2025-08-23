@@ -8,3 +8,8 @@ clouds:
       - name: main
         environments:
           - name: common
+
+global:
+  cloud: local
+  account: main
+  env: common
