@@ -1,7 +1,5 @@
 apiVersion: v2
 name: elasticsearch
-description: Chart for elastic-operator
-type: application
 version: 0.1.0
 dependencies:
   - name: eck-stack
