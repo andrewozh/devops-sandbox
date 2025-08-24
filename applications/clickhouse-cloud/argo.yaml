@@ -1,2 +1,2 @@
-destination: all
+destination: null
 namespace: clickhouse
