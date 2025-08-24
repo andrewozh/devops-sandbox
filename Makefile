@@ -42,10 +42,11 @@ olm: kctx ## Deploy Operator Lifecycle Manager
 	operator-sdk olm status || (operator-sdk olm install ; kubectl label namespace olm pod-security.kubernetes.io/enforce=baseline --overwrite)
 
 argocd-olm: kctx olm ## Deploy argocd via OLM
-	kubectl apply -k _argocd-infra/olm-catalog-source/
-	kubectl apply -k _argocd-infra/olm-subscription/
+	kubectl apply -k _argocd-infra/olm/catalog-source/
+	kubectl apply -k _argocd-infra/olm/subscription/
 	while ! kubectl get crd argocds.argoproj.io 2>/dev/null ; do sleep 1 ; done
-	kubectl apply -k _argocd-infra/
+	kubectl apply -k _argocd-infra/olm
+	kubectl apply -f _argocd-infra/app.yaml
 
 argocd: kctx ## Deploy argocd as Helm Chart
 	kubectl create ns argocd || true
