@@ -1,0 +1,37 @@
+cluster:
+  network:
+    podSubnets:
+      - "10.245.0.0/16"
+    serviceSubnets:
+      - "10.97.0.0/12"
+    dnsDomain: "cluster2.local"
+  controlPlane:
+    endpoint: "https://127.0.0.1:6444"
+
+machine:
+  network:
+    interfaces:
+      - interface: eth0
+        dhcp: false
+        addresses:
+          - "172.20.0.20/16"
+        routes:
+          - network: "0.0.0.0/0"
+            gateway: "172.20.0.1"
+          - network: "10.244.0.0/16"  # Route to cluster1 pods
+            gateway: "172.20.0.10"
+        nameservers:
+          - "8.8.8.8"
+          - "8.8.4.4"
+  
+  install:
+    disk: "/dev/sda"
+    image: "ghcr.io/siderolabs/installer:latest"
+    bootloader: true
+    wipe: false
+    
+  kubelet:
+    clusterDNS:
+      - "10.97.0.10"
+    extraArgs:
+      feature-gates: "MixedProtocolLBService=true"
