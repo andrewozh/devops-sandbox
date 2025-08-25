@@ -27,12 +27,12 @@ spec:
         operator: In
         values:
         - "all"
-        - "{{ $cloud.name }}"
-        - "{{ $account.name }}"
         - "{{ $environment.name }}"
-        - "{{ $cloud.name }}-{{ $account.name }}"
-        - "{{ $cloud.name }}-{{ $environment.name }}"
+        - "{{ $account.name }}"
         - "{{ $account.name }}-{{ $environment.name }}"
+        - "{{ $cloud.name }}"
+        - "{{ $cloud.name }}-{{ $environment.name }}"
+        - "{{ $cloud.name }}-{{ $account.name }}"
         - "{{ $cloud.name }}-{{ $account.name }}-{{ $environment.name }}"
   template:
     metadata:
@@ -58,20 +58,20 @@ spec:
           ignoreMissingValueFiles: true
           valueFiles:
           - /global.yaml
-          - '/{{ $cloud.name }}.yaml'
-          - '/{{ $account.name }}.yaml'
           - '/{{ $environment.name }}.yaml'
-          - '/{{ $cloud.name }}-{{ $account.name }}.yaml'
-          - '/{{ $cloud.name }}-{{ $environment.name }}.yaml'
+          - '/{{ $account.name }}.yaml'
           - '/{{ $account.name }}-{{ $environment.name }}.yaml'
+          - '/{{ $cloud.name }}.yaml'
+          - '/{{ $cloud.name }}-{{ $environment.name }}.yaml'
+          - '/{{ $cloud.name }}-{{ $account.name }}.yaml'
           - '/{{ $cloud.name }}-{{ $account.name }}-{{ $environment.name }}.yaml'
           - values.yaml
-          - {{ $cloud.name }}.values.yaml
-          - {{ $account.name }}.values.yaml
           - {{ $environment.name }}.values.yaml
-          - {{ $cloud.name }}-{{ $account.name }}.values.yaml
-          - {{ $cloud.name }}-{{ $environment.name }}.values.yaml
+          - {{ $account.name }}.values.yaml
           - {{ $account.name }}-{{ $environment.name }}.values.yaml
+          - {{ $cloud.name }}.values.yaml
+          - {{ $cloud.name }}-{{ $environment.name }}.values.yaml
+          - {{ $cloud.name }}-{{ $account.name }}.values.yaml
           - {{ $cloud.name }}-{{ $account.name }}-{{ $environment.name }}.values.yaml
       destination:
         name: {{`'{{.name}}'`}}
