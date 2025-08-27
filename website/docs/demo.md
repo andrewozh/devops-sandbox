@@ -2,21 +2,23 @@
 sidebar_position: 80
 ---
 
-# Demo
+# devops-sandbox demo
 
-## KILLERCODA
+- [ ] this is description of what i want to see on the demo page
+  * the page itself i want to be wide
+  * i also want the page to be two columns
 
-https://killercoda.com/playgrounds/scenario/kubernetes
-- 2x2Gb
-- 1x4Gb
+- [ ] add tags for essential apps to be able to see em by localhost link
 
-- [+] find a demo environment (local macos, linux)
-- [ ] argocd watch local repository (to be able to commit new application)
-- [ ] lightweight `demo` branch of this project
-- [ ] single command to bootstrap demo cluster
+- [ ] add on page a web-browser like styled set of iframe pages with tabs
+  - http://localhost:8080
+  - https://argocd.home.lab
+  - https://grafana.home.lab
+  - https://kibana.home.lab
+  - https://vault.home.lab
+  (and i want them to check if page is accessible every 10 sec and turn green when it does)
 
-
-## SCENARIO
+# SCENARIO
 
 - user runs remote `bootstrap.sh`
 - fetch current repo
@@ -25,42 +27,3 @@ https://killercoda.com/playgrounds/scenario/kubernetes
 - script installs argocd
 - argocd sync all other apps
 - user easily deploy new app
-
----
-
-## Local Kind
-
-1. Setup local DNS and add CA
-
-2. Start local Kubernetes cluster
-  - apply required secrets
-
-2. Deploy ArgoCD
-  - apply first application
-
-3. Autosync Essential Apps
-  - cert-manager
-  - ingress-nginx
-  - prometheus-stack
-
-4. Required apps
-  - vault
-  - external-secrets
-  - elk
-
-5. Optional apps
-  - postgres
-  - kafka
-  - mongo
-  - redis
-  - clickhouse
-
-### demo apps: producer/consumer
-
-- have web-ui
-- shows secrets
-- db connection status
-- shows data from databases
-- add message in producer-app
-- appear message in consumer app
-- have metrics
