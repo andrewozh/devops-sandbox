@@ -109,6 +109,10 @@
   animation: none;
 }
 
+.accentWord {
+  font-weight: 700;
+}
+
 .engineerText {
   color: var(--ifm-color-emphasis-600);
 }
