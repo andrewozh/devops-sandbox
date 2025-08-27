@@ -25,12 +25,21 @@
 * monitoring
 * maintenance: backup/restore, upgrade, scaling
 
-## crossplane
+## Tools
 
-## keda
+* crossplane
+* keda
+* reloader
 
-## reloader
+* `eraser-dev/eraser`   A daemonset responsible for cleaning up outdated images stored in the cluster nodes.
 
-## sandbox
+
+* `emberstack/kubernetes-reflector` Replicate a Secret or configMap between namespaces automatically.
+
+* `kubernetes-sigs/descheduler`   Monitors if workloads are evenly distributed through nodes and cleans failed pods that remained as orphans/stuck.
+
+* sandbox pod
 
 kubectl run dev-sandbox --image=ubuntu --restart=Always --command -- sleep infinity
+
+#

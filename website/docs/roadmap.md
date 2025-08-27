@@ -31,7 +31,12 @@ import ProgressBar from '@site/src/components/ProgressBar';
 - [x] localhosted cluster kind
 - [x] kubernetes monitoring: node, dp, ds, sts, pv- (kind do not support)
 - [x] pritunl vpn setup doc
-- [ ] :arrows_counterclockwise: **basic demo**
+- [ ] website beta version:
+  - landing page (technologies, skills, links)
+  - updated CV + ability to download + links
+  - DevOps Sandbox description docs
+  - [ ] :arrows_counterclockwise: **basic demo:** bootstrap local on kind
+  - [ ] **basic demo:** bootstrap on killercoda
 
 **Platform & App-library requirements:**
 
