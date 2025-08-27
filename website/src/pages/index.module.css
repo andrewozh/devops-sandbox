@@ -6,7 +6,7 @@
 .heroBanner {
   position: relative;
   overflow: hidden;
-  background: linear-gradient(135deg, #667eea 0%, #764ba2 50%, #8b5cf6 100%);
+  background: linear-gradient(135deg, rgba(102, 126, 234, 0.1) 0%, rgba(118, 75, 162, 0.1) 50%, rgba(139, 92, 246, 0.1) 100%);
   min-height: 100vh;
   display: flex;
   align-items: center;
@@ -21,9 +21,9 @@
   right: 0;
   bottom: 0;
   background: 
-    radial-gradient(circle at 25% 25%, rgba(139, 92, 246, 0.4) 0%, transparent 50%),
-    radial-gradient(circle at 75% 75%, rgba(168, 85, 247, 0.4) 0%, transparent 50%),
-    radial-gradient(circle at 50% 50%, rgba(217, 70, 239, 0.3) 0%, transparent 70%);
+    radial-gradient(circle at 25% 25%, rgba(139, 92, 246, 0.05) 0%, transparent 50%),
+    radial-gradient(circle at 75% 75%, rgba(168, 85, 247, 0.05) 0%, transparent 50%),
+    radial-gradient(circle at 50% 50%, rgba(217, 70, 239, 0.03) 0%, transparent 70%);
   animation: gradientShift 8s ease-in-out infinite;
 }
 
@@ -64,8 +64,7 @@
 
 .descriptionText {
   font-size: 1.4rem;
-  color: rgba(255, 255, 255, 0.9);
-  text-shadow: 0 2px 4px rgba(0, 0, 0, 0.3);
+  color: var(--ifm-font-color-secondary);
   line-height: 1.6;
   margin: 0;
   font-weight: 400;
@@ -74,14 +73,9 @@
 .heroTitle {
   font-size: 4.5rem;
   font-weight: 800;
-  color: #ffffff;
-  text-shadow: 0 4px 8px rgba(0, 0, 0, 0.3);
+  color: var(--ifm-font-color-secondary);
   margin: 0 0 1rem 0;
   line-height: 1.1;
-  background: linear-gradient(45deg, #ffffff, #f1f5f9, #e2e8f0);
-  -webkit-background-clip: text;
-  -webkit-text-fill-color: transparent;
-  background-clip: text;
 }
 
 .roleContainer {
@@ -90,8 +84,7 @@
   gap: 1rem;
   font-size: 4.5rem;
   font-weight: 800;
-  color: #ffffff;
-  text-shadow: 0 4px 8px rgba(0, 0, 0, 0.3);
+  color: var(--ifm-color-emphasis-600);
   line-height: 1.1;
 }
 
@@ -106,7 +99,7 @@
   position: absolute;
   top: 0;
   left: 0;
-  background: linear-gradient(45deg, #a78bfa, #c4b5fd, #ddd6fe);
+  background: linear-gradient(45deg, var(--ifm-color-primary), var(--ifm-color-primary-light), var(--ifm-color-primary-lighter));
   -webkit-background-clip: text;
   -webkit-text-fill-color: transparent;
   background-clip: text;
@@ -133,10 +126,7 @@
 }
 
 .engineerText {
-  background: linear-gradient(45deg, #ffffff, #f1f5f9, #e2e8f0);
-  -webkit-background-clip: text;
-  -webkit-text-fill-color: transparent;
-  background-clip: text;
+  color: var(--ifm-color-emphasis-600);
 }
 
 .heroButtons {
@@ -175,18 +165,18 @@
 }
 
 .emailButton {
-  background: rgba(255, 255, 255, 0.15) !important;
-  border: 2px solid rgba(255, 255, 255, 0.4) !important;
-  color: #ffffff !important;
+  background: rgba(var(--ifm-color-emphasis-300-rgb), 0.15) !important;
+  border: 2px solid rgba(var(--ifm-color-emphasis-400-rgb), 0.4) !important;
+  color: var(--ifm-font-color-base) !important;
   backdrop-filter: blur(10px) !important;
 }
 
 .emailButton:hover {
-  background: rgba(255, 255, 255, 0.25) !important;
-  border-color: rgba(255, 255, 255, 0.6) !important;
-  color: #ffffff !important;
+  background: rgba(var(--ifm-color-emphasis-400-rgb), 0.25) !important;
+  border-color: rgba(var(--ifm-color-emphasis-500-rgb), 0.6) !important;
+  color: var(--ifm-font-color-base) !important;
   transform: translateY(-3px) !important;
-  box-shadow: 0 10px 30px rgba(255, 255, 255, 0.2) !important;
+  box-shadow: 0 10px 30px rgba(var(--ifm-color-emphasis-300-rgb), 0.2) !important;
 }
 
 .cvButton::before,
