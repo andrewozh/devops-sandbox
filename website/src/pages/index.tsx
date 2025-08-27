@@ -11,15 +11,53 @@ import styles from './index.module.css';
 
 function HomepageHeader() {
   const [currentRole, setCurrentRole] = useState(0);
+  const [displayText, setDisplayText] = useState('DevOps');
+  const [isDecoding, setIsDecoding] = useState(false);
   const roles = ['DevOps', 'Cloud', 'Platform'];
 
-  useEffect(() => {
+  const characters = 'ABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789!@#$%^&*';
+  
+  const decodeText = (targetText: string, callback?: () => void) => {
+    setIsDecoding(true);
+    const targetLength = targetText.length;
+    let iterations = 0;
+    const maxIterations = targetLength * 3; // Reduced iterations for faster decoding
+    
     const interval = setInterval(() => {
-      setCurrentRole((prev) => (prev + 1) % roles.length);
-    }, 2000); // Change every 2 seconds
+      let decoded = '';
+      
+      for (let i = 0; i < targetLength; i++) {
+        if (iterations >= i * 3) {
+          // Character is fully decoded
+          decoded += targetText[i];
+        } else {
+          // Character is still decoding
+          decoded += characters[Math.floor(Math.random() * characters.length)];
+        }
+      }
+      
+      setDisplayText(decoded);
+      iterations++;
+      
+      if (iterations >= maxIterations) {
+        clearInterval(interval);
+        setDisplayText(targetText);
+        setIsDecoding(false);
+        callback && callback();
+      }
+    }, 40); // Faster decoding speed - 25ms intervals
+  };
 
-    return () => clearInterval(interval);
-  }, [roles.length]);
+  useEffect(() => {
+    const roleInterval = setInterval(() => {
+      const nextRole = (currentRole + 1) % roles.length;
+      decodeText(roles[nextRole], () => {
+        setCurrentRole(nextRole);
+      });
+    }, 3000); // Change every 3 seconds (longer to accommodate decoding)
+
+    return () => clearInterval(roleInterval);
+  }, [currentRole, roles]);
 
   return (
     <header className={clsx('hero hero--primary', styles.heroBanner)}>
@@ -30,7 +68,9 @@ function HomepageHeader() {
           </h1>
           <div className={styles.roleContainer}>
             <div className={styles.roleCarousel}>
-              <span className={styles.roleText}>{roles[currentRole]}</span>
+              <span className={`${styles.roleText} ${isDecoding ? 'decoding' : ''}`}>
+                {displayText}
+              </span>
             </div>
             <span className={styles.engineerText}>Engineer</span>
           </div>
