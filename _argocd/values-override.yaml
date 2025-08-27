@@ -2,3 +2,7 @@ argo-cd:
   configs:
     params:
       server.insecure: true
+      server.disable.auth: true
+      server.x.frame.options: "ALLOWALL"
+      server.content.security.policy: "frame-ancestors *;"
+      server.grpc.web: false
