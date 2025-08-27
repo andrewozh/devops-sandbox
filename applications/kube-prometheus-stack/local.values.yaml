@@ -38,6 +38,12 @@ kube-prometheus-stack:
     defaultDashboardsEnabled: false
     serviceMonitor:
       enabled: true
+    grafana.ini:
+      security:
+        allow_embedding: true
+      auth.anonymous:
+        enabled: true
+        org_role: Admin
 
   alertmanager:
     enabled: true
