@@ -1,15 +1,21 @@
 ---
+sidebar_label: Intro
 sidebar_position: 1
 ---
 
-# Intro
+# DevOps Sandbox
 
-## Key features
+All in one project with useful **devops practices** and tools, **demo** of my skills, **sandbox** for learning new tools, infra **foundation** for companies of any size.
 
-## What Developer gets
+![devops-sandbox](.img/devops-sandbox.excalidraw.png)
 
-* simple way to configure applications
-* IDP
-* mcp
+* **terraform:** provision clouds, vpn, common kubernetes clusters
+* **argocd**: provision applications gitops way
+* **apps deploy:** monorepo
 
-## What DevOps Engineer gets
+## Further reading
+
+- **[Infrastructure](infra/infra.md)** -- detailed documentation of the whole infra-platform
+- **[Roadmap](roadmap.md)** -- what's done, what's next, what's planned
+- **[Learning](learning/learning.md)** -- how to learn new tools and technologies
+- **[Demo](/demo)** -- run devops-sandbox yourself

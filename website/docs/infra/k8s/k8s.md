@@ -1,4 +1,4 @@
-# Kubernetes cluster
+# Kubernetes
 
 * [Local Kind single-cluster setup](./cluster-local-kind.md)
 * [Local Talos multi-cluster setup](./cluster-local-talos.md)
