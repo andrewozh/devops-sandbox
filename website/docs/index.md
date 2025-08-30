@@ -17,5 +17,4 @@ All in one project with useful **devops practices** and tools, **demo** of my sk
 
 - **[Infrastructure](infra/infra.md)** -- detailed documentation of the whole infra-platform
 - **[Roadmap](roadmap.md)** -- what's done, what's next, what's planned
-- **[Learning](learning/learning.md)** -- how to learn new tools and technologies
 - **[Demo](/demo)** -- run devops-sandbox yourself
