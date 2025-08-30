@@ -1,12 +1,30 @@
 # Infrastructure
 
+![devops-sandbox-infra](.img/devops-sandbox-infra.excalidraw.png)
+
 ## Cloud infra
 
-- terragrunt
-- vpn
+* Terragrunt/Crossplane provisoned
+* Cloud Networking (VPC)
+* Access management (IAM)
+* VPN
 
 ## Kubernetes cluster
 
-## Platform
+* Terragrunt/Crossplane provisoned
+* Addons, Drivers, CNI, Autoscaler
+* Maintenence
 
+## GitOps Platform
 
+* Everything managed by ArgoCD
+* Git as source of truth
+* Deploy new app in single commit
+* Single configuration file for every app needs
+* DRY configuration system
+
+## CI/CD
+
+* Continuous Delivery / Continuous Deployment
+* Universal Pipelines run on any platform (local, jenkins, github actions, gitlab ci.. etc)
+* Independent from any cicd tools

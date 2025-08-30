@@ -30,6 +30,10 @@
   /* --ifm-hero-background-color: transparent; */
 }
 
+.hidden {
+  display: none !important;
+}
+
 /* Dark mode purple theme */
 [data-theme='dark'] {
   --ifm-color-primary: #a78bfa;

@@ -10,7 +10,7 @@ sidebar_position: 99
 - [x] dedicated `roadmap` page
 - [x] fill docs with existing readmes
 - [x] migrate docs to Docusaurus
-- [ ] Github Pages https://www.youtube.com/watch?v=9iVNf0T09dE
+- [x] Github Pages https://www.youtube.com/watch?v=9iVNf0T09dE
 - [x] smart progressbars for roadmap
 - [x] CV
 
