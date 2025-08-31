@@ -1,3 +1,11 @@
+---
+tags:
+- distro
+- strimzi
+- kafka
+- database
+---
+
 # Strimzi Kafka Operator
 
 |**Distro**|[Strimzi Kafka Operator](https://github.com/strimzi/strimzi-kafka-operator)|

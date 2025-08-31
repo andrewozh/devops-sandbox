@@ -1,3 +1,10 @@
+---
+tags:
+- tool
+- kafka
+- database
+---
+
 # Apache Kafka
 
 ||Self-hosted|SaaS|
