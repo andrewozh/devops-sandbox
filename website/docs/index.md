@@ -32,7 +32,7 @@ All in one project with useful **devops practices** and tools as **demo** of my 
         └── <#distro>
 ```
 
-Each documentation page have appropriate tag, even this one!
+Each documentation page have appropriate tag!
 
 📖 **[Full documentation structure and guidelines →](docs.md)**
 
