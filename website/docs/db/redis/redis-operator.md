@@ -1,3 +1,11 @@
+---
+tags:
+- distro
+- redis-operator
+- redis
+- database
+---
+
 # Redis Operator by OpsTree
 
 |**Distro**|[Redis Operator by OpsTree](https://github.com/ot-container-kit/redis-operator)|

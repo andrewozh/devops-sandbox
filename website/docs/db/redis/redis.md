@@ -1,3 +1,10 @@
+---
+tags:
+- tool
+- redis
+- database
+---
+
 # Redis
 
 ||Self-hosted|SaaS|

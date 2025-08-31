@@ -1,3 +1,10 @@
+---
+tags:
+- article
+- redis
+- database
+---
+
 # Redis ACL Rules
 
 :::note Official documentation
