@@ -1,0 +1,188 @@
+/**
+ * CV page styles with matching main page background
+ */
+
+.cvPage {
+  position: relative;
+  overflow: hidden;
+  background: linear-gradient(135deg, rgba(102, 126, 234, 0.1) 0%, rgba(118, 75, 162, 0.1) 50%, rgba(139, 92, 246, 0.1) 100%);
+  min-height: 100vh;
+  padding: 2rem 0;
+}
+
+.cvPage::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background: 
+    radial-gradient(circle at 25% 25%, rgba(139, 92, 246, 0.05) 0%, transparent 50%),
+    radial-gradient(circle at 75% 75%, rgba(168, 85, 247, 0.05) 0%, transparent 50%),
+    radial-gradient(circle at 50% 50%, rgba(217, 70, 239, 0.03) 0%, transparent 70%);
+  animation: gradientShift 8s ease-in-out infinite;
+  z-index: 1;
+}
+
+@keyframes gradientShift {
+  0% {
+    opacity: 1;
+  }
+  50% {
+    opacity: 0.8;
+  }
+  100% {
+    opacity: 1;
+  }
+}
+
+.cvContainer {
+  position: relative;
+  z-index: 2;
+  max-width: 800px;
+  margin: 0 auto;
+  padding: 0 2rem;
+}
+
+.cvHeader {
+  text-align: center;
+  margin-bottom: 3rem;
+}
+
+.actionButtons {
+  display: flex;
+  justify-content: center;
+  gap: 1.5rem;
+  margin-bottom: 3rem;
+  flex-wrap: wrap;
+}
+
+.downloadButton,
+.linkedinButton {
+  padding: 0.5rem 1rem !important;
+  font-size: 0.9rem !important;
+  font-weight: 500 !important;
+  border-radius: 8px !important;
+  transition: all 0.2s ease !important;
+  text-align: center;
+  text-decoration: none;
+  display: inline-flex;
+  align-items: center;
+  gap: 0.5rem;
+  border: 1px solid rgba(0, 0, 0, 0.2) !important;
+  background: #ffffff !important;
+  color: #333333 !important;
+}
+
+.downloadButton:hover,
+.linkedinButton:hover {
+  background: #f5f5f5 !important;
+  border-color: rgba(0, 0, 0, 0.3) !important;
+  color: #333333 !important;
+  text-decoration: none;
+  transform: translateY(-1px) !important;
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1) !important;
+}
+
+.linkedinIcon {
+  width: 16px;
+  height: 16px;
+  fill: currentColor;
+}
+
+
+.cvContent {
+  background: #ffffff;
+  padding: 3rem;
+  box-shadow: 
+    0 20px 60px rgba(139, 92, 246, 0.1),
+    0 8px 32px rgba(0, 0, 0, 0.05);
+  border: 1px solid rgba(0, 0, 0, 0.1);
+  line-height: 1.6;
+  color: #000000;
+}
+
+.cvTitle {
+  text-align: center;
+  margin-bottom: 1rem;
+  color: #8b5cf6;
+  font-size: 3rem;
+  font-weight: 800;
+}
+
+.cvSubtitle {
+  text-align: center;
+  margin-bottom: 1rem;
+  font-size: 1.4rem;
+  color: #7c3aed;
+  font-weight: 600;
+}
+
+.cvLocation {
+  text-align: center;
+  margin-bottom: 3rem;
+  font-size: 1rem;
+  color: #4a5568;
+}
+
+.cvSection {
+  margin-bottom: 2rem;
+}
+
+.cvSection h2 {
+  color: #000000;
+  font-weight: 700;
+  margin-bottom: 1rem;
+}
+
+.experienceItem {
+  margin-bottom: 1.5rem;
+}
+
+.jobTitle {
+  margin-bottom: 0.5rem;
+  color: #000000;
+  font-size: 1.1rem;
+  font-weight: 600;
+}
+
+.companyInfo {
+  font-style: italic;
+  margin-bottom: 0.5rem;
+  font-weight: 500;
+  color: #4a5568;
+}
+
+/* Responsive design */
+@media screen and (max-width: 768px) {
+  .cvContainer {
+    padding: 0 1rem;
+  }
+  
+  .cvContent {
+    padding: 2rem;
+    border-radius: 15px;
+  }
+  
+  .cvTitle {
+    font-size: 2.2rem;
+  }
+  
+  .cvSubtitle {
+    font-size: 1.2rem;
+  }
+  
+  .actionButtons {
+    flex-direction: column;
+    align-items: center;
+    gap: 1rem;
+  }
+  
+  .downloadButton,
+  .linkedinButton {
+    font-size: 1.1rem !important;
+    padding: 0.8rem 2rem !important;
+    min-width: 180px;
+  }
+}
