@@ -5,15 +5,17 @@
 ## Cloud infra
 
 * Terragrunt/Crossplane provisoned
+* Corporate VPN
 * Cloud Networking (VPC)
 * Access management (IAM)
-* VPN
+* Private container registry (ECR)
 
 ## Kubernetes cluster
 
 * Terragrunt/Crossplane provisoned
-* Addons, Drivers, CNI, Autoscaler
-* Maintenence
+* Addons, SCI Drivers, CNI, Autoscaler
+* Load balancer for ingress
+* IRSA
 
 ## GitOps Platform
 
