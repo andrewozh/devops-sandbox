@@ -14,15 +14,6 @@
 - kubernetes bootstrap: local / managed, addons
 - how to cluster upgrade
 
-## Deployment method priorities
-
-1   SaaS
-2   k8s operator (olm, self-managed)
-3   helm-chart
-3.1 official
-3.2 community
-4.  self-managed
-
 ## management
 
 * setup and configuration: no clickops (ability to redeploy from scratch),
@@ -30,21 +21,17 @@
 * monitoring
 * maintenance: backup/restore, upgrade, scaling
 
+## IRSA
+
+## Cluster autoscaling
+
+* AWS Karpenter
+
 ## Tools
 
-* crossplane
-* keda
-* reloader
-
+* `crossplane`
+* `keda`
+* `reloader`
 * `eraser-dev/eraser`   A daemonset responsible for cleaning up outdated images stored in the cluster nodes.
-
-
 * `emberstack/kubernetes-reflector` Replicate a Secret or configMap between namespaces automatically.
-
 * `kubernetes-sigs/descheduler`   Monitors if workloads are evenly distributed through nodes and cleans failed pods that remained as orphans/stuck.
-
-* sandbox pod
-
-kubectl run dev-sandbox --image=ubuntu --restart=Always --command -- sleep infinity
-
-#
