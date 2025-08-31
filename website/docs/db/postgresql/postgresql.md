@@ -1,3 +1,10 @@
+---
+tags:
+- tool
+- postgres
+- database
+---
+
 # PostgreSQL
 
 | |Self-hosted|SaaS|

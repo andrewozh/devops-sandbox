@@ -1,3 +1,11 @@
+---
+tags:
+- distro
+- cloudnative-pg
+- postgres
+- database
+---
+
 # CloudNativePG
 
 |**Tool**|[CloudNativePG](https://cloudnative-pg.io)|
