@@ -1,3 +1,10 @@
+---
+tags:
+- category
+- secrets
+- security
+---
+
 # Secrets Management
 
 ||Secret Manager|Secret Storage|

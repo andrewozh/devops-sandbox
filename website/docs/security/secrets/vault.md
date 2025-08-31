@@ -1,3 +1,12 @@
+---
+tags:
+- distro
+- tool
+- vault
+- secrets
+- security
+---
+
 # Vault
 
 |**Distro**|[Hashicorp Vault](https://developer.hashicorp.com/vault)|

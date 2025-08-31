@@ -1,3 +1,12 @@
+---
+tags:
+- distro
+- tool
+- external-secrets
+- secrets
+- security
+---
+
 # external-secrets
 
 |**Distro**|[external-secrets](https://external-secrets.io)|
