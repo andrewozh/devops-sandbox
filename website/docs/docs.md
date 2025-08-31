@@ -9,10 +9,10 @@ sidebar_position: 99
 
 The key components of documentation structure:
 
-* `category` -- global large-scale direction topics,  etc (can be nested)
-* `tool` -- technologies in categories
-* `distro` -- 
-* `article`
+* `category`   -- global large-scale direction topics,  etc (can be nested)
+* `tool`       -- core technologies within categories
+* `distro`     -- specific distributions, operators, or managed implementations of tools
+* `article`    -- implementation guides, architecture explanations, configuration tutorials, and best practices
 
 Each documentation page must have appropriate tag.
 
@@ -27,9 +27,10 @@ Observability (#category)/
 
 ## Structure
 
-Documentation sidebar structure:
+### Documentation sidebar structure
 
-* Articles not listed in sidebar
+:::warning Articles should not be listed in sidebar
+:::
 
 ```
 <#category>/
@@ -38,22 +39,37 @@ Documentation sidebar structure:
         └── <#distro>
 ```
 
-Documentation file in repository structure:
+### Documentation files in repository
 
-
+```
+docs/
+└── db/
+    ├── db.md (#category)
+    ├── _category_.json (#category)
+    └── clickhouse/
+        ├── clickhouse.md (#tool)
+        ├── articles/
+        │   └── differrence-between-cloud-and-self-hosted.md (#article)
+        ├── clickhouse-cloud.md (#distro)
+        └── altinity/
+            ├── altinity.md (#distro)
+            └── articles/
+                ├── altinity-setup-low-resource.md (#article)
+                └── altinity-automatic-backup.md (#article)
+```
 
 ---
 
 ## Maintenance
 
-### Local development
+#### Local development
 
 ```bash
 cd website
 yarn start
 ```
 
-### Deploy to GitHub Pages
+#### Deploy to GitHub Pages
 
 ```bash
 yarn build
