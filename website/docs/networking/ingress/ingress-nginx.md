@@ -1,3 +1,11 @@
+---
+tags:
+- distro
+- ingress-nginx
+- ingress
+- controller
+---
+
 # NGINX Ingress Controller
 
 |**Distro**|[Ingress NGINX Controller](https://github.com/kubernetes/ingress-nginx)|
