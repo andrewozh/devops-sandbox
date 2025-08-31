@@ -1,3 +1,10 @@
+---
+tags:
+- article
+- clickhouse
+- database
+---
+
 # Self-hosted Altinity Clickhouse and Clickhouse Cloud compatibility
 
 ## Cloud

@@ -1,3 +1,11 @@
+---
+tags:
+- article
+- altinity
+- clickhouse
+- database
+---
+
 # Altinity ClickHouse low resource setup
 
 ## ClickHouseKeeperInstallation

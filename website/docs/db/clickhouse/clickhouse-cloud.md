@@ -1,3 +1,11 @@
+---
+tags:
+- distro
+- clickhouse-cloud
+- clickhouse
+- database
+---
+
 # Clickhouse Cloud
 
 |**Tool**|[ClickHouse Cloud](https://clickhouse.com/cloud)|

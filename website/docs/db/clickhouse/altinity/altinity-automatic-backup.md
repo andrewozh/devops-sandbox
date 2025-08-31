@@ -1,3 +1,11 @@
+---
+tags:
+- article
+- altinity
+- clickhouse
+- database
+---
+
 # Automatic Clickhouse cluster backups and Restore guide
 
 :::note Official Example

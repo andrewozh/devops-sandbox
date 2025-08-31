@@ -1,3 +1,10 @@
+---
+tags:
+- tool
+- clickhouse
+- database
+---
+
 # Clickhouse
 
 ||Self-hosted|SaaS|
@@ -26,4 +33,4 @@
 
 ## Articles
 
-* [Self-hosted Altinity Clickhouse and Clickhouse Cloud compatibility](differrence-between-cloud-and-self-hosted.md)
+* [Self-hosted Altinity Clickhouse and Clickhouse Cloud compatibility](./articles/differrence-between-cloud-and-self-hosted.md)

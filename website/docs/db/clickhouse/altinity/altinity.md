@@ -1,3 +1,11 @@
+---
+tags:
+- distro
+- altinity
+- clickhouse
+- database
+---
+
 # Altinity Clickhouse Operator
 
 |**Distro**|[Altinity Clickhouse Operator](https://altinity.com/kubernetes-operator/)|
