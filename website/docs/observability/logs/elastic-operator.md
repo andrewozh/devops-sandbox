@@ -1,3 +1,12 @@
+---
+tags:
+- distro
+- eck
+- elasticsearch
+- logs
+- observability
+---
+
 # Elastic Cloud on Kubernetes
 
 |**Distro**|[ECK Operator](https://github.com/elastic/cloud-on-k8s)|

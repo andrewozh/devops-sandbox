@@ -1,3 +1,11 @@
+---
+tags:
+- tool
+- kibana
+- logs
+- observability
+---
+
 # Kibana
 
 |**Distro**|Kibana|

@@ -1,3 +1,12 @@
+---
+tags:
+- article
+- eck
+- elasticsearch
+- logs
+- observability
+---
+
 # Manage ECK ElasticSearch users as Kubernetes resources
 
 ```yaml

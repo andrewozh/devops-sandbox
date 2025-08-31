@@ -1,3 +1,11 @@
+---
+tags:
+- tool
+- elasticsearch
+- logs
+- observability
+---
+
 # ElasticSearch
 
 ||Self-hosted|SaaS|

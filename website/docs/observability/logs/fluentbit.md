@@ -1,3 +1,12 @@
+---
+tags:
+- distro
+- tool
+- fluent-bit
+- logs
+- observability
+---
+
 # Fluent-bit
 
 |**Distro**|[Fluent-bit](https://fluentbit.io)|
