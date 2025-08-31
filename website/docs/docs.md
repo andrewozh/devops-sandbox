@@ -1,4 +1,5 @@
 ---
+sidebar_label: 🗂️ Docs
 sidebar_position: 99
 ---
 
