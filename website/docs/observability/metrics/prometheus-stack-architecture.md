@@ -1,3 +1,11 @@
+---
+tags:
+- article
+- prometheus
+- metrics
+- observability
+---
+
 # Prometheus Stack Architecture
 
 [Source: Learn Prometheus Architecture: A Complete Guide](https://devopscube.com/prometheus-architecture/)

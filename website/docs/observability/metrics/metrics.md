@@ -1,3 +1,10 @@
+---
+tags:
+- category
+- metrics
+- observability
+---
+
 # Monitoring stack
 
 ||Self-hosted|SaaS|

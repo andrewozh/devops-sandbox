@@ -1,3 +1,12 @@
+---
+tags:
+- tool
+- distro
+- alertmanager
+- metrics
+- observability
+---
+
 # Alert Manager
 
 |**Distro**|[Alertmanager](https://github.com/prometheus/alertmanager)|

@@ -1,3 +1,12 @@
+---
+tags:
+- tool
+- distro
+- grafana
+- metrics
+- observability
+---
+
 # Grafana
 
 |**Distro**|[Grafana](https://grafana.com)|

@@ -1,3 +1,12 @@
+---
+tags:
+- tool
+- distro
+- prometheus
+- metrics
+- observability
+---
+
 # Prometheus
 
 |**Distro**|[Prometheus](https://prometheus.io)|

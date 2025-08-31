@@ -1,3 +1,11 @@
+---
+tags:
+- article
+- grafana
+- metrics
+- observability
+---
+
 # Grafana Dashboard patcher
 
 ## TODO
