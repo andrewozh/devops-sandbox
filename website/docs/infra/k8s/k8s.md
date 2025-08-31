@@ -1,3 +1,10 @@
+---
+tags:
+- category
+- kubernetes
+- infrastructure
+---
+
 # Kubernetes
 
 * [Local Kind single-cluster setup](./cluster-local-kind.md)

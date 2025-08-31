@@ -1,3 +1,10 @@
+---
+tags:
+- category
+- platform
+- infrastructure
+---
+
 # GitOps Platform
 
 This repository implements a sophisticated GitOps architecture using ArgoCD with multi-dimensional configuration management across clouds, accounts, and environments.

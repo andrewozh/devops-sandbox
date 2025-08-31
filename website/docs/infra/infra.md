@@ -1,3 +1,9 @@
+---
+tags:
+- category
+- infrastructure
+---
+
 # Infrastructure
 
 ![devops-sandbox-infra](.img/devops-sandbox-infra.excalidraw.png)

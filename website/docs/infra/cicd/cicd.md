@@ -1,3 +1,10 @@
+---
+tags:
+- category
+- cicd
+- infrastructure
+---
+
 # CI/CD
 
 - [ ] dagger library

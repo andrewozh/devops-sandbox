@@ -1,3 +1,10 @@
+---
+tags:
+- category
+- cloud
+- infrastructure
+---
+
 # Cloud infra
 
 ## Tools

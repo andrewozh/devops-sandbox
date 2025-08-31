@@ -1,3 +1,10 @@
+---
+tags:
+- article
+- kubernetes
+- infrastructure
+---
+
 # Local Kind single-cluster setup
 
 ## Cluster

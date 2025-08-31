@@ -1,3 +1,10 @@
+---
+tags:
+- article
+- platform
+- infrastructure
+---
+
 # App-library Helm chart
 
 ## How to upgrade helm chart

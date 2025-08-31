@@ -1,3 +1,11 @@
+---
+tags:
+- distro
+- pritunl
+- cloud
+- infrastructure
+---
+
 # VPN: Pritunl
 
 By default, our network hosts are not accessible from the outside, VPN will allow you to access them via their private IP addresses.

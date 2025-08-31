@@ -1,3 +1,10 @@
+---
+tags:
+- article
+- kubernetes
+- infrastructure
+---
+
 # Local Talos multi-cluster setup
 
 - try on localstack
