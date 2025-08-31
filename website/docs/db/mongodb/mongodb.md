@@ -1,3 +1,10 @@
+---
+tags:
+- tool
+- mongodb
+- database
+---
+
 # MongoDB
 
 | |Self-hosted|SaaS|

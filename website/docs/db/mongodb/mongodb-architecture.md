@@ -1,3 +1,10 @@
+---
+tags:
+- article
+- mongodb
+- database
+---
+
 # MongoDB Architecture
 
 MongoDB is a leading NoSQL, document-oriented database known for flexibility, high performance, and scalability. Unlike traditional RDBMS, it stores data as BSON (Binary JSON) documents.

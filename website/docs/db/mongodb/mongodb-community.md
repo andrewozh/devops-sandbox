@@ -1,3 +1,11 @@
+---
+tags:
+- distro
+- mongodb-community
+- mongodb
+- database
+---
+
 # MongoDB Community
 
 |**Distro**|[Mongodb Controllers for Kubernetes](https://github.com/mongodb/mongodb-kubernetes)|
