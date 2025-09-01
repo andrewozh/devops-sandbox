@@ -15,7 +15,7 @@ tags:
 
 ## Architecture
 
-* [MongoDB Architecture](mongodb-architecture.md)
+* [MongoDB Architecture](./articles/mongodb-architecture.md)
 
 ## Monitoring
 

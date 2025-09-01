@@ -75,5 +75,5 @@ https://grafana.com/grafana/dashboards/22064-internal-grafana-stats/
 
 ## Articles
 
-* [Prometheus Stack Architecture](prometheus-stack-architecture.md)
-* [Grafana Dashboard patcher](grafana-dashboard-patcher.md)
+* [Prometheus Stack Architecture](articles/prometheus-stack-architecture.md)
+* [Grafana Dashboard patcher](articles/grafana-dashboard-patcher.md)

@@ -23,7 +23,7 @@ tags:
 
 ## Architecture
 
-[Prometheus Stack Architecture](prometheus-stack-architecture.md)
+[Prometheus Stack Architecture](articles/prometheus-stack-architecture.md)
 
 ## Monitoring
 

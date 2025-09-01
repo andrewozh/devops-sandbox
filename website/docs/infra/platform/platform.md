@@ -353,7 +353,8 @@ This architecture provides a scalable, maintainable GitOps solution that grows w
 
 ## App-library
 
-* [App-library Helm chart](./applibrary-helm-chart.md)
+* [App-library Helm chart](./articles/applibrary-helm-chart.md)
+* [Configuration Files Ordering System](./articles/configuration-overridding-binary-ordering.md)
 
 ---
 

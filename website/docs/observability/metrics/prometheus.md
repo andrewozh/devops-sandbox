@@ -127,4 +127,4 @@ Self-created grafana dashboard can be found in the [kube-prometheus-stack/dashbo
 
 ## Articles
 
-* [Prometheus Stack Architecture](prometheus-stack-architecture.md#prometheus-server)
+* [Prometheus Stack Architecture](articles/prometheus-stack-architecture.md#prometheus-server)

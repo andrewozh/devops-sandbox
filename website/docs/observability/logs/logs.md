@@ -9,7 +9,7 @@ tags:
 
 ## ELK/EFK Stack
 
-* [ECK Operator: ElasticSearch](./elastic-operator.md)
+* [ECK Operator: ElasticSearch](./elastic/elastic-operator.md)
 * [ECK Operator: Kibana](./kibana.md)
 * [Fluent-bit](./fluentbit.md)
 

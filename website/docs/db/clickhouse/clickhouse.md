@@ -33,4 +33,4 @@ tags:
 
 ## Articles
 
-* [Self-hosted Altinity Clickhouse and Clickhouse Cloud compatibility](./articles/differrence-between-cloud-and-self-hosted.md)
+* [Self-hosted Altinity Clickhouse and Clickhouse Cloud compatibility](articles/differrence-between-cloud-and-self-hosted.md)

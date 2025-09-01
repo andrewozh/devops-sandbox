@@ -26,7 +26,7 @@ tags:
 
 ### :white_check_mark: Basic Setup: Local DNS + TLS
 
-* [Local Kind single-cluster setup: NGINX Ingress + local DNS](../../infra/k8s/cluster-local-kind.md#nginx-ingress--local-dns)
+* [Local Kind single-cluster setup: NGINX Ingress + local DNS](../../infra/k8s/articles/cluster-local-kind.md#nginx-ingress--local-dns)
 * [cert-manager: Basic: TLS for local ingress-nginx (self-signed CA)](../tls/cert-manager.md#white_check_mark-basic-tls-for-local-ingress-nginx-self-signed-ca)
 ### Common:
 

@@ -11,7 +11,7 @@ tags:
 |**Distro**|Kibana|
 |-|-|
 |**Type**|Custom Resource|
-|**Deploy**|[ECK OPerator](./elastic-operator.md)|
+|**Deploy**|[ECK OPerator](./elastic/elastic-operator.md)|
 |**Docs**|[link](https://www.elastic.co/docs/explore-analyze/query-filter/languages/esql)|
 |**Backup**||
 |**Scaling**||

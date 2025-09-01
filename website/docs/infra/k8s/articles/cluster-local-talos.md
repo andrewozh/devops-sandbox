@@ -13,4 +13,3 @@ tags:
 - local dns manager:
   look for new services in cluster and add them to local dns
   also add local services to another cluster dns (cross-cluster dns resolving)
-

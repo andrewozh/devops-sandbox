@@ -67,4 +67,4 @@ MongoDB is a leading NoSQL, document-oriented database known for flexibility, hi
 
 ## Conclusion
 
-MongoDB’s architecture—featuring document storage, flexible schema, replication, sharding, and robust indexing—makes it ideal for scalable, high-performance applications in diverse environments. Understanding these components is key to building reliable and efficient solutions with MongoDB.
+MongoDB's architecture—featuring document storage, flexible schema, replication, sharding, and robust indexing—makes it ideal for scalable, high-performance applications in diverse environments. Understanding these components is key to building reliable and efficient solutions with MongoDB.
