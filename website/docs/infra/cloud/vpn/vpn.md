@@ -10,7 +10,7 @@ tags:
 
 By default, our network hosts are not accessible from the outside, VPN will allow you to access them via their private IP addresses.
 
-![cloud arch](./pritunl.gif)
+![cloud arch](.img/pritunl.gif)
 
 [Full setup guide (ClickOps)](https://devopscube.com/setup-pritunl-vpn-on-ec2/)
 
@@ -286,14 +286,14 @@ vpn_users = [
   1. [https://common-vpn.home.lab/](https://common-vpn.home.lab/) -> `Sign in with Google`
   2. Download Pritunl client and copy **Profile URI Link**
 
-![access](./pritunl-access.png)
+![access](.img/pritunl-access.png)
 
 - Pritunl client: `Import Profile URI` -> paste **Profile URI Link**
 
-![pritunl import](./pritunl-import.png)
+![pritunl import](.img/pritunl-import.png)
 
 - Connect to VPN
 
-![pritunl connect](./pritunl-connect.png)
+![pritunl connect](.img/pritunl-connect.png)
 
 - Done!
