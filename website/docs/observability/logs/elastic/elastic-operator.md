@@ -105,9 +105,16 @@ root@dev-sandbox:/# curl -k -u fluentbit:fluentbit https://elasticsearch-es-inte
 
 ## :white_check_mark: Monitoring
 
-### :arrows_counterclockwise: Operator metrics
+### :white_check_mark: Operator metrics
 
-https://www.elastic.co/docs/deploy-manage/monitor/orchestrators/k8s-enabling-metrics-endpoint
+[Source](https://www.elastic.co/docs/deploy-manage/monitor/orchestrators/k8s-enabling-metrics-endpoint)
+
+```yaml
+eck-operator:
+  config:
+    metrics:
+      port: 9094
+```
 
 ### :white_check_mark: Elasticsearch
 

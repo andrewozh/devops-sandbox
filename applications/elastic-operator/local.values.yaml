@@ -1,0 +1,4 @@
+eck-operator:
+  config:
+    metrics:
+      port: 9094
