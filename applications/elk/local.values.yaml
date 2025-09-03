@@ -27,15 +27,15 @@ eck-stack:
                     memory: 1Gi
                   requests:
                     memory: 1Gi
-      volumeClaimTemplates:
-        - metadata:
-            name: elasticsearch-data
-          spec:
-            accessModes:
-              - ReadWriteOnce
-            resources:
-              requests:
-                storage: 10Gi
+        volumeClaimTemplates:
+          - metadata:
+              name: elasticsearch-data
+            spec:
+              accessModes:
+                - ReadWriteOnce
+              resources:
+                requests:
+                  storage: 10Gi
   eck-kibana:
     config:
       server.publicBaseUrl: https://kibana.home.lab
@@ -44,6 +44,7 @@ eck-stack:
       annotations:
         kubernetes.io/ingress.class: nginx
         nginx.ingress.kubernetes.io/backend-protocol: HTTPS
+        cert-manager.io/cluster-issuer: cluster-issuer-nginx
       pathType: Prefix
       hosts:
         - host: kibana.home.lab
