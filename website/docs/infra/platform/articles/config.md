@@ -7,46 +7,41 @@ tags:
 
 # Configuration
 
-:::warning This page is under construction
-:::
-
 ## Global Configuration Schema
+
+A configuration files with shared settings across all applications.
+
+:::note 📖 **[Configuration Files Hierarchy →](configuration-files-hierarchy)**
+* **Location:** root of repository
+* **Main file:** `global.yaml`
+* **Overrides:** `<cloud>-<account>-<environment>.yaml`
+:::
 
 The `global.yaml` file defines the baseline configuration and cluster topology:
 
-```yaml
+```yaml title="global.yaml"
 namespace: default              # Default namespace
 repo: <git-repository-url>      # Repository URL
-
-clouds:                         # Define your infrastructure topology
+clouds:                         # Define infrastructure topology
   - name: local
     accounts:
       - name: main
         environments:
           - name: common
-
-global:                         # Default global values
-  cloud: local
-  account: main  
-  env: common
 ```
 
 ## Application Configuration Schema
 
-Each `applications/*/argo.yaml` supports:
+A configuration files for specific application.
 
-```yaml
-destination: all|<cloud>|<account>|<environment>|<combination>
-namespace: <target-namespace>
-autosync: true|false
-syncOptions:
-  - CreateNamespace=true
-  - ServerSideApply=true
-  # ... other ArgoCD sync options
+:::note 📖 **[Configuration Files Hierarchy →](configuration-files-hierarchy)**
+* **Location:** application directory `applications/your-app/`
+* **Main file:** `values.yaml`
+* **Overrides:** `<cloud>-<account>-<environment>.values.yaml`
+:::
+
+```yaml title="applications/your-app/values.yaml"
+chart:
+  # put your values here
+  # https://github.com/andrewozh/devops-sandbox/blob/main/_chart/values.yaml
 ```
-
-This architecture provides a scalable, maintainable GitOps solution that grows with your infrastructure complexity while maintaining simplicity for individual application deployments.
-
-## Override Hierarchy
-
-* [Configuration Files Hierarchy](./configuration-files-hierarchy.md)

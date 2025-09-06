@@ -15,7 +15,7 @@ Implementation of GitOps architecture using ArgoCD with multi-dimensional config
 
 1. **Main ArgoCD Application**
 
-Read infrastructure schema from `global.yaml` and creates ApplicationSet per each cluster-account-environment combination.
+Read infrastructure schema from `global.yaml` and creates ApplicationSet per each cloud-account-environment combination (per cluster).
 
 ```yaml title="global.yaml"
 clouds:
@@ -30,9 +30,9 @@ clouds:
           - name: production
 ```
 
-2. **ApplicationSet cluster-account-environment**
+2. **ApplicationSet cloud-account-environment**
 
-Search gitops repository for `argo.yaml` and creates applications based on settgins.
+Search gitops repository for `argo.yaml` and creates applications based on settings.
 
 ```yaml title="application/ypur-app/argo.yaml"
 destination: all
@@ -44,9 +44,9 @@ syncOptions:
 
 3. **Application**
 
-* helm chart that uses [Helm Applibrary](applibrary) as a dependency
-* add [global configuration](articles/config#global-configuration-schema) values files
-* add its [own configuration](articles/config#application-configuration-schema) values files
+* uses [Helm Applibrary](applibrary) from `_chart/` as a dependency
+* adds [global configuration](articles/config#global-configuration-schema) values files
+* adds its [own configuration](articles/config#application-configuration-schema) values files
 
 ### Key features
 

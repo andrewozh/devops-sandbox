@@ -2,7 +2,7 @@
 tags:
 - article
 - applibrary
-  platform
+- platform
 - infrastructure
 ---
 
