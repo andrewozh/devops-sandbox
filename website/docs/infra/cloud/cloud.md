@@ -7,7 +7,14 @@ tags:
 
 # Cloud infra
 
+:::warning This page is under construction
+:::
+
 Modern cloud infrastructure leverages managed services across multiple layers to achieve scalability, security, and operational efficiency. At the foundation, organizations establish **secure networking (VPC + VPN)** with centralized **access management** and **DNS routing**, while containerized applications run on **managed Kubernetes** services with automatic scaling and **load balancing**. Data managed through dedicated **storage services** and encrypted **secret management** systems.
+
+## Setup
+
+* Bootstrap common AWS
 
 ## VPN
 
@@ -21,7 +28,7 @@ Here's the check list of cloud services to learn and notedown here:
 
 | Service | AWS 🔄 | GCP | Azure |
 |---------|-----|-----|-------|
-| **Access Management** | IAM | IAM | Active Directory, Azure AD |
+| **Access Management** | IAM | IAM | Azure AD |
 | **Cloud Networking** | VPC | VPC | Virtual Network |
 | **Cloud DNS** | Route 53 | Cloud DNS | Azure DNS |
 | **TLS/SSL Certificates** | ACM | Certificate Manager | App Service Certificates |
@@ -34,3 +41,6 @@ Here's the check list of cloud services to learn and notedown here:
 | **CDN** | CloudFront | Cloud CDN | Azure CDN |
 | **Serverless** | Lambda, API Gateway | Cloud Functions, API Gateway | Functions, API Management |
 
+## SaaS
+
+* Databases: PostreSQL, Kafka, Redis, MongoDB, Clickhouse

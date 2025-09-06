@@ -7,6 +7,9 @@ tags:
 
 # Local Talos multi-cluster setup
 
+:::warning This page is under construction
+:::
+
 - try on localstack
 - run 2 local clusters
 - configure ip routing between local clusters

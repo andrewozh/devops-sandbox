@@ -5,9 +5,7 @@ tags:
 - infrastructure
 ---
 
-# App-library Helm chart
-
-## How to upgrade helm chart
+# How to upgrade helm chart
 
 ```bash
 $  cat applications/kube-prometheus-stack/Chart.yaml
