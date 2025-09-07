@@ -1,1 +1,3 @@
-chart: []
+chart:
+  ingress:
+    enabled: false

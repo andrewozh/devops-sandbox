@@ -13,12 +13,9 @@ killercoda:
 	@PASSWORD_HASH=$$(htpasswd -bnBC 10 "" admin | tr -d ':\n') && \
 	kubectl patch secret -n argocd argocd-secret -p "$$(printf '{"stringData": {"admin.password": "%s"}}' "$$PASSWORD_HASH")"
 	kubectl rollout restart deployment/argocd-server -n argocd
-	cat ../../_argocd-infra/app.yaml | sed 's|https://github.com/andrewozh/infra-apps.git|git://git-server.default.svc.cluster.local/|g' | yq '.spec.source.helm.valueFiles = ["../demo.yaml"]' | kubectl apply -f -
+	cat ../../_argocd-infra/app.yaml | sed 's|https://github.com/andrewozh/infra-apps.git|git://git-server.default.svc.cluster.local/|g' | yq '.spec.source.helm.valueFiles = ["../killercoda.yaml"]' | kubectl apply -f -
 	kubectl expose -n argocd deployment argocd-server --type=NodePort --port=8080 --name=argocd-nodeport
 	kubectl patch svc argocd-nodeport -n argocd --type='json' -p='[{"op":"add","path":"/spec/ports/0/nodePort","value":30080}]'
 	#
 	# Access ArgoCD UI:
 	# Upper Right corner -> Traffic / Ports -> 30080
-	#
-	# Username: admin
-	# Password: admin

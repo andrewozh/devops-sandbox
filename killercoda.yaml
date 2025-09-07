@@ -1,5 +1,4 @@
 namespace: default
-
 repo: git://git-server.default.svc.cluster.local/
 
 chart:
@@ -7,13 +6,13 @@ chart:
     enabled: false
 
 clouds:
-  - name: local
+  - name: killercoda
     accounts:
-      - name: killercoda
+      - name: demo
         environments:
-          - name: demo
+          - name: shared
 
 global:
-  cloud: local
-  account: killercoda
-  env: demo
+  cloud: killercoda
+  account: demo
+  env: shared
