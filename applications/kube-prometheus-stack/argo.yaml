@@ -1,5 +1,7 @@
 destination: all
 namespace: monitoring
+labels:
+  type: essential
 autosync: true
 syncOptions:
   - ServerSideApply=true

@@ -89,6 +89,13 @@ spec:
         namespace: {{`'{{.namespace | default (index .path.segments 1)}}'`}}
   templatePatch: |
 {{`
+    metadata:
+      labels:
+        {{- if hasKey . "labels" }}
+        {{- range $key, $value := .labels }}
+        {{ $key }}: "{{ $value }}"
+        {{- end }}
+        {{- end }}
     spec:
       syncPolicy:
         {{- if and (hasKey . "autosync") .autosync }}

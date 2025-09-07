@@ -1,4 +1,6 @@
 destination: all
 exclude: demo
 namespace: ingress
+labels:
+  type: essential
 autosync: true
