@@ -34,12 +34,23 @@ spec:
         - "{{ $cloud.name }}-{{ $environment.name }}"
         - "{{ $cloud.name }}-{{ $account.name }}"
         - "{{ $cloud.name }}-{{ $account.name }}-{{ $environment.name }}"
+      - key: exclude
+        operator: NotIn
+        values:
+        - "all"
+        - "{{ $environment.name }}"
+        - "{{ $account.name }}"
+        - "{{ $account.name }}-{{ $environment.name }}"
+        - "{{ $cloud.name }}"
+        - "{{ $cloud.name }}-{{ $environment.name }}"
+        - "{{ $cloud.name }}-{{ $account.name }}"
+        - "{{ $cloud.name }}-{{ $account.name }}-{{ $environment.name }}"
   template:
     metadata:
-      name: {{`'{{.name}}-{{index .path.segments 1}}'`}}  # cluster-name + app-name
+      name: {{`'{{.name}}-{{index .path.segments 1}}'`}}
       labels:
         project: default
-        service: {{`'{{index .path.segments 1}}'`}}  # app name from path
+        service: {{`'{{index .path.segments 1}}'`}}
         type: app
     spec:
       syncPolicy:
@@ -52,9 +63,9 @@ spec:
       source:
         repoURL: {{ $.Values.repo }}
         targetRevision: main
-        path: {{`'{{index .path.segments 0}}/{{index .path.segments 1}}'`}}  # Results in "apps/my-app"
+        path: {{`'{{index .path.segments 0}}/{{index .path.segments 1}}'`}}
         helm:
-          releaseName: {{`'{{index .path.segments 1}}'`}}  # app-name
+          releaseName: {{`'{{index .path.segments 1}}'`}}
           ignoreMissingValueFiles: true
           valueFiles:
           - /global.yaml
@@ -75,7 +86,7 @@ spec:
           - {{ $cloud.name }}-{{ $account.name }}-{{ $environment.name }}.values.yaml
       destination:
         name: {{`'{{.name}}'`}}
-        namespace: {{`'{{.namespace | default (index .path.segments 1)}}'`}}  # Use namespace from argo.yaml or default to app name
+        namespace: {{`'{{.namespace | default (index .path.segments 1)}}'`}}
   templatePatch: |
 {{`
     spec:

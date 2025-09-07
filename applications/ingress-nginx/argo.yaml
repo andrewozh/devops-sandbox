@@ -1,3 +1,4 @@
 destination: all
+exclude: demo
 namespace: ingress
 autosync: true
