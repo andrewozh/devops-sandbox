@@ -10,17 +10,17 @@ provider "kubernetes" {
 
 module "eks" {
   source  = "terraform-aws-modules/eks/aws"
-  version = "19.20.0"
+  version = "21.2.0"
 
   create = var.avoid_billing ? false : true
 
-  cluster_name    = var.cluster_name
-  cluster_version = var.kubernetes_version
+  name               = var.cluster_name
+  kubernetes_version = var.kubernetes_version
 
-  cluster_endpoint_public_access  = true
-  cluster_endpoint_private_access = true
+  endpoint_public_access  = true
+  endpoint_private_access = true
 
-  cluster_enabled_log_types = [
+  enabled_log_types = [
     "api",
     "audit",
     "authenticator",
@@ -31,7 +31,7 @@ module "eks" {
   vpc_id     = var.vpc_id
   subnet_ids = var.subnets
 
-  cluster_addons = {
+  addons = {
     coredns = {
       most_recent = true
     }
@@ -75,7 +75,7 @@ module "eks" {
     }
   }
 
-  cluster_security_group_additional_rules = {
+  security_group_additional_rules = {
     ingress_self_all = {
       description = "Node to node all ports/protocols"
       protocol    = "-1"
@@ -103,15 +103,15 @@ module "eks" {
     }
   }
 
-  node_security_group_tags  = {
+  node_security_group_tags = {
     "karpenter.sh/discovery" = var.cluster_name
   }
 
-  eks_managed_node_group_defaults = {
-    iam_role_additional_policies = {
-      AmazonSSMManagedInstanceCore = "arn:aws:iam::aws:policy/AmazonSSMManagedInstanceCore"
-    }
+  # eks_managed_node_group_defaults = {
+  iam_role_additional_policies = {
+    AmazonSSMManagedInstanceCore = "arn:aws:iam::aws:policy/AmazonSSMManagedInstanceCore"
   }
+  # }
 
   eks_managed_node_groups = {
     main = {
@@ -124,25 +124,28 @@ module "eks" {
     }
   }
 
-  # create_aws_auth_configmap = true
-  manage_aws_auth_configmap = true
-  aws_auth_roles = [
-    # {
-    #   rolearn  = module.karpenter.role_arn
-    #   username = "system:node:{{EC2PrivateDNSName}}"
-    #   groups = [
-    #     "system:bootstrappers",
-    #     "system:nodes",
-    #   ]
-    # },
-  ]
-  aws_auth_users = [
-    {
-      userarn  = "arn:aws:iam::066477712859:user/andrew.ozhegov"
-      username = "andrew.ozhegov"
-      groups   = ["system:masters"]
-    },
-  ]
+  authentication_mode                      = "API"
+  enable_cluster_creator_admin_permissions = true
+
+  access_entries = {
+    karpenter = {
+      principal_arn = module.karpenter.role_arn
+      type          = "EC2_LINUX"
+    }
+    andrew_ozhegov = {
+      principal_arn = "arn:aws:iam::066477712859:user/andrew.ozhegov"
+      type          = "STANDARD"
+
+      policy_associations = {
+        admin = {
+          policy_arn = "arn:aws:eks::aws:cluster-access-policy/AmazonEKSClusterAdminPolicy"
+          access_scope = {
+            type = "cluster"
+          }
+        }
+      }
+    }
+  }
 
   tags = var.tags_all
 }
