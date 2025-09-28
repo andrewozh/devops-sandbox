@@ -1,39 +1,42 @@
 #!/usr/bin/env bash
 set -x
+set -e
+
+# https://istio.io/latest/docs/setup/install/multicluster/primary-remote_multi-network/
 
 export CTX_CLUSTER1=kind-common
 export CTX_CLUSTER2=kind-stage
 
-# https://istio.io/latest/docs/setup/install/multicluster/primary-remote/
-kind create cluster --name common
+function deploy_metallb {
+  local ctx=$1
+  kubectl --context="${ctx}" get deployment -n metallb-system metallb-controller >/dev/null 2>&1 && return
+  helm repo add metallb https://metallb.github.io/metallb
+  helm install --kube-context="${1}" metallb metallb/metallb --namespace metallb-system --create-namespace
+  kubectl --context="${1}" wait -n metallb-system --for=condition=ready pod --selector=app=metallb --timeout=90s
+  kubectl apply --context="${1}" -f metallb-config.yaml
+}
 
-# helm repo add metallb https://metallb.github.io/metallb
-kubectl create ns metallb-system
-helm install metallb metallb/metallb --namespace metallb-system
-sleep 10
-kubectl apply -f metallb-config.yaml
+# PRIMARY CLUSTER
 
-istioctl install --context="${CTX_CLUSTER1}" -f istio-common.yaml
+kind get clusters | grep common || kind create cluster --config common/kind.yaml
 
-# curl https://raw.githubusercontent.com/istio/istio/release-1.27/samples/multicluster/gen-eastwest-gateway.sh -O
-# chmod +x gen-eastwest-gateway.sh
-./gen-eastwest-gateway.sh --network common | istioctl --context="${CTX_CLUSTER1}" install -y -f -
+deploy_metallb "${CTX_CLUSTER1}"
+
+istioctl --context="${CTX_CLUSTER1}" install -y -f common/istio.yaml
+
+istioctl --context="${CTX_CLUSTER1}" install -y -f common/istio-eastwest-gateway.yaml
 
 # curl https://raw.githubusercontent.com/istio/istio/release-1.27/samples/multicluster/expose-istiod.yaml -O
-kubectl apply --context="${CTX_CLUSTER1}" -n istio-system -f expose-istiod.yaml
+kubectl apply --context="${CTX_CLUSTER1}" -n istio-system -f common/expose-istiod.yaml
 
-kubectl --context="${CTX_CLUSTER1}" apply -n istio-system -f \
-  ./expose-services.yaml
+# curl https://raw.githubusercontent.com/istio/istio/release-1.27/samples/multicluster/expose-services.yaml -O
+kubectl apply --context="${CTX_CLUSTER1}" -n istio-system -f common/expose-services.yaml
 
-# -------
+# REMOTE CLUSTER
 
-kind create cluster --name stage
+kind get clusters | grep stage || kind create cluster --config stage/kind.yaml
 
-kubectl create ns --context="${CTX_CLUSTER2}" metallb-system
-helm install metallb metallb/metallb --namespace metallb-system
-for t in {1..10}; do
-  kubectl apply --context="${CTX_CLUSTER2}" -f metallb-config.yaml && break || sleep $t
-done
+deploy_metallb "${CTX_CLUSTER2}"
 
 kubectl --context="${CTX_CLUSTER2}" create namespace istio-system
 kubectl --context="${CTX_CLUSTER2}" annotate namespace istio-system topology.istio.io/controlPlaneClusters=common
@@ -43,8 +46,8 @@ export DISCOVERY_ADDRESS=$(kubectl \
   --context="${CTX_CLUSTER1}" \
   -n istio-system get svc istio-eastwestgateway \
   -o jsonpath='{.status.loadBalancer.ingress[0].ip}')
-yq '.spec.values.global.remotePilotAddress = "'${DISCOVERY_ADDRESS}'"' istio-stage.yaml
-istioctl install --context="${CTX_CLUSTER2}" -f istio-stage.yaml
+yq '.spec.values.global.remotePilotAddress = "'${DISCOVERY_ADDRESS}'"' stage/istio.yaml
+istioctl --context="${CTX_CLUSTER2}" install -y -f stage/istio.yaml
 
 export HOSTIP_CLUSTER2=$(kubectl get po \
   --context="${CTX_CLUSTER2}" \
@@ -54,12 +57,12 @@ export HOSTIP_CLUSTER2=$(kubectl get po \
 istioctl create-remote-secret \
   --context="${CTX_CLUSTER2}" \
   --server="https://${HOSTIP_CLUSTER2}:6443" \
-  --name=stage >istio-stage-secret.yaml
-kubectl apply -f istio-stage-secret.yaml --context="${CTX_CLUSTER1}"
+  --name=stage >stage/istio-remote-secret.yaml
+kubectl apply -f stage/istio-remote-secret.yaml --context="${CTX_CLUSTER1}"
 
-./gen-eastwest-gateway.sh \
-  --network stage |
-  istioctl --context="${CTX_CLUSTER2}" install -y -f -
+istioctl --context="${CTX_CLUSTER2}" install -y -f stage/istio-eastwest-gateway.yaml
+
+exit 0
 
 ### VERIFY
 
