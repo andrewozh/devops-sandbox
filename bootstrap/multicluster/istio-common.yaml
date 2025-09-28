@@ -3,8 +3,8 @@ kind: IstioOperator
 spec:
   values:
     global:
-      meshID: mesh1
+      meshID: mesh
       multiCluster:
-        clusterName: cluster1
-      network: network1
+        clusterName: common
+      network: common
       externalIstiod: true

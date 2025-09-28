@@ -4,6 +4,6 @@ spec:
   profile: remote
   values:
     istiodRemote:
-      injectionPath: /inject/cluster/cluster2/net/network1
+      injectionPath: /inject/cluster/stage/net/stage
     global:
       remotePilotAddress: 172.18.255.201
