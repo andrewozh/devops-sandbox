@@ -8,6 +8,7 @@ clouds:
       - name: main
         environments:
           - name: common
+          - name: stage
 
 global:
   cloud: local
