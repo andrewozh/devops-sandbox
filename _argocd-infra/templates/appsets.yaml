@@ -21,7 +21,10 @@ spec:
           revision: main
           files:
             - path: 'applications/*/argo.yaml'
-      - clusters: "{{ $cluster }}"
+      - clusters:
+          selector:
+            matchLabels:
+              clusterName: {{ $cluster }}
     selector:
       matchExpressions:
       - key: destination
