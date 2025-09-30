@@ -1,11 +1,12 @@
 {{- range $cloud := .Values.clouds }}
 {{- range $account := $cloud.accounts }}
 {{- range $environment := $account.environments }}
+{{ $cluster := include "argo.clusterName" (list $ $cloud.name $account.name $environment.name) }}
 ---
 apiVersion: argoproj.io/v1alpha1
 kind: ApplicationSet
 metadata:
-  name: "{{ $cloud.name }}-{{ $account.name }}-{{ $environment.name }}"
+  name: "{{ $cluster }}"
 spec:
   syncPolicy:
     preserveResourcesOnDeletion: true
@@ -20,7 +21,7 @@ spec:
           revision: main
           files:
             - path: 'applications/*/argo.yaml'
-      - clusters: {}
+      - clusters: "{{ $cluster }}"
     selector:
       matchExpressions:
       - key: destination
