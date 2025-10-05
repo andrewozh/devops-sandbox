@@ -19,9 +19,9 @@ kctx-stage: ## Activate homelab kubecontext
 	kubectl config use-context kind-stage
 
 create-common: ## Create common cluster
-	kind get clusters | grep common || kind create cluster --config common/kind.yaml:
+	kind get clusters | grep common || kind create cluster --config common/kind.yaml
 
-create-ctage: ## Create stage cluster
+create-stage: ## Create stage cluster
 	kind get clusters | grep stage || kind create cluster --config stage/kind.yaml
 
 delete: ## Delete existing cluster
@@ -45,11 +45,15 @@ host: ## Configure host machine: dns, cert, reute
 	sudo route -n add -net 172.18.255.0/24 $$(docker network inspect kind -f "{{(index .IPAM.Config 0).Gateway}}")
 	sudo security add-trusted-cert -d -r trustRoot -k /Library/Keychains/System.keychain ca.crt || true
 
-ca-common: start-common ## Create CA for homelab
+ca-common: start-common ## Create CA for common
 	kubectl --context kind-common create ns ingress || true
 	kubectl --context kind-common create secret generic -n ingress ca --from-file=tls.crt=../kind/ca.crt --from-file=tls.key=../kind/ca.key || true
 
-argocd: kctx ## Deploy argocd as Helm Chart
+ca-stage: start-stage ## Create CA for stage
+	kubectl --context kind-stage create ns ingress || true
+	kubectl --context kind-stage create secret generic -n ingress ca --from-file=tls.crt=../kind/ca.crt --from-file=tls.key=../kind/ca.key || true
+
+argocd: kctx-common ## Deploy argocd as Helm Chart
 	kubectl create ns argocd || true
 	helmfile apply --suppress-diff -f ../../_argocd/helmfile.yaml
 	kubectl apply -f ../../_argocd-infra/app.yaml
@@ -63,4 +67,4 @@ argocd: kctx ## Deploy argocd as Helm Chart
 	# Username: admin
 	# Password: admin
 
-init: hosts ca argocd ## Init cluster
+init: create-common create-stage argocd ## Init cluster
