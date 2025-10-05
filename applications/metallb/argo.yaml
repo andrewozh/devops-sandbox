@@ -1,0 +1,5 @@
+destination: local
+namespace: metallb
+labels:
+  type: essential
+autosync: true
