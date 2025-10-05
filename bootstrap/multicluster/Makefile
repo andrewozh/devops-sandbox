@@ -61,5 +61,13 @@ argocd: kctx-common ## Deploy argocd as Helm Chart
 	# Username: admin
 	# Password: admin
 
+argocd-add-stage:
+	kubectl --context=kind-stage apply -f argocd-sa-stage.yaml
+	@TOKEN=$$(kubectl --context=kind-stage get secret argocd-manager-token -n kube-system -o jsonpath='{.data.token}' | base64 -d) \
+	CA_CERT=$$(kubectl --context=kind-stage config view --raw --minify --flatten -o jsonpath='{.clusters[0].cluster.certificate-authority-data}') \
+	STAGE_IP=$$(docker inspect stage-control-plane -f '{{.NetworkSettings.Networks.kind.IPAddress}}') \
+	envsubst < argocd-cluster-stage-secret.yaml | kubectl --context=kind-common apply -f -
 
 init: create ca argocd argocd-add-stage ## Init cluster
+
+cont: argocd-add-stage
