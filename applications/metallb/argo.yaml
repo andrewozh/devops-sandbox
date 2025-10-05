@@ -1,5 +1,5 @@
 destination: local
-namespace: metallb
+namespace: metallb-system
 labels:
   type: essential
 autosync: true
