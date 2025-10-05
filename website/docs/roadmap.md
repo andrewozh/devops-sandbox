@@ -33,11 +33,11 @@ import ProgressBar from '@site/src/components/ProgressBar';
 - [x] kubernetes monitoring: node, dp, ds, sts, pv- (kind do not support)
 - [x] pritunl vpn setup doc
 - [ ] website beta version:
-  - [ ] landing page (technologies, skills, links)
-  - [ ] updated CV + ability to download + links
-  - [ ] DevOps Sandbox description docs
-  - [ ] :arrows_counterclockwise: **basic demo:** bootstrap local on kind
-  - [ ] **basic demo:** bootstrap on killercoda
+  - [x] landing page (technologies, skills, links)
+  - [ ] :arrows_counterclockwise: updated CV + ability to download + links
+  - [x] DevOps Sandbox description docs
+  - [x] **basic demo:** bootstrap local on kind
+  - [x] **basic demo:** bootstrap on killercoda
 
 **Platform & App-library requirements:**
 
@@ -67,10 +67,11 @@ import ProgressBar from '@site/src/components/ProgressBar';
 
 **Infra requirements:**
 
-- [ ] talos linux local multicluster setup
+- [ ] :arrows_counterclockwise: local multicluster setup
 
 **Platform & App-library requirements:**
 
+- [ ] :arrows_counterclockwise: argo application tags/labels based on values.yaml integrations (like psql, mongo, migration, etc)
 - [ ] argocd -- add cluster, appsets
 - [ ] argocd -- demo-infra smooth bootstrap (configure autosync in `argo.yaml`)
 - [ ] investigate argo teams and projects
