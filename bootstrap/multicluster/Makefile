@@ -68,6 +68,9 @@ argocd-add-stage:
 	STAGE_IP=$$(docker inspect stage-control-plane -f '{{.NetworkSettings.Networks.kind.IPAddress}}') \
 	envsubst < argocd-cluster-stage-secret.yaml | kubectl --context=kind-common apply -f -
 
-init: create ca argocd argocd-add-stage ## Init cluster
+istio:
+	bash istio-setup.sh
+
+init: create ca istio argocd argocd-add-stage ## Init cluster
 
 cont: argocd-add-stage

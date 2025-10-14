@@ -15,7 +15,7 @@ function deploy_metallb {
   helm repo add metallb https://metallb.github.io/metallb
   helm install --kube-context="${1}" metallb metallb/metallb --namespace metallb-system --create-namespace
   kubectl --context="${1}" wait -n metallb-system --for=condition=ready pod --selector=app=metallb --timeout=90s
-  kubectl apply --context="${1}" -f metallb-config.yaml
+  kubectl apply --context="${1}" -f ./metallb-config.yaml
 }
 
 # PRIMARY CLUSTER
