@@ -57,7 +57,6 @@ export HOSTIP_CLUSTER2=$(kubectl get po \
 istioctl create-remote-secret \
   --context="${CTX_CLUSTER2}" \
   --server="https://${HOSTIP_CLUSTER2}:6443" \
-  --name=stage >stage/istio-remote-secret.yaml
-kubectl --context="${CTX_CLUSTER1}" apply -f stage/istio-remote-secret.yaml
+  --name=stage | kubectl --context="${CTX_CLUSTER1}" apply -f -
 
 istioctl --context="${CTX_CLUSTER2}" install -y -f stage/istio-eastwest-gateway.yaml
