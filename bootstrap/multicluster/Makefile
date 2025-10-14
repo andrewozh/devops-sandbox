@@ -71,6 +71,11 @@ argocd-add-stage:
 istio:
 	bash istio-setup.sh
 
-init: create ca istio argocd argocd-add-stage ## Init cluster
+dnsmasq:
+	sudo mkdir -p /etc/resolver
+	echo "nameserver 127.0.0.1" | sudo tee /etc/resolver/local
 
-cont: argocd-add-stage
+proxy:
+	docker-compose up -d
+
+init: create ca argocd argocd-add-stage

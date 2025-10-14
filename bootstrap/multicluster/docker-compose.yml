@@ -1,0 +1,26 @@
+version: "3.8"
+
+services:
+  nginx-proxy:
+    image: nginx:alpine
+    container_name: kind-proxy
+    ports:
+      - "80:80"
+      - "443:443"
+    volumes:
+      - ./nginx.conf:/etc/nginx/nginx.conf:ro
+    extra_hosts:
+      - "host.docker.internal:host-gateway"
+    restart: unless-stopped
+
+  dnsmasq:
+    image: strm/dnsmasq:latest
+    container_name: kind-dnsmasq
+    ports:
+      - "127.0.0.1:53:53/udp"
+      - "127.0.0.1:53:53/tcp"
+    volumes:
+      - ./dnsmasq.conf:/etc/dnsmasq.conf:ro
+    cap_add:
+      - NET_ADMIN
+    restart: unless-stopped
