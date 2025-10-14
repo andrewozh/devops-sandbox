@@ -38,7 +38,7 @@ kind get clusters | grep stage || kind create cluster --config stage/kind.yaml
 
 deploy_metallb "${CTX_CLUSTER2}"
 
-kubectl --context="${CTX_CLUSTER2}" create namespace istio-system
+kubectl --context="${CTX_CLUSTER2}" create namespace istio-system || true
 kubectl --context="${CTX_CLUSTER2}" annotate namespace istio-system topology.istio.io/controlPlaneClusters=common
 kubectl label --context="${CTX_CLUSTER2}" namespace istio-system topology.istio.io/network=stage
 
