@@ -30,6 +30,7 @@ tags:
 * Deploy new app in single commit
 * Single configuration file for every app needs
 * DRY configuration system
+* IDP
 
 ## [CI/CD](cicd)
 
