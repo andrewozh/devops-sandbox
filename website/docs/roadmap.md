@@ -68,6 +68,7 @@ import ProgressBar from '@site/src/components/ProgressBar';
 **Infra requirements:**
 
 - [ ] :arrows_counterclockwise: local multicluster setup
+- [ ] review website design
 
 **Platform & App-library requirements:**
 
@@ -105,6 +106,7 @@ import ProgressBar from '@site/src/components/ProgressBar';
 
 - [ ] aws eks: terrafrom, addons
 - [ ] setup pritunl vpn with terragrunt
+- [ ] basic IDP webui app
 
 **Tools requirements:**
 
