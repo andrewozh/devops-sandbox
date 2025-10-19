@@ -1,0 +1,14 @@
+apiVersion: cert-manager.io/v1
+kind: Certificate
+metadata:
+  labels:
+    argocd.argoproj.io/instance: in-cluster-elk
+  name: elk-kibana-cert
+  namespace: logging
+spec:
+  dnsNames:
+    - kibana.home.lab
+  issuerRef:
+    kind: ClusterIssuer
+    name: cluster-issuer-nginx
+  secretName: elk-kibana-tls-secret
