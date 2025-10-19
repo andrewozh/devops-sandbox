@@ -1,6 +1,10 @@
 kind: Cluster
 apiVersion: kind.x-k8s.io/v1alpha4
 name: stage
+networking:
+  # Use custom network with fixed subnet
+  # This ensures consistent IP addresses after restarts
+  ipFamily: ipv4
 nodes:
   - role: control-plane
     kubeadmConfigPatches:
@@ -9,6 +13,13 @@ nodes:
         nodeRegistration:
           kubeletExtraArgs:
             node-labels: "ingress-ready=true"
+      - |
+        kind: ClusterConfiguration
+        apiServer:
+          certSANs:
+          - "172.20.1.20"
+          - "127.0.0.1"
+          - "localhost"
     extraPortMappings:
       - containerPort: 80
         hostPort: 9080

@@ -19,12 +19,18 @@ kctx-stage: ## Activate homelab kubecontext
 	kubectl config use-context kind-stage
 
 create: ## Create kind multi-cluster
+	docker network create --driver=bridge --subnet=172.20.0.0/16 --gateway=172.20.0.1 kind-multicluster 2>/dev/null || true
 	kind get clusters | grep common || kind create cluster --config common/kind.yaml
 	kind get clusters | grep stage || kind create cluster --config stage/kind.yaml
+	docker network connect --ip=172.20.1.10 kind-multicluster common-control-plane 2>/dev/null || true
+	docker network connect --ip=172.20.1.20 kind-multicluster stage-control-plane 2>/dev/null || true
+	docker network connect --ip=172.20.1.11 kind-multicluster common-worker 2>/dev/null || true
+	docker network connect --ip=172.20.1.21 kind-multicluster stage-worker 2>/dev/null || true
 
-delete: ## Delete existing cluster
+delete: ## Delete existing cluster and custom network
 	kind delete cluster -n common
 	kind delete cluster -n stage
+	docker network rm kind-multicluster 2>/dev/null || true
 
 start stop: create ## Start/Stop kind multi-cluster
 	docker ps -aq --filter "name=common" | xargs docker "$@"
@@ -65,7 +71,7 @@ argocd-add-stage:
 	kubectl --context=kind-stage apply -f argocd-sa-stage.yaml
 	@TOKEN=$$(kubectl --context=kind-stage get secret argocd-manager-token -n kube-system -o jsonpath='{.data.token}' | base64 -d) \
 	CA_CERT=$$(kubectl --context=kind-stage config view --raw --minify --flatten -o jsonpath='{.clusters[0].cluster.certificate-authority-data}') \
-	STAGE_IP=$$(docker inspect stage-control-plane -f '{{.NetworkSettings.Networks.kind.IPAddress}}') \
+	STAGE_IP=172.20.1.20 \
 	envsubst < argocd-cluster-stage-secret.yaml | kubectl --context=kind-common apply -f -
 
 istio:
@@ -78,4 +84,4 @@ dnsmasq:
 proxy:
 	docker-compose up -d
 
-init: create ca argocd argocd-add-stage
+init: create ca argocd argocd-add-stage proxy ## istio dnsmasq
