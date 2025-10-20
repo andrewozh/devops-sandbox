@@ -72,9 +72,10 @@ import ProgressBar from '@site/src/components/ProgressBar';
 
 **Platform & App-library requirements:**
 
+- [x] argocd -- add cluster, appsets
+- [ ] applibrary -- crosscluster access via virtualservice
 - [ ] :arrows_counterclockwise: argo application tags/labels based on values.yaml integrations (like psql, mongo, migration, etc)
-- [ ] argocd -- add cluster, appsets
-- [ ] argocd -- demo-infra smooth bootstrap (configure autosync in `argo.yaml`)
+- [ ] :arrows_counterclockwise: argocd -- demo-infra smooth bootstrap (configure autosync in `argo.yaml`)
 - [ ] investigate argo teams and projects
 - [ ] argocd webhook drifts (external-secrets, vault, https://github.com/argoproj/argo-cd/issues/4326)
   allow to setup ingnoreDiffs from `argo.yaml`

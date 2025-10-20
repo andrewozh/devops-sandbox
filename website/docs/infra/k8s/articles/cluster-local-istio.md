@@ -10,21 +10,29 @@ tags:
 :::warning This page is under construction
 :::
 
-1. patch /etc/hosts, add ip route, install CA cert
-2. 
-
-## Kind
+## [+] Kind
 
 - [x] run two basic clusters
 
-## ArgoCD
+## [+] ArgoCD
 
 - [x] auto rename default cluster
 - [x] add stage cluster
 
-## Local networking: Ingress + Nginx proxy + DNSMasq
+## [~] Local networking: Ingress + Nginx proxy + DNSMasq
 
-- configurable after argocd setup
+**Ingress:**
+
+- [x] fix main cert autocreation
+
+
+**Nginx-proxy:**
+
+- [+] docker-compose
+
+**dnsmasq:**
+
+- [ ] setup
 
 ## MetalLB
 
@@ -32,8 +40,22 @@ tags:
 
 ## Istio
 
-- configurable after argocd setup
-- [ ] can i add cluster w/o istio -- yes
-- [ ] setup as helm chart
+can i add cluster w/o istio -- yes
+setup as helm chart -- not now
+
+## Patch AppChart Platform setup
+
+- globally configurable domain
+- how to configure easy hostname adding into configuration?
+- how to expose common applications to other clusters?
+
+
+lets say we have prometheus in common and in stage
+
+1. i have to add special label tp all metrics to diff em by clutter
+
+so i have to create a ??Gateway?? in common cluster
+also i have to create a Service in stage cluster
+!!! no load balancing, DIRECT ACCESS !!! -- so service do not have to be same
 
 
