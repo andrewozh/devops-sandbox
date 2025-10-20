@@ -33,12 +33,12 @@ kube-prometheus-stack:
     prometheusSpec:
       # Enable remote write reception for multicluster
       enableRemoteWriteReceiver: true
-      
+
       # External labels to identify this cluster
       externalLabels:
         cluster: "common"
         region: "local"
-        
+
       # Storage configuration for multicluster data
       retention: 15d
       storageSpec:
@@ -49,16 +49,16 @@ kube-prometheus-stack:
             resources:
               requests:
                 storage: 50Gi
-                
+
       # Service configuration to expose remote write endpoint
       service:
         type: ClusterIP
         port: 9090
         additionalPorts:
-        - name: remote-write
-          port: 19291
-          targetPort: 9090
-          
+          - name: remote-write
+            port: 19291
+            targetPort: 9090
+
       # Resource requests for handling multicluster data
       resources:
         requests:
@@ -67,7 +67,7 @@ kube-prometheus-stack:
         limits:
           memory: 4Gi
           cpu: 2000m
-          
+
       ruleSelectorNilUsesHelmValues: false
       serviceMonitorSelectorNilUsesHelmValues: false
       podMonitorSelectorNilUsesHelmValues: false
@@ -84,7 +84,7 @@ kube-prometheus-stack:
       auth.anonymous:
         enabled: true
         org_role: Admin
-    
+
     # Enable multicluster dashboards
     sidecar:
       dashboards:
@@ -95,18 +95,18 @@ kube-prometheus-stack:
             enabled: true
           etcd:
             enabled: false
-    
+
     # Custom datasource for multicluster queries
     additionalDataSources:
-    - name: Prometheus-Multicluster
-      type: prometheus
-      url: http://kube-prometheus-stack-prometheus:9090
-      access: proxy
-      isDefault: true
-      jsonData:
-        timeInterval: 30s
-        queryTimeout: 300s
-        httpMethod: GET
+      - name: Prometheus-Multicluster
+        type: prometheus
+        url: http://kube-prometheus-stack-prometheus:9090
+        access: proxy
+        isDefault: true
+        jsonData:
+          timeInterval: 30s
+          queryTimeout: 300s
+          httpMethod: GET
 
   alertmanager:
     enabled: true
@@ -163,9 +163,10 @@ kube-prometheus-stack:
         honorLabels: true
         # Add cluster label to all metrics
         relabelings:
-        - sourceLabels: []
-          targetLabel: cluster
-          replacement: "common"
+          - action: replace
+            sourceLabels: []
+            targetLabel: cluster
+            replacement: "common"
         metricRelabelings:
           - action: drop
             regex: kube_pod_tolerations
@@ -191,9 +192,10 @@ kube-prometheus-stack:
     prometheus:
       monitor:
         relabelings:
-        - sourceLabels: []
-          targetLabel: cluster
-          replacement: "common"
+          - action: replace
+            sourceLabels: []
+            targetLabel: cluster
+            replacement: "common"
     extraArgs:
       - --collector.filesystem.mount-points-exclude=^/(dev|proc|sys|var/lib/docker/.+|var/lib/kubelet/.+)($|/)
       - --collector.filesystem.fs-types-exclude=^(autofs|binfmt_misc|bpf|cgroup2?|configfs|debugfs|devpts|devtmpfs|fusectl|hugetlbfs|iso9660|mqueue|nsfs|overlay|proc|procfs|pstore|rpc_pipefs|securityfs|selinuxfs|squashfs|sysfs|tracefs)$
@@ -215,3 +217,4 @@ kube-prometheus-stack:
       - --no-collector.thermal_zone
       - --no-collector.xfs
       - --no-collector.zfs
+

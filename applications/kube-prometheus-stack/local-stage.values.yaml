@@ -34,7 +34,8 @@ kube-prometheus-stack:
         - url: http://prometheus-common.local:15090/api/v1/write
           name: common-cluster
           writeRelabelConfigs:
-            - sourceLabels: []
+            - action: replace
+              sourceLabels: []
               targetLabel: cluster
               replacement: "stage"
           queueConfig:
@@ -118,7 +119,8 @@ kube-prometheus-stack:
         honorLabels: true
         # Add cluster label to all metrics
         relabelings:
-          - sourceLabels: []
+          - action: replace
+            sourceLabels: []
             targetLabel: cluster
             replacement: "stage"
         metricRelabelings:
@@ -147,7 +149,8 @@ kube-prometheus-stack:
     prometheus:
       monitor:
         relabelings:
-          - sourceLabels: []
+          - action: replace
+            sourceLabels: []
             targetLabel: cluster
             replacement: "stage"
     extraArgs:
@@ -171,4 +174,3 @@ kube-prometheus-stack:
       - --no-collector.thermal_zone
       - --no-collector.xfs
       - --no-collector.zfs
-
