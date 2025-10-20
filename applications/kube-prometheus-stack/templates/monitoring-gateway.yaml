@@ -14,7 +14,7 @@ spec:
       name: prometheus-remote-write
       protocol: HTTP
     hosts:
-    - prometheus-common.local
+    - "*"
 ---
 apiVersion: networking.istio.io/v1beta1
 kind: VirtualService
@@ -23,7 +23,7 @@ metadata:
   namespace: istio-system
 spec:
   hosts:
-  - prometheus-common.local
+  - "*"
   gateways:
   - prometheus-multicluster-gateway
   http:
@@ -38,15 +38,15 @@ spec:
 {{- end }}
 ---
 {{- if eq .Values.global.env "stage" }}
-# STAGE CLUSTER: ServiceEntry to reach common cluster's Prometheus via gateway
+# STAGE CLUSTER: ServiceEntry to reach common cluster's Istio east-west gateway
 apiVersion: networking.istio.io/v1beta1
 kind: ServiceEntry
 metadata:
-  name: prometheus-common-cluster
+  name: istio-eastwestgateway-common
   namespace: monitoring
 spec:
   hosts:
-  - prometheus-common.local
+  - istio-eastwestgateway.istio-system.svc.cluster.local
   ports:
   - number: 15090
     name: prometheus-remote-write
@@ -54,16 +54,16 @@ spec:
   location: MESH_EXTERNAL
   resolution: DNS
   addresses:
-  - 172.20.1.10  # Common cluster IP
+  - 172.20.1.10  # Common cluster IP - east-west gateway
 ---
-# DestinationRule for outbound traffic to common cluster
+# DestinationRule for outbound traffic to common cluster gateway
 apiVersion: networking.istio.io/v1beta1
 kind: DestinationRule
 metadata:
-  name: prometheus-common-cluster
+  name: istio-eastwestgateway-common
   namespace: monitoring
 spec:
-  host: prometheus-common.local
+  host: istio-eastwestgateway.istio-system.svc.cluster.local
   trafficPolicy:
     connectionPool:
       http:
