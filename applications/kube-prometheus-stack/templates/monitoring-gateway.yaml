@@ -10,7 +10,7 @@ spec:
     istio: eastwestgateway
   servers:
   - port:
-      number: 15090
+      number: 15080
       name: prometheus-remote-write
       protocol: HTTP
     hosts:
@@ -48,7 +48,7 @@ spec:
   hosts:
   - istio-eastwestgateway.istio-system.svc.cluster.local
   ports:
-  - number: 15090
+  - number: 15080
     name: prometheus-remote-write
     protocol: HTTP
   location: MESH_EXTERNAL

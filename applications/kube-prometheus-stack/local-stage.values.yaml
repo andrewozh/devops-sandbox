@@ -31,7 +31,7 @@ kube-prometheus-stack:
 
       # Remote write to common cluster via Istio east-west gateway
       remoteWrite:
-        - url: http://istio-eastwestgateway.istio-system.svc.cluster.local:15090/api/v1/write
+        - url: http://istio-eastwestgateway.istio-system.svc.cluster.local:15080/api/v1/write
           name: common-cluster
           writeRelabelConfigs:
             - action: replace

@@ -33,8 +33,8 @@ spec:
                 port: 15017
                 targetPort: 15017
               - name: prometheus-remote-write
-                port: 15090
-                targetPort: 15090
+                port: 15080
+                targetPort: 15080
   values:
     gateways:
       istio-ingressgateway:
