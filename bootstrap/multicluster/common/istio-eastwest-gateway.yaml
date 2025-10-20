@@ -32,6 +32,9 @@ spec:
               - name: tls-webhook
                 port: 15017
                 targetPort: 15017
+              - name: prometheus-remote-write
+                port: 15090
+                targetPort: 15090
   values:
     gateways:
       istio-ingressgateway:
