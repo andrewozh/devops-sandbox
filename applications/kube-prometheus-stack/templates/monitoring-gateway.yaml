@@ -1,0 +1,72 @@
+{{- if eq .Values.global.env "common" }}
+# COMMON CLUSTER: Expose Prometheus remote write endpoint via east-west gateway
+apiVersion: networking.istio.io/v1beta1
+kind: Gateway
+metadata:
+  name: prometheus-multicluster-gateway
+  namespace: istio-system
+spec:
+  selector:
+    istio: eastwestgateway
+  servers:
+  - port:
+      number: 15090
+      name: prometheus-remote-write
+      protocol: HTTP
+    hosts:
+    - prometheus-common.local
+---
+apiVersion: networking.istio.io/v1beta1
+kind: VirtualService
+metadata:
+  name: prometheus-multicluster-vs
+  namespace: istio-system
+spec:
+  hosts:
+  - prometheus-common.local
+  gateways:
+  - prometheus-multicluster-gateway
+  http:
+  - match:
+    - uri:
+        prefix: /api/v1/write
+    route:
+    - destination:
+        host: kube-prometheus-stack-prometheus.monitoring.svc.cluster.local
+        port:
+          number: 9090
+{{- end }}
+---
+{{- if eq .Values.global.env "stage" }}
+# STAGE CLUSTER: ServiceEntry to reach common cluster's Prometheus via gateway
+apiVersion: networking.istio.io/v1beta1
+kind: ServiceEntry
+metadata:
+  name: prometheus-common-cluster
+  namespace: monitoring
+spec:
+  hosts:
+  - prometheus-common.local
+  ports:
+  - number: 15090
+    name: prometheus-remote-write
+    protocol: HTTP
+  location: MESH_EXTERNAL
+  resolution: DNS
+  addresses:
+  - 172.20.1.10  # Common cluster IP
+---
+# DestinationRule for outbound traffic to common cluster
+apiVersion: networking.istio.io/v1beta1
+kind: DestinationRule
+metadata:
+  name: prometheus-common-cluster
+  namespace: monitoring
+spec:
+  host: prometheus-common.local
+  trafficPolicy:
+    connectionPool:
+      http:
+        http1MaxPendingRequests: 100
+        maxRequestsPerConnection: 100
+{{- end }}

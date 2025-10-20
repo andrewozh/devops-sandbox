@@ -1,0 +1,217 @@
+# Centralized monitoring configuration for COMMON cluster (Primary)
+# This configuration enables remote write reception and multicluster dashboards
+
+chart:
+  nameOverride: kube-prometheus-stack
+  kind: None
+  serviceAccount:
+    create: false
+  ingress:
+    enabled: true
+    hosts:
+      - host: prometheus.home.lab
+        paths:
+          - path: /
+            service: "kube-prometheus-stack-prometheus"
+            port: 9090
+      - host: grafana.home.lab
+        paths:
+          - path: /
+            service: "kube-prometheus-stack-grafana"
+            port: 80
+      - host: alertmanager.home.lab
+        paths:
+          - path: /
+            service: "kube-prometheus-stack-alertmanager"
+            port: 9093
+
+kube-prometheus-stack:
+  prometheus:
+    annotations:
+      argocd.argoproj.io/sync-wave: "1"
+      argocd.argoproj.io/sync-options: SkipDryRunOnMissingResource=true
+    prometheusSpec:
+      # Enable remote write reception for multicluster
+      enableRemoteWriteReceiver: true
+      
+      # External labels to identify this cluster
+      externalLabels:
+        cluster: "common"
+        region: "local"
+        
+      # Storage configuration for multicluster data
+      retention: 15d
+      storageSpec:
+        volumeClaimTemplate:
+          spec:
+            storageClassName: standard
+            accessModes: ["ReadWriteOnce"]
+            resources:
+              requests:
+                storage: 50Gi
+                
+      # Service configuration to expose remote write endpoint
+      service:
+        type: ClusterIP
+        port: 9090
+        additionalPorts:
+        - name: remote-write
+          port: 19291
+          targetPort: 9090
+          
+      # Resource requests for handling multicluster data
+      resources:
+        requests:
+          memory: 2Gi
+          cpu: 1000m
+        limits:
+          memory: 4Gi
+          cpu: 2000m
+          
+      ruleSelectorNilUsesHelmValues: false
+      serviceMonitorSelectorNilUsesHelmValues: false
+      podMonitorSelectorNilUsesHelmValues: false
+      probeSelectorNilUsesHelmValues: false
+
+  grafana:
+    adminPassword: admin
+    defaultDashboardsEnabled: true
+    serviceMonitor:
+      enabled: true
+    grafana.ini:
+      security:
+        allow_embedding: true
+      auth.anonymous:
+        enabled: true
+        org_role: Admin
+    
+    # Enable multicluster dashboards
+    sidecar:
+      dashboards:
+        enabled: true
+        searchNamespace: ALL
+        multicluster:
+          global:
+            enabled: true
+          etcd:
+            enabled: false
+    
+    # Custom datasource for multicluster queries
+    additionalDataSources:
+    - name: Prometheus-Multicluster
+      type: prometheus
+      url: http://kube-prometheus-stack-prometheus:9090
+      access: proxy
+      isDefault: true
+      jsonData:
+        timeInterval: 30s
+        queryTimeout: 300s
+        httpMethod: GET
+
+  alertmanager:
+    enabled: true
+    serviceMonitor:
+      selfMonitor: true
+    alertmanagerSpec:
+      externalLabels:
+        cluster: "common"
+      # Global alerting configuration for all clusters
+      storage:
+        volumeClaimTemplate:
+          spec:
+            storageClassName: standard
+            accessModes: ["ReadWriteOnce"]
+            resources:
+              requests:
+                storage: 5Gi
+
+  defaultRules:
+    create: true
+    rules:
+      etcd: false
+      kubeApiserverAvailability: false
+      kubeApiserverBurnrate: false
+      kubeApiserverHistogram: false
+      kubeApiserverSlos: false
+      kubeControllerManager: false
+      kubeProxy: false
+      kubeSchedulerAlerting: false
+      kubeSchedulerRecording: false
+    # Add cluster labels to all rules
+    additionalRuleLabels:
+      cluster: "common"
+
+  kubeApiServer:
+    enabled: false
+  kubeControllerManager:
+    enabled: false
+  coreDns:
+    enabled: false
+  kubeEtcd:
+    enabled: false
+  kubeScheduler:
+    enabled: false
+  kubeProxy:
+    enabled: false
+
+  kube-state-metrics:
+    fullnameOverride: "kube-state-metrics"
+    releaseLabel: true
+    prometheus:
+      monitor:
+        enabled: true
+        honorLabels: true
+        # Add cluster label to all metrics
+        relabelings:
+        - sourceLabels: []
+          targetLabel: cluster
+          replacement: "common"
+        metricRelabelings:
+          - action: drop
+            regex: kube_pod_tolerations
+            sourceLabels:
+              - __name__
+          - action: drop
+            regex: kubernetes_feature_enabled
+            sourceLabels:
+              - __name__
+          - action: labeldrop
+            regex: uid
+
+    metricLabelsAllowlist:
+      - pods=[*]
+      - cronjobs=[*]
+      - jobs=[*]
+      - deployments=[*]
+      - statefulsets=[*]
+      - nodes=[*]
+
+  prometheus-node-exporter:
+    # Add cluster label to node exporter metrics
+    prometheus:
+      monitor:
+        relabelings:
+        - sourceLabels: []
+          targetLabel: cluster
+          replacement: "common"
+    extraArgs:
+      - --collector.filesystem.mount-points-exclude=^/(dev|proc|sys|var/lib/docker/.+|var/lib/kubelet/.+)($|/)
+      - --collector.filesystem.fs-types-exclude=^(autofs|binfmt_misc|bpf|cgroup2?|configfs|debugfs|devpts|devtmpfs|fusectl|hugetlbfs|iso9660|mqueue|nsfs|overlay|proc|procfs|pstore|rpc_pipefs|securityfs|selinuxfs|squashfs|sysfs|tracefs)$
+      - --no-collector.arp
+      - --no-collector.bcache
+      - --no-collector.bonding
+      - --no-collector.btrfs
+      - --no-collector.dmi
+      - --no-collector.fibrechannel
+      - --no-collector.hwmon
+      - --no-collector.infiniband
+      - --no-collector.ipvs
+      - --no-collector.nfs
+      - --no-collector.rapl
+      - --no-collector.sockstat
+      - --no-collector.softnet
+      - --no-collector.tapestats
+      - --no-collector.textfile
+      - --no-collector.thermal_zone
+      - --no-collector.xfs
+      - --no-collector.zfs

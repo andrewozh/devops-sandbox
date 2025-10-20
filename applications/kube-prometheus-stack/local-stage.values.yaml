@@ -1,0 +1,174 @@
+# Agent mode configuration for STAGE cluster (Remote)
+# This configuration enables metrics collection and remote write to common cluster
+
+chart:
+  nameOverride: kube-prometheus-stack
+  kind: None
+  serviceAccount:
+    create: false
+  ingress:
+    enabled: true
+    hosts:
+      - host: prometheus-stage.home.lab
+        paths:
+          - path: /
+            service: "kube-prometheus-stack-prometheus"
+            port: 9090
+
+kube-prometheus-stack:
+  prometheus:
+    annotations:
+      argocd.argoproj.io/sync-wave: "1"
+      argocd.argoproj.io/sync-options: SkipDryRunOnMissingResource=true
+    prometheusSpec:
+      # Agent mode configuration - no storage, only collection and forwarding
+      mode: Agent
+
+      # External labels to identify this cluster
+      externalLabels:
+        cluster: "stage"
+        region: "local"
+
+      # Remote write to common cluster via Istio east-west gateway
+      remoteWrite:
+        - url: http://prometheus-common.local:15090/api/v1/write
+          name: common-cluster
+          writeRelabelConfigs:
+            - sourceLabels: []
+              targetLabel: cluster
+              replacement: "stage"
+          queueConfig:
+            capacity: 10000
+            maxSamplesPerSend: 1000
+            batchSendDeadline: 5s
+            maxRetries: 5
+            minBackoff: 30ms
+            maxBackoff: 100ms
+
+      # No local storage needed in agent mode
+      retention: 2h # Minimal retention for buffering
+
+      # Resource requests optimized for agent mode
+      resources:
+        requests:
+          memory: 512Mi
+          cpu: 250m
+        limits:
+          memory: 1Gi
+          cpu: 500m
+
+      ruleSelectorNilUsesHelmValues: false
+      serviceMonitorSelectorNilUsesHelmValues: false
+      podMonitorSelectorNilUsesHelmValues: false
+      probeSelectorNilUsesHelmValues: false
+
+  # Disable Grafana in agent mode - use central Grafana in common cluster
+  grafana:
+    enabled: false
+
+  # Disable Alertmanager in agent mode - use central Alertmanager in common cluster
+  alertmanager:
+    enabled: false
+
+  # Minimal default rules for agent mode
+  defaultRules:
+    create: true
+    rules:
+      etcd: false
+      kubeApiserverAvailability: false
+      kubeApiserverBurnrate: false
+      kubeApiserverHistogram: false
+      kubeApiserverSlos: false
+      kubeControllerManager: false
+      kubeProxy: false
+      kubeSchedulerAlerting: false
+      kubeSchedulerRecording: false
+      # Keep only essential cluster rules
+      general: true
+      k8sContainerResource: true
+      kubernetesResources: true
+      kubernetesSystem: true
+      node: true
+      prometheus: false # No local Prometheus alerts needed
+      prometheusOperator: true
+    # Add cluster labels to all rules
+    additionalRuleLabels:
+      cluster: "stage"
+
+  kubeApiServer:
+    enabled: false
+  kubeControllerManager:
+    enabled: false
+  coreDns:
+    enabled: false
+  kubeEtcd:
+    enabled: false
+  kubeScheduler:
+    enabled: false
+  kubeProxy:
+    enabled: false
+
+  # Keep kube-state-metrics for local cluster metrics
+  kube-state-metrics:
+    fullnameOverride: "kube-state-metrics"
+    releaseLabel: true
+    prometheus:
+      monitor:
+        enabled: true
+        honorLabels: true
+        # Add cluster label to all metrics
+        relabelings:
+          - sourceLabels: []
+            targetLabel: cluster
+            replacement: "stage"
+        metricRelabelings:
+          - action: drop
+            regex: kube_pod_tolerations
+            sourceLabels:
+              - __name__
+          - action: drop
+            regex: kubernetes_feature_enabled
+            sourceLabels:
+              - __name__
+          - action: labeldrop
+            regex: uid
+
+    metricLabelsAllowlist:
+      - pods=[*]
+      - cronjobs=[*]
+      - jobs=[*]
+      - deployments=[*]
+      - statefulsets=[*]
+      - nodes=[*]
+
+  # Keep node-exporter for node metrics
+  prometheus-node-exporter:
+    # Add cluster label to node exporter metrics
+    prometheus:
+      monitor:
+        relabelings:
+          - sourceLabels: []
+            targetLabel: cluster
+            replacement: "stage"
+    extraArgs:
+      - --collector.filesystem.mount-points-exclude=^/(dev|proc|sys|var/lib/docker/.+|var/lib/kubelet/.+)($|/)
+      - --collector.filesystem.fs-types-exclude=^(autofs|binfmt_misc|bpf|cgroup2?|configfs|debugfs|devpts|devtmpfs|fusectl|hugetlbfs|iso9660|mqueue|nsfs|overlay|proc|procfs|pstore|rpc_pipefs|securityfs|selinuxfs|squashfs|sysfs|tracefs)$
+      - --no-collector.arp
+      - --no-collector.bcache
+      - --no-collector.bonding
+      - --no-collector.btrfs
+      - --no-collector.dmi
+      - --no-collector.fibrechannel
+      - --no-collector.hwmon
+      - --no-collector.infiniband
+      - --no-collector.ipvs
+      - --no-collector.nfs
+      - --no-collector.rapl
+      - --no-collector.sockstat
+      - --no-collector.softnet
+      - --no-collector.tapestats
+      - --no-collector.textfile
+      - --no-collector.thermal_zone
+      - --no-collector.xfs
+      - --no-collector.zfs
+
