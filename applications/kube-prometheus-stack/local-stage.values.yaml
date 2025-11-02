@@ -16,6 +16,7 @@ chart:
             port: 9090
 
 kube-prometheus-stack:
+  fullnameOverride: "prometheus-stage"
   prometheus:
     annotations:
       argocd.argoproj.io/sync-wave: "1"
