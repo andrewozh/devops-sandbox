@@ -68,6 +68,14 @@ import ProgressBar from '@site/src/components/ProgressBar';
 **Infra requirements:**
 
 - [ ] :arrows_counterclockwise: local multicluster setup
+  (special case) monitoring:
+    need to have prometheus release in both clusters
+    BUT releases have to have differrent names (so services names wont overlap)
+    need to adjust argo application to be able to add istio label to namespace
+    also i will adjust _chart to create additional service (to match it from another cluster)
+  (usual case) elastic logs:
+    just use _chart to create service in stage cluster
+    and use this service to send logs to it
 - [ ] review website design
 
 **Platform & App-library requirements:**
