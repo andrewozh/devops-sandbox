@@ -61,6 +61,7 @@ spec:
         managedNamespaceMetadata:
           labels:
             argocd.argoproj.io/managed-by: argocd
+            istio-injection: enabled
         syncOptions:
         - CreateNamespace=true
       project: default
