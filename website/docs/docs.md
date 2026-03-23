@@ -1,77 +1,129 @@
 ---
 sidebar_label: 🗂️ Docs
-sidebar_position: 99
+sidebar_position: 10
 ---
 
 # Documentation
 
-## Glossary
-
-The key components of documentation structure:
-
-* `category`   -- global large-scale direction topics,  etc (can be nested)
-* `tool`       -- core technologies within categories
-* `distro`     -- specific distributions, operators, or managed implementations of tools
-* `article`    -- implementation guides, architecture explanations, configuration tutorials, and best practices
-
-Each documentation page must have appropriate tag.
-
-```
-Observability (#category)/
-└── Logs (#category)/
-    └── ElasticSearch (#tool)/
-        ├── ElasticSeach Architecture (#article)
-        └── Elastic Cloud on Kubernetes (#distro)
-            └── Manage ECK ElasticSearch users as Kubernetes resources (#article)
-```
+![docs-structure](.img/docs-structure.png)
 
 ## Structure
 
-### Documentation sidebar structure
-
-:::warning Articles should not be listed in sidebar
-:::
-
 ```
 <#category>/
-└── <#category>/
-    └── <#tool>/
-        └── <#distro>
+├── <#category>/
+│   ├── <#tool>/
+│   │   ├── <#distro>/
+│   │   │   └── <#article>
+│   │   └── <#article>
+│   └── <#article>
+└── <#article>
 ```
 
-### Documentation files in repository
+### Category
+
+Large-scale topic area. Can be nested, can contain tools, distros, and articles directly.
+May have no page of its own — just a folder with `_category_.json` as a sidebar label.
+
+### Tool
+
+Core technology within a category. Can contain distros and articles.
+
+### Distro
+
+Specific distribution, operator, or managed implementation of a tool. Can have its own articles.
+
+### Article
+
+Implementation guide or deep-dive scoped to a parent tool, distro, or category.
+Always positioned at the bottom of its parent.
+
+## File placement
 
 ```
-docs/
+devops-sandbox/website/docs/
+├── .img/
 └── db/
-    ├── db.md (#category)
-    ├── _category_.json (#category)
+    ├── _category_.json                           (#category, no page)
     └── clickhouse/
-        ├── clickhouse.md (#tool)
-        ├── articles/
-        │   └── differrence-between-cloud-and-self-hosted.md (#article)
-        ├── clickhouse-cloud.md (#distro)
+        ├── .img/
+        ├── clickhouse.md                         (#category with page, no _category_.json)
+        ├── differrence-between-cloud-and-self-hosted.md  (#article)
+        ├── clickhouse-cloud.md                   (#distro)
         └── altinity/
-            ├── altinity.md (#distro)
-            └── articles/
-                ├── altinity-setup-low-resource.md (#article)
-                └── altinity-automatic-backup.md (#article)
+            ├── .img/
+            ├── altinity.md                       (#distro)
+            ├── altinity-setup-low-resource.md    (#article)
+            └── altinity-automatic-backup.md      (#article)
 ```
+
+Images go into a `.img/` subfolder next to the page that uses them:
+
+```markdown
+![img-name](.img/img-name.png)
+```
+
+### Frontmatter
+
+Prefer frontmatter in the markdown file over `_category_.json` where possible.
+Use `sidebar_label` to set the icon + display name, `sidebar_position` to control order.
+
+```yaml
+---
+sidebar_label: 🟨 ClickHouse
+sidebar_position: 1
+tags:
+- tool
+- clickhouse
+- database
+---
+```
+
+### Icons
+
+All sidebar labels must include an emoji. Icons go in `sidebar_label` only — not in the H1 heading.
+Use any appropriate emoji for categories, tools, and distros. Articles always use 📄.
+
+### Tags
+
+First tag is the page type, second is the component name, the rest inherit from parent pages:
+
+```yaml
+tags:
+- distro        # page type
+- altinity      # component name
+- clickhouse    # parent tool
+- database      # parent category
+```
+
+## Search
+
+Search by `Ctrl+K` / `Cmd+K`. Tag-based filtering is not supported by `docusaurus-search-local`.
 
 ---
 
 ## Maintenance
 
-#### Local development
+### Local development
 
 ```bash
 cd website
 yarn start
 ```
 
-#### Deploy to GitHub Pages
+### Deploy to GitHub Pages
 
 ```bash
 yarn build
 DEPLOYMENT_BRANCH=main GIT_USER=andrewozh yarn deploy
+```
+
+### Keep repo clean
+
+Remove large unused files from git history to keep repo size under control:
+
+```bash
+brew install bfg
+bfg --delete-files pritunl-cloud-architecture.png
+git reflog expire --expire=now --all && git gc --prune=now --aggressive
 ```
