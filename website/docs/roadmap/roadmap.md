@@ -1,27 +1,13 @@
 ---
 sidebar_label: 📍 Roadmap
-sidebar_position: 2
+sidebar_position: 20
 ---
-
-import ProgressBar from '@site/src/components/ProgressBar';
 
 # Roadmap
 
-## Tools requirements
+**Platform development tracked across versioned milestones.**
 
-1. deployed
-2. basic usage
-3. monitoring: dashboard
-4. common usage
-5. architecture
-6. monitoring: understand metrics
-7. maintenance: backup/restore
-8. saas
-9. maintenance: scaling/upgrade
-10. monitoring: alerts
-11. advanced usage
-12. platform integration
-13. maintenance: configure for low resources
+**[✨ How it works →](how-it-works.md)**
 
 ---
 
@@ -32,12 +18,15 @@ import ProgressBar from '@site/src/components/ProgressBar';
 - [x] localhosted cluster kind
 - [x] kubernetes monitoring: node, dp, ds, sts, pv- (kind do not support)
 - [x] pritunl vpn setup doc
-- [ ] website beta version:
-  - [x] landing page (technologies, skills, links)
-  - [ ] :arrows_counterclockwise: updated CV + ability to download + links
-  - [x] DevOps Sandbox description docs
-  - [x] **basic demo:** bootstrap local on kind
-  - [x] **basic demo:** bootstrap on killercoda
+
+**Website requirements:**
+
+- [x] landing page (technologies, skills, links)
+- [x] DevOps Sandbox description docs
+- [x] **basic demo:** bootstrap local on kind
+- [x] **basic demo:** bootstrap on killercoda
+- [ ] :arrows_counterclockwise: updated CV + ability to download + links
+- [ ] :arrows_counterclockwise: Roadmap planner documented
 
 **Platform & App-library requirements:**
 
@@ -117,6 +106,10 @@ import ProgressBar from '@site/src/components/ProgressBar';
 - [ ] setup pritunl vpn with terragrunt
 - [ ] basic IDP webui app
 
+**Platform & App-library requirements:**
+
+- [ ] argocd -- helm post-render + kustomization (ability to make changes in rendered charts)
+
 **Tools requirements:**
 
 8. saas
@@ -142,44 +135,3 @@ import ProgressBar from '@site/src/components/ProgressBar';
 
 12. platform integration
 
----
-
-## Goals
-
-List of most valuable platform components:
-
-* multicloud aws & azure
-* gitops and platform integration
-* Crossplane provisioning cloud infra
-* Cross-cluster observability, secrets management
-* Simple tool maintenance guides (configure, scale, backup/restore, upgrade)
-
-## Plans
-
-- finops
-- 3.0.0 organization
-- 2.0.0 cicd
-
-## Ideas
-
-- [ ] devcontainers
-- [ ] investigate `KCL` for app-library
-- [ ] kong as GatewayAPI
-- [ ] loki
-- [ ] victoriametrics
-- [ ] tempo
-- [ ] jaeger
-
----
-
-## CI/CD
-
-- [ ] private container registry
-- [ ] a lib that can be reused by any cicd system: dagger
-- [ ] jenkins / github actions / argo workflows
-
-## Organization
-
-- [ ] github org
-- [ ] google org (sso: grafana, kibana)
-- [ ] atlassian stack
