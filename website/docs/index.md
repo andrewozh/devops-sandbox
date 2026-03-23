@@ -11,28 +11,21 @@ All in one project with useful **devops practices** and tools as **demo** of my 
 
 **Lead technologies:**
 
-* **terraform:** provision clouds, vpn, common kubernetes clusters
+* **terraform:** provision clouds, vpn, common **kubernetes** clusters
 * **crossplane:** provision additional environments
-* **argocd**: provision applications gitops way
-* **appchart:** DRY app configuration on different environments
+* **argocd**: provision applications **gitops** way
+* **helm appchart:** DRY app configuration on different environments
 
 ## How to read docs
 
 **This documentation is organized hierarchically using four key components:**
 
-- **Categories** - Large-scale topics like Infrastructure, Networking, Observability
-- **Tools** - Core technologies like Kubernetes, Prometheus, ElasticSearch
-- **Distros** - Specific implementations like ECK, Strimzi, Talos
+- **Categories** - Large-scale topics like Infrastructure, Observability, Databases
+- **Tools** - Core technologies like Kubernetes, Prometheus, MongoDB
+- **Distros** - Specific implementations like MongoDB Community Operator
 - **Articles** - Implementation guides and tutorials (accessible by links on pages)
 
-```
-<#category>/
-└── <#category>/
-    └── <#tool>/
-        └── <#distro>
-```
-
-Each documentation page have appropriate tag!
+![docs-structure](.img/docs-structure.png)
 
 📖 **[Full documentation structure and guidelines →](docs.md)**
 
