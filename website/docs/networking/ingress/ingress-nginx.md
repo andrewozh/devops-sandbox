@@ -3,7 +3,7 @@ tags:
 - distro
 - ingress-nginx
 - ingress
-- controller
+- networking
 ---
 
 # NGINX Ingress Controller
