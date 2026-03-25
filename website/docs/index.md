@@ -32,5 +32,5 @@ All in one project with useful **devops practices** and tools as **demo** of my 
 ## Further reading
 
 - **[Infrastructure](infra/infra.md)** -- detailed documentation of the whole infra-platform
-- **[Roadmap](roadmap.md)** -- what's done, what's next, what's planned
+- **[Roadmap](roadmap/roadmap.md)** -- what's done, what's next, what's planned
 - **[Demo](/demo)** -- run devops-sandbox yourself
