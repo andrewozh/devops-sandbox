@@ -28,7 +28,7 @@ tags:
 
 ## Usecases
 
-### :white_check_mark: Basic: send kubernetes pods logs to ElasticSearch
+### :white_check_mark: Basic: send kubernetes pods logs to ElasticSearch {#basic-send-kubernetes-pods-logs-to-elasticsearch}
 
 ```yaml
 fluent-bit:

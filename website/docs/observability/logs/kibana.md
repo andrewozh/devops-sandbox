@@ -27,7 +27,7 @@ tags:
 
 ## Usecases
 
-### :white_check_mark: Basic: Discover all logs
+### :white_check_mark: Basic: Discover all logs {#basic-discover-all-logs}
 
 - access kibana with admin `elastic` user
 
