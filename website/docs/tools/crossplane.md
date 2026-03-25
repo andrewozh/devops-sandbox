@@ -1,3 +1,9 @@
+---
+sidebar_label: '✈️ Crossplane'
+sidebar_position: 3
+tags: [tool, crossplane]
+---
+
 # Crossplane
 
 ## UI debug tool

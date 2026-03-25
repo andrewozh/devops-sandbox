@@ -1,4 +1,6 @@
 ---
+sidebar_label: 📄 Grafana Dashboard Patcher
+sidebar_position: 91
 tags:
 - article
 - grafana

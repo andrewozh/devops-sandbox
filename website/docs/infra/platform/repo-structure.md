@@ -1,4 +1,6 @@
 ---
+sidebar_label: 📄 Repo Structure
+sidebar_position: 95
 tags:
 - article
 - applibrary

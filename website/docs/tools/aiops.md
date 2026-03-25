@@ -1,3 +1,9 @@
+---
+sidebar_label: '🤖 AIOps'
+sidebar_position: 1
+tags: [tool, aiops]
+---
+
 # AIOps
 
 ## Setup AI agents for infra development tasks

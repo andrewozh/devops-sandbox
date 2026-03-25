@@ -1,4 +1,6 @@
 ---
+sidebar_label: ♾️ CI/CD
+sidebar_position: 4
 tags:
 - category
 - cicd

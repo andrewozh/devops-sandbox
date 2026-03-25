@@ -1,4 +1,6 @@
 ---
+sidebar_label: 📄 Upgrade Helm Chart
+sidebar_position: 93
 tags:
 - article
 - platform

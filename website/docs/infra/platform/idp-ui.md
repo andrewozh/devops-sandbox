@@ -1,4 +1,6 @@
 ---
+sidebar_label: 📄 IDP UI
+sidebar_position: 94
 tags:
 - article
 - idp

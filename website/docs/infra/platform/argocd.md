@@ -1,4 +1,6 @@
 ---
+sidebar_label: 🐙 ArgoCD
+sidebar_position: 1
 tags:
 - tool
 - argocd

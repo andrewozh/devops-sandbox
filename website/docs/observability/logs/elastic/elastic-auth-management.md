@@ -1,4 +1,6 @@
 ---
+sidebar_label: 📄 Auth Management
+sidebar_position: 90
 tags:
 - article
 - eck

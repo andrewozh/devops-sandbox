@@ -1,4 +1,6 @@
 ---
+sidebar_label: 🔷 Altinity
+sidebar_position: 1
 tags:
 - distro
 - altinity
@@ -20,7 +22,7 @@ tags:
 
 ## :white_check_mark: Setup
 
-* [Altinity Clickhouse low resources setup](./articles/altinity-setup-low-resource.md)
+* [Altinity Clickhouse low resources setup](./altinity-setup-low-resource.md)
 
 ## Usecases
 
@@ -227,7 +229,7 @@ altinity-clickhouse-operator:
 
 ## Maintenence
 
-- [Automatic Clickhouse cluster backups and Restore guide](./articles/altinity-automatic-backup.md) -- todo
+- [Automatic Clickhouse cluster backups and Restore guide](./altinity-automatic-backup.md) -- todo
 - Scaling
 - Upgrade
 

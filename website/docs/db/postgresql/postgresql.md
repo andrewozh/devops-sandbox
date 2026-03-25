@@ -1,4 +1,5 @@
 ---
+sidebar_label: 🐘 PostgreSQL
 tags:
 - tool
 - postgres

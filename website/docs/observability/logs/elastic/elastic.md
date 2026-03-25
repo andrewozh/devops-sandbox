@@ -1,4 +1,6 @@
 ---
+sidebar_label: 🔍 Elasticsearch
+sidebar_position: 1
 tags:
 - tool
 - elasticsearch

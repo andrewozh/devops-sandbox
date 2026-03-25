@@ -1,4 +1,6 @@
 ---
+sidebar_label: 📈 Metrics
+sidebar_position: 2
 tags:
 - category
 - metrics
@@ -23,7 +25,7 @@ tags:
 
 ## Architecture
 
-[Prometheus Stack Architecture](articles/prometheus-stack-architecture.md)
+[Prometheus Stack Architecture](prometheus-stack-architecture.md)
 
 ## Monitoring
 

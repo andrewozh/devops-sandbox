@@ -1,4 +1,6 @@
 ---
+sidebar_label: 📄 Local Cluster (kind)
+sidebar_position: 90
 tags:
 - article
 - kubernetes

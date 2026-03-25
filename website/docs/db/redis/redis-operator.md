@@ -1,4 +1,6 @@
 ---
+sidebar_label: 🔴 Redis Operator
+sidebar_position: 2
 tags:
 - distro
 - redis-operator
@@ -60,7 +62,7 @@ kubectl exec -it redis-operator-leader-0 -n redis -- redis-cli -a redis
 - `users.acl` secret
 
 :::tip
-[Redis ACL Guide](articles/redis-acl-rules.md)
+[Redis ACL Guide](redis-acl-rules.md)
 :::
 
 :::warning

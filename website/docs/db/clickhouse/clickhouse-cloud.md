@@ -1,4 +1,6 @@
 ---
+sidebar_label: ☁️ ClickHouse Cloud
+sidebar_position: 2
 tags:
 - distro
 - clickhouse-cloud
@@ -6,7 +8,7 @@ tags:
 - database
 ---
 
-# Clickhouse Cloud
+# ClickHouse Cloud
 
 |**Tool**|[ClickHouse Cloud](https://clickhouse.com/cloud)|
 |-|-|

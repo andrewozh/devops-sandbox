@@ -1,4 +1,6 @@
 ---
+sidebar_label: 📚 App Library
+sidebar_position: 2
 tags:
 - tool
 - helm
@@ -30,11 +32,11 @@ dependencies:
 
 ### Configuration values
 
-📖 **[Configuration Files →](articles/config)**
+📖 **[Configuration Files →](config)**
 
 ---
 
 ## Articles
 
-* [How to create new application](./articles/how-to-create-new-aplication.md)
-* [How to upgrade helm chart](./articles/how-to-upgrade-helm-chart.md)
+* [How to create new application](./how-to-create-new-application.md)
+* [How to upgrade helm chart](./how-to-upgrade-helm-chart.md)

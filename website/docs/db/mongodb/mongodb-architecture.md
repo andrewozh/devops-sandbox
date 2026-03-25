@@ -1,4 +1,6 @@
 ---
+sidebar_label: 📄 Architecture
+sidebar_position: 90
 tags:
 - article
 - mongodb

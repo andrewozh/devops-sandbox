@@ -1,4 +1,6 @@
 ---
+sidebar_label: 📋 Logs
+sidebar_position: 1
 tags:
 - category
 - logs

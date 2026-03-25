@@ -1,4 +1,5 @@
 ---
+sidebar_label: 🟠 Kafka
 tags:
 - tool
 - kafka

@@ -1,4 +1,6 @@
 ---
+sidebar_label: 📄 Create New Application
+sidebar_position: 92
 tags:
 - article
 - argocd

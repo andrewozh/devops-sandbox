@@ -1,4 +1,6 @@
 ---
+sidebar_label: 🗝️ Secrets
+sidebar_position: 1
 tags:
 - category
 - secrets

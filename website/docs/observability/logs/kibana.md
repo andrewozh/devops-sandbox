@@ -1,4 +1,6 @@
 ---
+sidebar_label: 📊 Kibana
+sidebar_position: 2
 tags:
 - tool
 - kibana

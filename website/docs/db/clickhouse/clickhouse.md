@@ -1,11 +1,13 @@
 ---
+sidebar_label: 🟨 ClickHouse
+sidebar_position: 1
 tags:
 - tool
 - clickhouse
 - database
 ---
 
-# Clickhouse
+# ClickHouse
 
 ||Self-hosted|SaaS|
 |-|-|-|
@@ -33,4 +35,4 @@ tags:
 
 ## Articles
 
-* [Self-hosted Altinity Clickhouse and Clickhouse Cloud compatibility](articles/differrence-between-cloud-and-self-hosted.md)
+* [Self-hosted Altinity Clickhouse and Clickhouse Cloud compatibility](difference-between-cloud-and-self-hosted.md)

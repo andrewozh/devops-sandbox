@@ -1,4 +1,6 @@
 ---
+sidebar_label: 🔔 Alertmanager
+sidebar_position: 3
 tags:
 - tool
 - distro
@@ -83,4 +85,4 @@ https://grafana.com/grafana/dashboards/9578-alertmanager/
 
 ## Articles
 
-* [Prometheus Stack Architecture](articles/prometheus-stack-architecture.md)
+* [Prometheus Stack Architecture](prometheus-stack-architecture.md)

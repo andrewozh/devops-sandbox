@@ -1,4 +1,6 @@
 ---
+sidebar_label: 🚀 GitOps Platform
+sidebar_position: 3
 tags:
 - category
 - platform
@@ -11,7 +13,7 @@ Implementation of GitOps architecture using ArgoCD with multi-dimensional config
 
 ![Schema](.img/devops-sandbox-platform.excalidraw.png)
 
-### **[ArgoCD](argocd)** + **[Applibrary](applibrary)** + **[Configuration](articles/config)**
+### **[ArgoCD](argocd)** + **[Applibrary](applibrary)** + **[Configuration](config)**
 
 1. **Main ArgoCD Application**
 
@@ -45,8 +47,8 @@ syncOptions:
 3. **Application**
 
 * uses [Helm Applibrary](applibrary) from `_chart/` as a dependency
-* adds [global configuration](articles/config#global-configuration-schema) values files
-* adds its [own configuration](articles/config#application-configuration-schema) values files
+* adds [global configuration](config#global-configuration-schema) values files
+* adds its [own configuration](config#application-configuration-schema) values files
 
 ### Key features
 

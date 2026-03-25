@@ -1,4 +1,5 @@
 ---
+sidebar_label: 🕸️ Istio
 tags:
 - distro
 - istio

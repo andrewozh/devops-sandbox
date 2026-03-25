@@ -1,4 +1,6 @@
 ---
+sidebar_label: 📄 Automatic Backup
+sidebar_position: 91
 tags:
 - article
 - altinity

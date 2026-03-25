@@ -1,4 +1,5 @@
 ---
+sidebar_label: 🐘 CloudNative-PG
 tags:
 - distro
 - cloudnative-pg

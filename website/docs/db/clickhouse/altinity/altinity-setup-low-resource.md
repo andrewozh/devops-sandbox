@@ -1,4 +1,6 @@
 ---
+sidebar_label: 📄 Low Resource Setup
+sidebar_position: 90
 tags:
 - article
 - altinity

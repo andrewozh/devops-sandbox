@@ -1,4 +1,6 @@
 ---
+sidebar_label: 📄 Local Cluster (istio)
+sidebar_position: 91
 tags:
 - article
 - kubernetes

@@ -1,4 +1,5 @@
 ---
+sidebar_label: 🔐 Pritunl VPN
 tags:
 - distro
 - pritunl

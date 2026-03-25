@@ -1,4 +1,6 @@
 ---
+sidebar_label: 🔍 ECK Operator
+sidebar_position: 2
 tags:
 - distro
 - eck
@@ -28,7 +30,7 @@ https://www.elastic.co/docs/deploy-manage/deploy/cloud-on-k8s/manage-deployments
 
 ## Usecases
 
-[Use external-secret for managing users and role](articles/elastic-auth-management.md)
+[Use external-secret for managing users and role](elastic-auth-management.md)
 
 ### :white_check_mark: Basic: create user for fluentbit, configure log shipping, view logs in Kibana
 

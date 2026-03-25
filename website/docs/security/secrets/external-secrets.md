@@ -1,4 +1,5 @@
 ---
+sidebar_label: 🔑 External Secrets
 tags:
 - distro
 - tool

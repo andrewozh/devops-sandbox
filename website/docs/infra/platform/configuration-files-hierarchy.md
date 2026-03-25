@@ -1,4 +1,6 @@
 ---
+sidebar_label: 📄 Config Files Hierarchy
+sidebar_position: 91
 tags:
 - article
 - platform

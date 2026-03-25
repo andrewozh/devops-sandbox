@@ -1,4 +1,6 @@
 ---
+sidebar_label: 📄 Prometheus Stack Architecture
+sidebar_position: 90
 tags:
 - article
 - prometheus

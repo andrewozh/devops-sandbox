@@ -1,4 +1,5 @@
 ---
+sidebar_label: 🟠 Strimzi
 tags:
 - distro
 - strimzi

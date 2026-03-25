@@ -1,4 +1,6 @@
 ---
+sidebar_label: 🪶 Fluent Bit
+sidebar_position: 1
 tags:
 - distro
 - tool

@@ -1,4 +1,5 @@
 ---
+sidebar_label: 🔐 Vault
 tags:
 - distro
 - tool

@@ -1,4 +1,6 @@
 ---
+sidebar_label: 🌿 MongoDB Community
+sidebar_position: 2
 tags:
 - distro
 - mongodb-community

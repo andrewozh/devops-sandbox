@@ -1,4 +1,6 @@
 ---
+sidebar_label: 🌱 MongoDB
+sidebar_position: 1
 tags:
 - tool
 - mongodb
@@ -15,7 +17,7 @@ tags:
 
 ## Architecture
 
-* [MongoDB Architecture](./articles/mongodb-architecture.md)
+* [MongoDB Architecture](./mongodb-architecture.md)
 
 ## Monitoring
 

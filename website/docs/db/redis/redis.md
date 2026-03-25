@@ -1,4 +1,6 @@
 ---
+sidebar_label: 🔴 Redis
+sidebar_position: 1
 tags:
 - tool
 - redis

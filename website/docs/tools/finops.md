@@ -1,3 +1,9 @@
+---
+sidebar_label: '💰 FinOps'
+sidebar_position: 2
+tags: [tool, finops]
+---
+
 # FinOps
 
 - cost data for Saas (MongoDB Atlas.. etc)

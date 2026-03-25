@@ -1,4 +1,6 @@
 ---
+sidebar_label: 📄 Configuration
+sidebar_position: 90
 tags:
 - article
 - platform

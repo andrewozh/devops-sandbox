@@ -1,4 +1,6 @@
 ---
+sidebar_label: 📄 ACL Rules
+sidebar_position: 90
 tags:
 - article
 - redis

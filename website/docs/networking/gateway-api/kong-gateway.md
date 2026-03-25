@@ -1,4 +1,5 @@
 ---
+sidebar_label: 🦍 Kong Gateway
 tags:
 - distro
 - kong-gateway

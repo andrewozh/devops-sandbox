@@ -1,4 +1,5 @@
 ---
+sidebar_label: 🔐 Cert Manager
 tags:
 - distro
 - cert-manager

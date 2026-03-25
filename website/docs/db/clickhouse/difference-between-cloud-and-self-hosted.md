@@ -1,4 +1,6 @@
 ---
+sidebar_label: 📄 Cloud vs Self-Hosted
+sidebar_position: 90
 tags:
 - article
 - clickhouse
