@@ -23,10 +23,10 @@ sidebar_position: 20
 
 - [x] landing page (technologies, skills, links)
 - [x] DevOps Sandbox description docs
-- [x] **basic demo:** bootstrap local on kind
-- [x] **basic demo:** bootstrap on killercoda
-- [ ] :arrows_counterclockwise: updated CV + ability to download + links
-- [ ] :arrows_counterclockwise: Roadmap planner documented
+- [x] updated CV + ability to download + links
+- [x] Roadmap planner documented
+- [ ] :arrows_counterclockwise: **basic demo:** bootstrap local on kind
+- [ ] :arrows_counterclockwise: **basic demo:** bootstrap on killercoda
 
 **Platform & App-library requirements:**
 
