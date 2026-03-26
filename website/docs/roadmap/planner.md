@@ -7,6 +7,10 @@ sidebar_position: 2
 
 **Ideas from Inbox, sorted into categories**
 
+## Website
+
+- [ ] replace static png diagrams with interactive excalidraw embeds
+
 ## CI/CD
 
 - [ ] private container registry
