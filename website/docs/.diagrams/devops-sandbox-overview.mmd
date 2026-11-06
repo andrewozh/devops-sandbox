@@ -1,0 +1,41 @@
+flowchart TD
+    OPSBOX["DevOps Sandbox (OPSBOX)"]
+
+    INFRA["Infra"]
+    LOCALHOST["Localhost<br/>Docker Compose · Kind / k3s"]
+    HOMELAB["Homelab<br/>Mini PC · Talos"]
+    CLOUD["Cloud<br/>AWS / other providers"]
+
+    GITOPS["GitOps Platform<br/>• Argo CD<br/>• Observability<br/>• Secrets<br/>• Networking<br/>• CI/CD<br/>↳ AI / MCP<br/>↳ IDP"]
+
+    PLANE["Plane<br/>Projects · Modules · Work Items<br/>Roadmap"]
+
+    WIKI["Wiki<br/>Technical documentation<br/>Candidate: Outline"]
+
+    WEBSITE["Website<br/>DevOps Sandbox Demo<br/>Static GitHub Pages site"]
+
+    GUIDE["Run Guide<br/>How to launch DevOps Sandbox"]
+
+    MAP["System Map<br/>Reusable React Flow application"]
+
+    OPSBOX --> INFRA
+    OPSBOX --> GITOPS
+    OPSBOX --> PLANE
+    OPSBOX --> WIKI
+    OPSBOX --> WEBSITE
+
+    INFRA --> LOCALHOST
+    INFRA --> HOMELAB
+    INFRA --> CLOUD
+
+    INFRA -->|hosts| GITOPS
+
+    PLANE -.->|roadmap snapshot| WEBSITE
+    WIKI -.->|docs snapshot| WEBSITE
+
+    WEBSITE -->|includes| GUIDE
+    WEBSITE -->|embeds| MAP
+
+    INFRA -.->|infrastructure model| MAP
+    GITOPS -.->|platform topology| MAP
+    MAP -.->|documentation links| WIKI

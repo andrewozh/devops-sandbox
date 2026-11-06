@@ -35,3 +35,9 @@ node_modules/
 .env.example
 .claude
 .mcp.json
+
+# Local issue tracker runtime and data
+.local/
+
+# Exported chat history of the issue tracking session
+chat-*.json
